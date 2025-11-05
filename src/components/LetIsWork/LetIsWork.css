@@ -1,0 +1,42 @@
+
+.let-is-work{ 
+ display: flex;
+ flex-direction: row;
+ width: 100%;
+
+ color: var(--clr-text-quaternary);
+ margin: 0px var(--section-padding-x);
+ padding: 0px var(--spacing-md);
+}
+
+.left-work{
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-big-shoulders);
+    font-size: var(--font-size-projects-title);
+    text-align: left; 
+    line-height: var(--line-height-normal);
+    align-items: flex-start;
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-normal);
+    width: 60%;
+    margin: 0;
+    padding: 0;
+}
+
+.left-work p {
+    font: 1.1875rem var(--font-sans);
+    margin-bottom: 30px;
+}
+
+
+
+
+.right-work{
+    width: 30%;
+}
+
+.text-work{
+    font-size: 1.1875rem;
+    margin-top: 9%;
+}

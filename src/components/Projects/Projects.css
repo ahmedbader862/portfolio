@@ -1,0 +1,132 @@
+.projects-section {
+  color: var(--clr-text-primary);
+  position: relative;
+  font-family: var(--font-sans);
+  overflow: hidden;
+  height: auto;
+  padding: 112px 0;
+}
+
+/* header */
+.header-row {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  margin-bottom: 40px;;
+  
+}
+
+.left-column {
+  flex: 1;
+  max-width: 60%;
+  margin: 0 7lvw ;
+}
+
+ 
+
+.right-column{
+  display: flex;
+  flex: 1;
+  max-width: 60%;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-title {
+  font-family: var(--font-big-shoulders);
+  font-size: var(--font-size-projects-title); /* أكبر شويه زي الموقع */
+  font-weight:400;
+  letter-spacing: var(--letter-spacing-extra-wide); /* المسافة بين الحروف */
+  color: var(--clr-text-secondary); /* أبيض ناعم مش أبيض صريح */
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.description {
+  font-size: var(--font-size-xl);
+  margin-left: 70px;
+  text-align: left;
+  color: var(--clr-text-primary);
+  line-height: var(--line-height-loose);
+  max-width: 600px;
+}
+
+/* projects list */
+.projects-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-item {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--clr-border-secondary);
+  padding: 30px 30px var(--spacing-xl) 30px;
+  transition: background-color var(--transition-normal);
+  position: relative;
+  z-index: var(--z-base); /* فوق الخلفية */
+}
+
+.project-item:hover {
+  background-color: var(--clr-bg-black);
+}
+
+.project-header {
+  display: flex;
+  align-items: baseline;
+}
+
+.project-number {
+  font-size: var(--font-size-2xl);
+  color: var(--clr-text-gray);
+  font-weight: bold;
+  margin-right: var(--spacing-xl);
+}
+
+.project-title {
+  font-size: var(--font-size-5xl);
+  
+  font-weight: bold;
+  color: var(--clr-text-primary);
+  margin: 0 0 10px 0;
+  line-height: var(--line-height-snug);
+}
+
+.project-subtitle {
+  font-size: var(--font-size-base);
+  color: var(--clr-text-gray);
+  margin: 0 0 var(--spacing-xl) 0;
+  text-align: left;
+}
+
+/* preview box (الصورة اللي بترجع) */
+.project-preview {
+  position: absolute;
+  width: 360px;    /* اضبط الحجم هنا لو عايز أصغر/أكبر */
+  height: 240px;
+  pointer-events: none; /* عشان الماوس ما يتقطعش */
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-50%); /* نثبت المركز عموديًا */
+  transition: opacity 220ms ease, transform 220ms ease, left 120ms ease, top 120ms ease;
+  opacity: 0; /* مخفي افتراضياً */
+  z-index: 999;
+  border: 3px solid var(--clr-border-medium);
+}
+
+/* لما تظهر نديها opacity 1 (بتكون مُتحكم فيها من الـ inline style) */
+
+/* responsive */
+@media (max-width: 900px) {
+  .project-preview {
+    display: none; /* نخبّي preview على الشاشات الصغيرة عشان usability */
+  }
+
+  .left-column {
+    max-width: 100%;
+  }
+
+  .project-title { font-size: var(--font-size-3xl); }
+}

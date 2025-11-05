@@ -1,0 +1,59 @@
+/* Field styles */
+.field {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  gap: 18px;
+}
+
+.field-num {
+  color: rgba(255,255,255,0.25);
+  font-weight: 600;
+  padding-top: 22px;
+  min-width: 30px;
+  text-align: left;
+}
+
+.field-box {
+  flex: 1;
+  border: 1px solid var(--clr-border-medium);
+  padding: 22px;
+  border-radius: var(--radius-sm);
+  position: relative;
+  transition: border-color var(--transition-normal);
+}
+
+
+
+.field-box:focus-within .field-num {
+  color: #ff3333;
+}
+.field-box:focus-within {
+  border-color: #ff3333;
+
+}
+
+.field-title {
+  display: block;
+  color: var(--clr-text-primary);
+  font-weight: 700;
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-md);
+}
+
+.field-box input,
+.field-box textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--clr-text-opacity-high);
+  font-size: var(--font-size-base);
+  padding: 6px 0;
+}
+
+.field-box input::placeholder,
+.field-box textarea::placeholder {
+  color: rgba(255,255,255,0.28);
+  font-size: var(--font-size-2xl);
+}

@@ -1,0 +1,76 @@
+
+.freelance-wrapper {
+	/* make the wrapper flow with the page and clip overflow so rotated lines
+	   can't create horizontal scrollbars. Give it a min-height because the
+	   children are absolutely positioned (otherwise the wrapper collapses).
+	   Adjust clamp values if you want a taller/shorter band. */
+	position: relative;
+	width: 100vw;
+	max-width: 100vw;
+	height: 100vh;
+	min-height: 100vh;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden; /* prevent rotated children from creating page scroll */
+	padding: 0.25rem 0;
+}
+
+.freelance-line {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* slightly larger than viewport so scroller has room; wrapper clips overflow */
+    width: 120%;
+    border-radius: var(--radius-sm);
+    box-sizing: border-box;
+}
+
+/* left-leaning: black background, white text */
+.line-left {
+	transform: translate(-50%, -50%) rotate(-18deg);
+	background: var(--clr-bg-black);
+	z-index: 2;
+}
+
+/* right-leaning: white background, black text */
+.line-right {
+	transform: translate(-50%, -50%) rotate(18deg);
+	background: var(--clr-text-primary);
+	z-index: 1;
+}
+
+/* ensure the scroller uses the line colors (targeting the component's .scroller) */
+.freelance-line .scroller {
+	display: inline-block; /* so background behind it is visible and padding can be applied */
+	padding: 0.4rem 2rem;
+}
+
+.line-left .scroller {
+	color: var(--clr-text-primary) !important;
+}
+
+.line-right .scroller {
+	color: var(--clr-text-black) !important;
+}
+
+/* small responsive tweak: reduce rotation and padding on small screens */
+@media (max-width: 480px) {
+  .line-left,
+  .line-right {
+    width: 140%;
+  }
+  .line-left { transform: translate(-50%, -50%) rotate(-12deg); }
+  .line-right { transform: translate(-50%, -50%) rotate(12deg); }
+  .freelance-line .scroller { padding: 0.2rem 1rem; }
+}
+
+/* Optional: ensure shadows and contrast look good */
+.line-left { box-shadow: var(--shadow-sm); }
+.line-right { box-shadow: 0 6px 18px rgba(0,0,0,0.06); }

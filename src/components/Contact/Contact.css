@@ -1,0 +1,103 @@
+/* container */
+.contact-section {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: var(--section-padding-x);
+  padding: var(--section-padding-y) var(--section-padding-x);
+  color: var(--clr-text-primary);
+  font-family: var(--font-poppins);
+  background-color: var(--clr-bg-card);
+  position: relative; /* لتمكين z-index */
+  z-index: var(--z-overlay); /* أعلى من دائرة الخلفية داخل نفس السياق */
+  isolation: isolate; /* تأمين سياق مكدس مستقل */
+
+}
+
+/* LEFT (form) */
+.contact-left .contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+
+
+.send-btn {
+  width: fit-content;
+  padding: var(--btn-padding-lg-y) var(--btn-padding-lg-x);
+  border-radius: var(--radius-full);
+  background: #f5f3f0;
+  color: var(--clr-bg-dark);
+  border: none;
+  margin-top: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.send-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.status {
+  margin-top: var(--spacing-md);
+  font-size: 0.95rem;
+}
+.status.ok { color: var(--clr-success); }
+.status.err { color: var(--clr-error); }
+
+/* RIGHT (aside) */
+.contact-right {
+  padding-left: var(--spacing-xl);
+  border-left: 1px solid var(--clr-border-light);
+}
+
+.arrow {
+  font-size: 38px;
+  color: var(--clr-text-opacity-medium);
+  /* transform: rotate(-20deg); */
+  margin-bottom: 10px;
+}
+
+.talk {
+  color: var(--clr-text-opacity-low);
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-wide);
+  margin-bottom: var(--spacing-md);
+}
+
+.talk-desc {
+  color: var(--clr-text-opacity-medium);
+  line-height: var(--line-height-extra-loose);
+  margin-bottom: var(--spacing-lg);
+}
+
+.details { display: flex; flex-direction: column; gap: var(--spacing-md); }
+.detail-row { display: flex; gap: var(--spacing-md); align-items: center; color: var(--clr-text-opacity-medium); }
+.detail-row svg { color: var(--clr-text-opacity-ultra-low); }
+
+.socials-placeholder{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  /* keep existing visual helper if needed (remove or change color in prod) */
+}
+
+/* Ensure the inner list of icons lays out horizontally and reset default list spacing */
+.socials-placeholder ul {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+
+
+/* responsive */
+@media (max-width: 900px) {
+  .contact-section { grid-template-columns: 1fr; padding: var(--section-padding-y-mobile) var(--section-padding-x-mobile); }
+  .contact-right { border-left: none; padding-left: 0; }
+}

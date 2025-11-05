@@ -1,0 +1,36 @@
+/* CircleEffect.css */
+.circle-effect-container {
+  position: relative;
+  overflow: visible;
+}
+
+.circle-effect {
+  position: absolute;
+  left: 50%;
+  bottom: -60vw; /* اظهار قوس أوضح فوق الفوتر */
+  transform: translateX(-50%);
+  margin: 0 auto; /* توسيط أفقي */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 170vw; /* أكبر ليظهر قوس واسع جداً أسفل الصفحة */
+  height: 170vw;
+  border-radius: 50%;
+  z-index: 50; /* أقل من المحتوى، أعلى من الفوتر */
+  pointer-events: none;
+}
+
+/* يمكن تخصيص الألوان من خلال CSS variables */
+.circle-effect.light {
+  background-color: #0a0a0a;;/* أزرق واضح للتجربة */
+  z-index: 10;
+
+}
+
+@media (max-width: 768px) {
+  .circle-effect {
+    bottom: -40vw;
+    width: 280vw;
+    height: 280vw;
+  }
+}

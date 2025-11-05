@@ -1,0 +1,67 @@
+@import './variables.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+	font-family: 'Bebas Neue';
+	src: url('/fonts/Bebas_Neue/BebasNeue-Regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+	}
+
+@font-face {
+	font-family: 'Big Shoulders';
+	src: url('/fonts/Big_Shoulders/BigShoulders-VariableFont_opsz,wght.ttf') format('truetype');
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+	}
+  
+
+
+:root {
+	overflow-x: hidden;
+	width: 100%;
+}
+
+html,
+body,
+#root {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	min-height: 100vh;
+	overflow-x: hidden;
+	/* centralized page background and default text color */
+	background-color: var(--clr-bg-primary);
+	color: var(--clr-text-primary);
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	z-index: var(--z-base);
+
+}
+::selection {
+  background-color: var(--clr-accent-red);
+  color: var(--clr-text-dark);
+}
+
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--clr-accent-secondary);
+  border-radius: var(--scrollbar-thumb-radius);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--clr-bg-dark);
+}

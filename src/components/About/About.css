@@ -1,0 +1,80 @@
+/* القسم العام */
+.about {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: var(--section-padding-y) var(--section-padding-x);
+  color: var(--clr-text-tertiary);
+  align-items: flex-start;
+  height:auto;
+}
+
+.about-left{
+  flex: .5;
+}
+
+/* اليسار */
+.about-left h2 {
+ font-family: var(--font-big-shoulders);
+  font-size: var(--font-size-about-h2); /* أكبر شويه زي الموقع */
+  letter-spacing: var(--letter-spacing-widest); /* المسافة بين الحروف */
+  color: var(--clr-text-secondary); /* أبيض ناعم مش أبيض صريح */
+  line-height: var(--line-height-normal); /* لتقليل المسافة الرأسية */
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-md);
+}
+
+.about-left p {
+  font-size: 1.1875rem;
+  margin-top: var(--spacing-md);
+  color: var(--clr-text-secondary);
+}
+
+/* اليمين */
+.about-right  {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* النص العادي (مخفي للـ SEO) */
+.about-text {
+  display: none;
+      font-size: clamp(28px, 3vw, 48px);
+
+}
+
+/* النص المتحرك */
+.animated-line {
+       font-size: var(--font-size-services-title);
+  line-height: var(--line-height-snug);
+  font-weight: 600;
+  margin-bottom: var(--spacing-xl);
+  color: var(--clr-text-primary);
+  word-break: break-word;
+  white-space: normal;
+}
+
+/* الحروف */
+.char {
+  display: inline-block;
+  will-change: transform, opacity;
+  /* مدة معقولة للظهور بحيث تكون سريعة لكن سلسة */
+  transition: opacity 1ms ease-out, transform 300ms var(--transition-smooth);
+  color: var(--clr-text-primary);
+  margin-right: 0.5px;
+}
+
+/* الزرار */
+.read-more {
+  padding: 10px var(--btn-padding-x);
+  border: none;
+  background: var(--clr-bg-dark);
+  color: var(--clr-text-primary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-normal);
+}
+
+.read-more:hover {
+  background: var(--clr-accent-red-dark);
+}

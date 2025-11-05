@@ -1,0 +1,164 @@
+/* ---- layout ---- */
+.services-section {
+  display: grid;
+  grid-template-columns: 380px 1fr; /* عمود ثابت للشمال وعمود مرن لليمين */
+  gap: var(--section-padding-x);
+  padding: var(--section-padding-y) var(--section-padding-x);
+  color: var(--clr-text-primary);
+  align-items: start;
+  font-family: var(--font-poppins); /* تحط Poppins في index.html لو حابب */
+}
+
+/* ====== LEFT ====== */
+.services-left .small {
+  color: var(--clr-text-muted-light);
+  margin: 0 0 10px 0;
+  font-weight: 400;
+    text-align: left !important;
+  display: block !important;
+}
+
+.services-head {
+ font-family: var(--font-big-shoulders);
+  font-size: var(--font-size-services-head);
+  margin: 0 0 18px 0;
+  letter-spacing: var(--letter-spacing-wider);
+  line-height: var(--line-height-tight);
+  color: var(--clr-text-primary);
+}
+
+.services-desc {
+  color: var(--clr-text-muted-medium);
+  max-width: 300px;
+  line-height: var(--line-height-extra-loose);
+  margin-top: 10px;
+  font-size: 1.1875rem;
+  text-align: left !important;
+  display: block !important;
+
+}
+
+/* ====== RIGHT (السطر بتاع الجمل) ====== */
+.services-right {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* كل سطر فيه رقم + عنوان */
+.service-row {
+  display: flex;
+  font-family: var(--font-big-shoulders);
+  align-items: center;
+  gap: 26px;
+  padding: var(--spacing-lg) 0;
+  position: relative;
+  overflow: visible;
+  min-height: 70px;
+}
+
+.service-row.active {
+  margin-bottom: 80px;
+}
+
+.service-row svg {
+  position: absolute;
+  right: 0;
+  margin-right: 20px;
+  opacity: 0.7;
+  transition: transform 0.3s ease;
+}
+
+.service-row.active svg {
+  transform: rotate(180deg);
+}
+
+.service-description {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all var(--transition-normal);
+  position: absolute;
+  left: 84px;
+  right: 60px;
+  top: 100%;
+  color: var(--clr-text-muted-medium);
+  font-size: 0.95rem;
+  font-family: var(--font-poppins);
+  font-size: calc(clamp(28px, 3vw, 48px) / 2);
+}
+
+.service-row.active .service-description {
+  max-height: 100px;
+  opacity: 1;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+
+
+/* الرقم */
+.service-num {
+  color: var(--clr-text-opacity-minimal);
+  font-size: var(--font-size-xl);
+  width: 50px;
+  text-align: right;
+  margin-right: var(--spacing-sm);
+  font-weight: 600;
+}
+
+/* العنوان الكبير (مكون من spans للحروف) */
+.service-title {
+  display: inline-block;
+  font-size: var(--font-size-services-title);
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--clr-text-primary);
+  white-space: nowrap;
+}
+
+/* الحروف كـ inline-block علشان نقدر نحط transitionDelay على كل واحد */
+.char {
+  display: inline-block;
+  will-change: opacity, transform;
+  transform: translateY(0); /* اذا حبيت تعمل حركة صعود/هبوط ممكن تعدل هنا */
+  transition: opacity 360ms var(--transition-bounce), transform 360ms var(--transition-bounce);
+  color: var(--clr-text-primary);
+  margin-right: 3px;
+}
+
+/* الخط التحتي بين السطور (خفيف جدا مثل اللي في الصورة) */
+.row-underline {
+  position: absolute;
+  left: 80px; /* بعد الرقم والمسافة */
+  right: var(--spacing-xl);
+  height: 1px;
+  background: var(--clr-border-light);
+  bottom: 6px;
+}
+
+/* hover state hint (لو حبينا نغير لون النص كاملاً عند hover) */
+.service-row:hover .service-num {
+  color: var(--clr-accent-orange); /* البرتقالي لو عايز تمييز الرقم */
+}
+
+/* responsive: لو الشاشة صغيرة نبسط الستايل */
+@media (max-width: 900px) {
+  .services-section {
+    grid-template-columns: 1fr;
+    padding: var(--section-padding-y-mobile) var(--section-padding-x-mobile);
+  }
+
+  .services-left {
+    margin-bottom: 16px;
+  }
+
+  .service-title {
+    font-size: var(--font-size-3xl);
+    white-space: normal;
+  }
+
+  .row-underline { left: 60px; right: 0; }
+}

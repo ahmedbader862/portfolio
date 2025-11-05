@@ -1,0 +1,11 @@
+
+
+.social-icons li{
+  list-style: none;
+  margin-bottom:10px;
+}
+.social-icons svg{
+  color: #e6d0d0;
+  cursor: pointer;
+  transition: color var(--transition-normal);
+}

@@ -1,0 +1,98 @@
+
+
+
+.Hero{
+    position: relative;
+    width: 100%;   
+    height: 100vh;
+    background-size: cover;  
+    background-position: center;
+    background-image: url('/src//assets/Images/my-photo.jpg');
+    /* overflow: hidden; */
+}
+
+.hero-content{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--clr-text-black);
+    text-align: center;
+    /* background-color: rgba(0, 0, 0, 0.5); Optional: to enhance text visibility */
+}
+ h1 {
+  position: relative; /* ✅ عشان الـ absolute div يتموضع بالنسبة ليه */
+  display: grid;
+  place-items: center;
+   font-family: var(--font-bebas);
+  font-size: var(--font-size-hero-h1); /* أكبر شويه زي الموقع */
+  letter-spacing: var(--letter-spacing-widest); /* المسافة بين الحروف */
+  color: var(--clr-text-secondary); /* أبيض ناعم مش أبيض صريح */
+  line-height: var(--line-height-normal); /* لتقليل المسافة الرأسية */
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+.normal{
+  display: flex;
+  flex-direction: column;
+  z-index: var(--z-base);
+}
+.normal p {
+  font-size: var(--font-size-2xl);
+  margin-top: var(--spacing-xl);
+  color: var(--clr-text-secondary);
+  z-index: var(--z-base);
+}
+
+
+.mask {
+  position: absolute;
+  inset: 0; /* cover the hero area */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  color: var(--clr-text-black);
+  z-index: var(--z-mask);
+  pointer-events: none; /* let hover on normal h1 work uninterrupted */
+
+   -webkit-mask-image: url(/src/assets/Images/mask.svg);
+  -webkit-mask-repeat: no-repeat;
+  /* provide non-auto initial values to avoid warnings when animating */
+  -webkit-mask-size: 20px;
+  -webkit-mask-position: 0px 0px;
+
+  mask-image: url(/src/assets/Images/mask.svg);
+  mask-repeat: no-repeat;
+  mask-size: 20px;
+  mask-position: 0px 0px;
+
+  background-color: var(--clr-accent-red);
+}
+
+.mask p {
+  font-size: var(--font-size-2xl);
+  margin-top: var(--spacing-xl);
+  color: var(--clr-text-black);
+  z-index: var(--z-base);
+}
+
+.mask h1 {
+  color: var(--clr-text-black);
+  z-index: var(--z-base);
+}
+
+.Social-Hero {
+  position: absolute;
+  display: flex;
+  left: 50px;
+  bottom: 30px;
+  width: 50px;
+   z-index: var(--z-cursor);
+}

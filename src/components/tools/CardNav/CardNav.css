@@ -1,0 +1,185 @@
+/* CardNav.css */
+
+/* single button on top-right that morphs between hamburger and round close */
+.menu-toggle {
+      display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: var(--z-menu-toggle);
+  width: var(--menu-toggle-size);
+  height: var(--menu-toggle-size);
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--clr-text-primary);
+  background-color: var(--clr-bg-secondary);
+  transition: width var(--transition-fast), height var(--transition-fast), background var(--transition-fast), border-radius var(--transition-fast);
+}
+.menu-toggle .hamburger-line {
+    display: block;
+  width: var(--hamburger-line-width);
+  height: var(--hamburger-line-height);
+  background: currentColor;
+  border-radius: var(--radius-sm);
+  transition: transform .25s ease, opacity .18s ease;
+  transform-origin: center;
+}
+
+/* initial closed state: two parallel lines offset vertically */
+.menu-toggle .hamburger-line:first-child {
+  transform: translateY(-6px) rotate(0deg);
+}
+.menu-toggle .hamburger-line:last-child {
+  transform: translateY(6px) rotate(0deg);
+}
+
+/* close X hidden by default */
+.menu-toggle .close-x {
+  display: none;
+  font-size: 26px;
+  line-height: var(--line-height-normal);
+  color: var(--clr-text-primary);
+}
+
+/* when open: become circular orange close button */
+.menu-toggle.open {
+  width: var(--menu-toggle-size);
+  height: var(--menu-toggle-size);
+  border-radius: var(--radius-full);
+  background: var(--clr-accent-tertiary);
+  box-shadow: var(--shadow-sm);
+  color: var(--clr-text-primary);
+}
+
+/* open state: morph lines into an X */
+.menu-toggle.open .hamburger-line {
+  opacity: 1;
+}
+.menu-toggle.open .hamburger-line:first-child {
+  transform: translateY(0) rotate(45deg);
+}
+.menu-toggle.open .hamburger-line:last-child {
+  transform: translateY(0) rotate(-45deg);
+}
+.menu-toggle.open .close-x {
+  display: none; /* keep the CSS-only X via lines; close-x remains unused */
+}
+
+/* overlay */
+.card-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--clr-overlay-dark);
+  z-index: var(--z-overlay);
+  display: none; /* gsap animates opacity/display */
+  pointer-events: auto;
+}
+
+/* side panel (slide from right) */
+.card-nav-side {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: var(--container-sidebar-width);
+  max-width: var(--container-sidebar-max-width);
+  min-width: var(--container-sidebar-min-width);
+  z-index: var(--z-sidebar);
+  display: block;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  will-change: transform;
+  padding: 48px 56px var(--section-padding-x) var(--section-padding-x);
+  box-sizing: border-box;
+  color: var(--clr-text-primary);
+  background: var(--clr-bg-tertiary); /* strong black */
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.01) 0%, rgba(0,0,0,0.04) 100%);
+}
+
+/* layout */
+.side-inner {
+  display: flex;
+  gap: 24px;
+  height: 100%;
+  align-items: flex-start;
+}
+.side-left-col {
+  width: 28%;
+  min-width: 120px;
+  opacity: 0.95;
+}
+
+/* right column */
+.side-right-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.nav-section-meta {
+  font-size: var(--font-size-xs);
+  color: var(--clr-text-opacity-very-low);
+  letter-spacing: var(--letter-spacing-large);
+  margin-bottom: var(--spacing-md);
+}
+.nav-divider {
+  width: 100%;
+  border: none;
+  height: 1px;
+  background: var(--clr-border-medium);
+  margin-bottom: 28px;
+}
+
+/* big nav */
+.big-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;
+}
+.big-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline: none;
+}
+.big-nav-item .bullet {
+  font-size: 46px;
+  line-height: var(--line-height-normal);
+  color: var(--clr-text-opacity-high);
+  transform: translateY(-6px);
+}
+.big-nav-text {
+  font-size: var(--font-size-big-nav-text);
+  line-height: var(--line-height-snug);
+  font-weight: 400;
+  color: var(--clr-text-primary);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+
+
+/* responsive */
+@media (max-width: 900px) {
+  .card-nav-side {
+    width: 100%;
+    padding: var(--spacing-xl);
+  }
+  .side-left-col { display: none; }
+  .big-nav-text { font-size: var(--font-size-big-nav-text-mobile); }
+  .big-nav-item .bullet { font-size: 28px; transform: translateY(-3px); }
+  .menu-toggle { top: 12px; right: 12px; }
+  .menu-toggle.open { top: 12px; right: 12px; width: var(--menu-toggle-size-mobile); height: var(--menu-toggle-size-mobile); }
+}
