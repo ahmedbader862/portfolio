@@ -2,11 +2,8 @@ import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText as GSAPSplitText } from "gsap/SplitText";
-import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger, GSAPSplitText);
-
-
 
 const SplitText = ({
   text,
@@ -23,84 +20,81 @@ const SplitText = ({
   tag = "p",
   onLetterAnimationComplete,
 }) => {
-
-  
-
-
-
   const ref = useRef(null);
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
-  // ✅ نضمن تحميل الفونت قبل أي أنيميشن
+  // ✅ التأكد من تحميل الفونت قبل أي أنيميشن
   useEffect(() => {
     if (document.fonts.status === "loaded") {
       setFontsLoaded(true);
     } else {
-      document.fonts.ready.then(() => setFontsLoaded(true));
+      document.fonts.ready.then(() => {
+        // ندي المتصفح لحظة يعمل reflow بعد تحميل الفونت
+        setTimeout(() => setFontsLoaded(true), 100);
+      });
     }
   }, []);
 
-  useGSAP(
-    () => {
-      if (!ref.current || !text || !fontsLoaded) return;
+  // ✅ الأنيميشن بعد تحميل الفونت فعليًا
+  useEffect(() => {
+    if (!ref.current || !text || !fontsLoaded) return;
 
-      const el = ref.current;
+    const el = ref.current;
 
-      // لو في تقسيمة قديمة، امسحها
-      if (el._rbsplitInstance) {
-        try {
-          el._rbsplitInstance.revert();
-        } catch (_) {}
-        el._rbsplitInstance = null;
+    // لو في تقسيمة قديمة، نرجعها قبل نبدأ جديدة
+    if (el._rbsplitInstance) {
+      try {
+        el._rbsplitInstance.revert();
+      } catch (_) {}
+      el._rbsplitInstance = null;
+    }
+
+    const splitInstance = new GSAPSplitText(el, {
+      type: splitType,
+      linesClass: "split-line",
+      wordsClass: "split-word",
+      charsClass: "split-char",
+    });
+
+    const targets =
+      splitType === "chars"
+        ? splitInstance.chars
+        : splitType === "words"
+        ? splitInstance.words
+        : splitInstance.lines;
+
+    gsap.fromTo(
+      targets,
+      { ...from },
+      {
+        ...to,
+        duration,
+        ease,
+        stagger: delay / 1000,
+        scrollTrigger: {
+          trigger: el,
+          start: "top 90%",
+          end: "bottom 60%",
+          scrub: false,
+          toggleActions: "play none none reverse",
+        },
+        onComplete: onLetterAnimationComplete,
       }
+    );
 
-      const splitInstance = new GSAPSplitText(el, {
-        type: splitType,
-        linesClass: "split-line",
-        wordsClass: "split-word",
-        charsClass: "split-char",
+    el._rbsplitInstance = splitInstance;
+
+    // ✅ cleanup
+    return () => {
+      ScrollTrigger.getAll().forEach((st) => {
+        if (st.trigger === el) st.kill();
       });
-
-      const targets =
-        splitType === "chars"
-          ? splitInstance.chars
-          : splitType === "words"
-          ? splitInstance.words
-          : splitInstance.lines;
-
-      gsap.fromTo(
-        targets,
-        { ...from },
-        {
-          ...to,
-          duration,
-          ease,
-          stagger: delay / 1000,
-          scrollTrigger: {
-            trigger: el,
-            start: "top 90%",
-            end: "bottom 60%",
-            scrub: false,
-            toggleActions: "play none none reverse",
-          },
-          onComplete: onLetterAnimationComplete,
-        }
-      );
-
-      el._rbsplitInstance = splitInstance;
-
-      return () => {
-        ScrollTrigger.getAll().forEach((st) => {
-          if (st.trigger === el) st.kill();
-        });
-        try {
-          splitInstance.revert();
-        } catch (_) {}
-        el._rbsplitInstance = null;
-      };
-    },
-    { dependencies: [text, fontsLoaded, delay, duration, ease, splitType] }
-  );
+      try {
+        splitInstance.revert();
+      } catch (_) {}
+      el._rbsplitInstance = null;
+    };
+  }, [text, fontsLoaded, delay, duration, ease, splitType]);
 
   const renderTag = () => {
     const style = {

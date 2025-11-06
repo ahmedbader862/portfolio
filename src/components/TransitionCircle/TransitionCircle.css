@@ -1,0 +1,52 @@
+ .tc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  background:  #0a15b3;
+  color:  #2415a8;
+  /* easing بطيء في النص: ease-in-out أو cubic-bezier مخصص */
+  transform: translateY(var(--tc-ty, 0px));
+  transition: transform 4.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+  will-change: transform;
+}
+
+.tc-overlay::before,
+.tc-overlay::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 220vw;
+  height: 150vw;
+  background: #380303;
+  border-radius: 100%;
+  transform-origin: 50% 50%;
+  transform: translateX(-50%) scaleY(var(--tc-scale, 1));
+  will-change: transform;
+  pointer-events: none;
+}
+
+.tc-overlay::before {
+  top: 0;
+  transform: translate(-50%, -50%) scaleY(var(--tc-scale, 1));
+}
+
+.tc-overlay::after {
+  bottom: 0;
+  transform: translate(-50%, 50%) scaleY(var(--tc-scale, 1));
+}
+
+.tc-title {
+  position: relative;
+  z-index: 10;
+  text-transform: uppercase;
+  font-family: var(--font-big-shoulders, sans-serif);
+  letter-spacing: 0.08em;
+  font-size: 300px;
+  display: flex;
+  gap: 0.125em;
+  justify-content: center;
+}
+
+

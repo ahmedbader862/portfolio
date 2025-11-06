@@ -2,14 +2,6 @@ import React, { useState } from "react";
 import "./Services.css";
 import SplitText from "../tools/TextEffect/TextEffect";
 
-/**
- * Services component
- * - يعرض عمود شمالي بعنوان "SERVICES" مع وصف
- * - عمود يميني فيه 3 جمل (service lines)
- * - عند hover على أي جملة:
- *    - الجملة اللي عليها hover بتصعد في الـopacity حرف حرف (stagger via transitionDelay)
- *    - الجمل التانية بتقل شفافيتها تدريجيًا عبر الحروف (من الشمال لليمين)
- */
 
 const Services = () => {
   const [hovered, setHovered] = useState(null); // index of hovered line or null
@@ -48,7 +40,6 @@ const Services = () => {
     },
     
   ];
-  
   
 
 

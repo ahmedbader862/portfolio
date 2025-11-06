@@ -23,16 +23,19 @@ gsap.registerPlugin(ScrollTrigger);
      useEffect(() => {
     const ctx = gsap.context(() => {
       // subtle wave movement on the separator
-      gsap.to(".footer-separator", {
-        y: -10,
-        ease: "sine.inOut",
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: "top 90%",
-          end: "top 40%",
-          scrub: 1.2,
-        },
-      });
+      const separator = rootRef.current?.querySelector(".footer-separator");
+      if (separator) {
+        gsap.to(separator, {
+          y: -10,
+          ease: "sine.inOut",
+          scrollTrigger: {
+            trigger: rootRef.current,
+            start: "top 90%",
+            end: "top 40%",
+            scrub: 1.2,
+          },
+        });
+      }
     }, rootRef);
 
     return () => ctx.revert();
@@ -47,19 +50,22 @@ gsap.registerPlugin(ScrollTrigger);
     <div className="page-content">
     <Hero/>
     <About/>
+
+
     <Projects/>
     <ScrollFreeLance/>
     <NavButton/>
 
     <Services/>
+    
     <LetIsWork/>
     <Contact/>
 
-    <CircleEffect 
+    {/* <CircleEffect 
         triggerElement={rootRef}
-      />
+      /> */}
 
-    </div>
+  </div>
     <Footer/>
     
 

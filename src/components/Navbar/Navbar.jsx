@@ -1,14 +1,58 @@
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion as Motion, useMotionValue, useSpring } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
+import { useTransitionOverlay } from '../../hooks/useTransition';
+import { useRef, useEffect } from 'react';
 import "./Navbar.css";
 
 const links = [
-  { label: "HOME", href: "#home" },
-  { label: "WORKS", href: "#works" },
-  { label: "ABOUT", href: "#about" },
-  { label: "CONTACT", href: "#contact" },
+  { label: "HOME", href: "/", title: 'Home', isRoute: true },
+  { label: "WORKS", href: "/work", title: 'Work', isRoute: true },
+  { label: "ABOUT", href: "/about", title: 'About', isRoute: true },
 ];
 
 export default function Navbar() {
+  const navigate = useNavigate();
+  const { open, close, durationMs } = useTransitionOverlay();
+  const navigateTimeoutRef = useRef(null);
+
+  // Cleanup عند unmount
+  useEffect(() => {
+    return () => {
+      if (navigateTimeoutRef.current) {
+        clearTimeout(navigateTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const onClick = (e, href, title, isRoute) => {
+    if (!isRoute) return; // السماح للـhash الافتراضي
+    e.preventDefault();
+    
+    // لو نفس الصفحة، مفيش تأثير - نعمل navigate بس
+    if (window.location.pathname === href) {
+      navigate(href);
+      return;
+    }
+    
+    // إلغاء أي timeout سابق
+    if (navigateTimeoutRef.current) {
+      clearTimeout(navigateTimeoutRef.current);
+      navigateTimeoutRef.current = null;
+    }
+    
+    // لو صفحة مختلفة: نفتح الدائرة من تحت لتغطي الشاشة
+    open(title);
+    
+    // ننتظر حتى تكتمل حركة open() (100% من المدة) قبل navigate و close
+    navigateTimeoutRef.current = setTimeout(() => {
+      navigate(href);
+      // بعد navigate مباشرة نبدأ close
+      requestAnimationFrame(() => {
+        close();
+      });
+      navigateTimeoutRef.current = null;
+    }, durationMs);
+  };
   return (
     <header className="navbar">
       <div className="nav-container">
@@ -17,7 +61,7 @@ export default function Navbar() {
         <nav className="nav-center">
           <ul className="nav-list">
             {links.map((link) => (
-              <NavLink key={link.href} {...link} />
+              <NavLink key={link.href} {...link} onClick={onClick} />
             ))}
           </ul>
         </nav>
@@ -32,7 +76,7 @@ export default function Navbar() {
   );
 }
 
-function NavLink({ label, href }) {
+function NavLink({ label, href, title, isRoute, onClick }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -56,21 +100,21 @@ function NavLink({ label, href }) {
   };
 
   return (
-    <motion.li
+    <Motion.li
       className="nav-item"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ x: springX, y: springY }}
     >
-      <a href={href} className="nav-link">
+      <a href={href} className="nav-link" onClick={(e) => onClick(e, href, title, isRoute)}>
         {label}
-        <motion.span
+        <Motion.span
           className="nav-dot"
           layoutId="nav-dot"
           whileHover={{ scale: 1 }}
           initial={{ scale: 0 }}
         />
       </a>
-    </motion.li>
+    </Motion.li>
   );
 }

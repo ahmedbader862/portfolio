@@ -15,6 +15,7 @@ export default function Footer() {
 
   return (
     <motion.footer className="footer" >
+  
       
       <div className="footer-main-section">
         <div className="footer-main-left">
@@ -23,8 +24,8 @@ export default function Footer() {
             <span className="glitch-text">I CAN HELP YOU.</span>
           </h2>
           <div className="contact-fields">
-            <div className="contact-field">karansethil23@test.com</div>
-            <div className="contact-field">9876543210</div>
+            <div className="contact-field">ahmed.mohamad.badr@gmail</div>
+            <div className="contact-field">01017906954</div>
           </div>
         </div>
 
@@ -45,7 +46,9 @@ export default function Footer() {
         </div>
         <div className="footer-link-group">
           <h3 className="footer-link-heading">Follow me</h3>
-          <a href="#" className="footer-link footer-social-links">.github .linkedin .twitter</a>
+          <a href="#" className="footer-link footer-social-links">.github </a>
+          <a href="#" className="footer-link footer-social-links">.linkedin </a>
+          <a href="#" className="footer-link footer-social-links">.twitter </a>
         </div>
         <div className="footer-link-group">
           <h3 className="footer-link-heading">Say hello</h3>

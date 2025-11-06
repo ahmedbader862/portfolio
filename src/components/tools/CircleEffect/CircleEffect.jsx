@@ -20,10 +20,10 @@ const CircleEffect = ({
     
 
     const ctx = gsap.context(() => {
-      const footerEl = document.querySelector('.footer') || triggerElement.current;
+      const triggerEl = triggerElement.current;
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: footerEl,
+          trigger: triggerEl,
           // يبدأ عندما حافة الفوتر العلوية تلمس أسفل الفيو بورت
           start: "top bottom",
           // وينتهي في منتصف الفيو بورت للحصول على مسافة تحريك كافية
@@ -40,16 +40,18 @@ const CircleEffect = ({
           opacity: 1,
           scale: 1,
           xPercent: -50,
-          left: "50%",
         },
         {
           yPercent: -40, // تتحرك لأعلى
-          opacity: 1, // وتختفي تدريجياً
-          ease: "power1.out",
+          opacity: 1,
+          ease: "power2.out",
           xPercent: -50,
-          left: "50%",
+          force3D: true,
         }
       );
+
+      // في حال تغيرت الأبعاد بعد تحميل الصور/الخطوط
+      // ScrollTrigger.refresh();
     });
 
     return () => ctx.revert();

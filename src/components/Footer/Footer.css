@@ -177,21 +177,3 @@
   }
 }
 
-/* === separator (top of footer) - the curved wave */
-.footer-separator {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 110px;
-}
-
-.footer-separator svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.footer-separator path {
-  fill: var(--clr-footer-bg);
-}

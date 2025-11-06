@@ -13,7 +13,7 @@ function  LetIsWork() {
         <div className="left-work">
 
 
-                  <SplitText
+         <SplitText
           text={"Contact"}
           tag="p"
           className="small"
@@ -55,7 +55,6 @@ function  LetIsWork() {
             two={'Contact'}
             />
 
-
             <TextOpacity
               text={text}
               minOpacity={0.3}
@@ -63,9 +62,6 @@ function  LetIsWork() {
               className="text-work"
               
             />
-    
-
-
 
         </div>
 

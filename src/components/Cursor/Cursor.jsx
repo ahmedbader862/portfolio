@@ -1,24 +1,22 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { usePointer } from '../../hooks/usePointer';
 import './Cursor.css';
 
 export default function Cursor() {
   // نعمل قيم متغيرة للـ x و y
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const { x: cx, y: cy } = usePointer();
 
   // نعمل انسيابية بالـ spring (زي الـ easeOut)
   const springX = useSpring(x, { stiffness: 200, damping: 25 });
   const springY = useSpring(y, { stiffness: 200, damping: 25 });
 
   useEffect(() => {
-    const onMove = (e) => {
-      x.set(e.clientX);
-      y.set(e.clientY);
-    };
-    window.addEventListener('mousemove', onMove);
-    return () => window.removeEventListener('mousemove', onMove);
-  }, [x, y]);
+    x.set(cx);
+    y.set(cy);
+  }, [cx, cy, x, y]);
 
   // ring mode state: when true the cursor becomes a hollow ring centered on an icon
   const [ringMode, setRingMode] = useState(false);

@@ -1,3 +1,12 @@
+/* Performance and compositing hints for the animated circle */
+.circle-effect {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
 /* CircleEffect.css */
 .circle-effect-container {
   position: relative;
@@ -7,7 +16,7 @@
 .circle-effect {
   position: absolute;
   left: 50%;
-  bottom: -60vw; /* اظهار قوس أوضح فوق الفوتر */
+  bottom: -40vw; /* اظهار قوس أوضح فوق الفوتر */
   transform: translateX(-50%);
   margin: 0 auto; /* توسيط أفقي */
   display: flex;
@@ -18,12 +27,15 @@
   border-radius: 50%;
   z-index: 50; /* أقل من المحتوى، أعلى من الفوتر */
   pointer-events: none;
+  background-color: #00a035;/* أزرق واضح للتجربة */
+  color: #00a035;
 }
 
 /* يمكن تخصيص الألوان من خلال CSS variables */
 .circle-effect.light {
-  background-color: #0a0a0a;;/* أزرق واضح للتجربة */
-  z-index: 10;
+  background-color: #00a035;/* أزرق واضح للتجربة */
+  z-index: 1000;
+  color: #00a035;
 
 }
 

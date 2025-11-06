@@ -6,7 +6,7 @@
   padding: var(--section-padding-y) var(--section-padding-x);
   color: var(--clr-text-primary);
   font-family: var(--font-poppins);
-  background-color: var(--clr-bg-card);
+  background-color: var(--clr-bg-primary);
   position: relative; /* لتمكين z-index */
   z-index: var(--z-overlay); /* أعلى من دائرة الخلفية داخل نفس السياق */
   isolation: isolate; /* تأمين سياق مكدس مستقل */

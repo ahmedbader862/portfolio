@@ -21,7 +21,7 @@
   --font-size-5xl: 3rem;        /* 48px */
   --font-size-6xl: 3.5rem;      /* 56px */
   --font-size-7xl: 4rem;        /* 64px */
-  --font-size-8xl: 5rem;        /* 80px */
+  --font-siz: 5rem;        /* 80px */
   --font-size-9xl: 6rem;        /* 96px */
 
   /* Responsive font sizes (clamp) */
@@ -45,7 +45,7 @@
   --clr-bg-card: #0f0f0f;
   --clr-footer-bg: #121212;
 
-  /* ===== Colors - Text ===== */
+  /* =e-8xl==== Colors - Text ===== */
   --clr-text-primary: #ffffff;
   --clr-text-secondary: #f1f1f1;
   --clr-text-tertiary: #f7f7f7;
@@ -122,7 +122,7 @@
 
   /* ===== Border Radius ===== */
   --radius-sm: 6px;
-  --radius-md: 8px;
+  --radius-md: 30px;
   --radius-lg: 10px;
   --radius-full: 999px;
   --radius-circle: 9999px;

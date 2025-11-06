@@ -1,5 +1,5 @@
 import './CircleButton.css'
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion , useMotionValue, useSpring } from "framer-motion";
 
 function CircleButton({one , two}) {
     const x = useMotionValue(0);

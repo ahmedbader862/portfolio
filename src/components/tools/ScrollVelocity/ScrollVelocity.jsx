@@ -8,6 +8,7 @@ import {
   useVelocity,
   useAnimationFrame
 } from 'motion/react';
+import { useScrollState } from '../../../hooks/useScrollState';
 import './ScrollVelocity.css';
 
 function useElementWidth(ref) {
@@ -57,8 +58,11 @@ export const ScrollVelocity = ({
   }) {
     const baseX = useMotionValue(0);
     const scrollOptions = scrollContainerRef ? { container: scrollContainerRef } : {};
-    const { scrollY } = useScroll(scrollOptions);
-    const scrollVelocity = useVelocity(scrollY);
+    const globalScroll = useScrollState();
+    // Prefer global scroll values if provided by context; otherwise create local ones
+    const localScroll = useScroll(scrollOptions);
+    const scrollY = globalScroll?.scrollY ?? localScroll.scrollY;
+    const scrollVelocity = globalScroll?.scrollVelocity ?? useVelocity(scrollY);
     const smoothVelocity = useSpring(scrollVelocity, {
       damping: damping ?? 50,
       stiffness: stiffness ?? 400
