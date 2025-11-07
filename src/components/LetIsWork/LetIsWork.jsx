@@ -50,18 +50,20 @@ function  LetIsWork() {
         </div>
 
         <div className="right-work">
-            <CircleButton
-            one={'LET’S'}
-            two={'Contact'}
-            />
+        <CircleButton 
+         one="Explore" 
+         two="my works" 
+         page="/work" 
+         title="Work"
+       />
 
             <TextOpacity
               text={text}
               minOpacity={0.3}
               maxOpacity={1}
               className="text-work"
-              
             />
+
 
         </div>
 

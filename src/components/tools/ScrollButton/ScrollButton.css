@@ -21,6 +21,11 @@
      animation:spin 12s linear infinite;
      pointer-events:none;
      color: #000;
+     
+    }
+
+    .circle-btn-wrap text textPath {
+        font-size:var( --font-size-lg);
     }
 
 /* 

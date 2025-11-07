@@ -8,7 +8,7 @@
   color:  #2415a8;
   /* easing بطيء في النص: ease-in-out أو cubic-bezier مخصص */
   transform: translateY(var(--tc-ty, 0px));
-  transition: transform 4.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
   will-change: transform;
 }
 

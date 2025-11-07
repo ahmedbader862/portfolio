@@ -8,12 +8,16 @@ const CardNav = ({
   className = '',
   ease = 'power3.out',
   baseColor = '#000', // default black panel
+  onItemClick = null,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const navRef = useRef(null);
   const overlayRef = useRef(null);
   const itemRefs = useRef([]);
   const tlRef = useRef(null);
+
+
+  
 
   const setItemRef = i => el => {
     if (el) itemRefs.current[i] = el;
@@ -57,6 +61,9 @@ const CardNav = ({
     }
   };
 
+  // Force close menu immediately (for navigation)
+ 
+
   return (
     <>
       {/* single toggle button — fixed top-right */}
@@ -83,17 +90,17 @@ const CardNav = ({
         <div className="side-inner">
          
 
-          <div className="side-right-col">
+        <div className="side-right-col">
             <div className="nav-section-meta">NAVIGATION</div>
             <hr className="nav-divider" />
 
             <ul className="big-nav-list">
               {/* if items provided, map them, otherwise fallback to screenshot labels */}
               {(items && items.length > 0 ? items : [
-                { label: 'Home' },
-                { label: 'Works' },
-                { label: 'About' },
-                { label: 'Contact' }
+                { label: 'Home', href: '/' },
+                { label: 'Works', href: '/work' },
+                { label: 'About', href: '/about' },
+                { label: 'Contact', href: '/contact' }
               ]).map((it, i) => (
                 <li
                   key={`${it.label}-${i}`}
@@ -102,8 +109,12 @@ const CardNav = ({
                   role="link"
                   tabIndex={0}
                   onClick={() => {
-                    // default behavior: close menu on click
-                    toggleMenu();
+                    setIsExpanded(false);
+
+                    // Handle navigation with transition
+                    if (onItemClick) {
+                      onItemClick(it.href, it.label);
+                    }
                   }}
                 >
                   <span className="bullet">•</span>

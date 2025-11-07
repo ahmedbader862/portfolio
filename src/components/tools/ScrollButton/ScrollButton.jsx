@@ -20,8 +20,8 @@ function ScrollButton() {
       <path id="cPath" d="M110,110 m -80,0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0"/>
     </defs>
 
-    <text fontSize="22" fill="#4b0685ff">
-      <textPath href="#cPath" startOffset="50%" textAnchor="middle">
+    <text >
+      <textPath href="#cPath" fill='white' startOffset="50%" textAnchor="middle">
         • SCROLL TO EXPLORE • SCROLL TO EXPLORE •
       </textPath>
     </text>

@@ -15,48 +15,42 @@ const CircleEffect = ({
 
   useEffect(() => {
     if (!triggerElement.current) return;
-
-    // تطبيق الألوان المخصصة إذا وجدت
-    
-
+  
     const ctx = gsap.context(() => {
       const triggerEl = triggerElement.current;
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: triggerEl,
-          // يبدأ عندما حافة الفوتر العلوية تلمس أسفل الفيو بورت
-          start: "top bottom",
-          // وينتهي في منتصف الفيو بورت للحصول على مسافة تحريك كافية
-          end: "top center",
+          // ابدأ عندما يدخل Footer viewport
+          start: "top bottom", 
+          // انتهِ عندما يصل Footer لمنتصف viewport
+          end: "bottom center", 
           scrub: 1,
           invalidateOnRefresh: true,
         },
       });
-
+  
       tl.fromTo(
         effectRef.current,
         {
-          yPercent: 40, // يظهر جزء من الدائرة من أسفل
-          opacity: 1,
-          scale: 1,
+          yPercent: 100, // ابدأ من خارج viewport (أسفل)
+          opacity: 0,
+          scale: 0.8,
           xPercent: -50,
         },
         {
-          yPercent: -40, // تتحرك لأعلى
+          yPercent: -50, // تحرك لأعلى
           opacity: 1,
+          scale: 1,
           ease: "power2.out",
           xPercent: -50,
           force3D: true,
         }
       );
-
-      // في حال تغيرت الأبعاد بعد تحميل الصور/الخطوط
-      // ScrollTrigger.refresh();
     });
-
+  
     return () => ctx.revert();
   }, [triggerElement]);
-
   return (
     <div className={`circle-effect-container ${className}`}>
       <div

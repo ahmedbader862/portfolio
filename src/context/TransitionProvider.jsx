@@ -1,10 +1,25 @@
 import { useCallback, useMemo, useRef, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom'; // أضيفي ده
 import { TransitionContext } from './TransitionContext';
 
 export function TransitionProvider({ children }) {
+  const location = useLocation(); // أضيفي ده
+  
   const [isOpen, setOpen] = useState(true); // تبدأ ظاهرة من الأول
-  const [title, setTitle] = useState('Home'); // تبدأ بـ Home
-  const durationMs = 4700; // keep in sync with .tc-overlay CSS transition duration
+  
+  // Function to get title based on current path
+  const getTitleFromPath = (pathname) => {
+    switch (pathname) {
+      case '/': return 'Home';
+      case '/work': return 'Work';
+      case '/about': return 'About'; 
+      case '/contact': return 'Contact';
+      default: return 'Home';
+    }
+  };
+  
+  const [title, setTitle] = useState(getTitleFromPath(location.pathname));
+  const durationMs = 1700; // keep in sync with .tc-overlay CSS transition duration
   const varsRef = useRef({ ty: 0, scale: 1 });
   const closeTimeoutRef = useRef(null); // لحفظ timeout الـ close
   const rafIdsRef = useRef([]); // لحفظ requestAnimationFrame IDs
@@ -104,6 +119,15 @@ export function TransitionProvider({ children }) {
     varsRef.current.scale = scaled;
     setVar('--tc-scale', `${scaled}`);
   }, []);
+
+  // Auto-close initial transition after boot
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      close();
+    }, durationMs + 300); // نفس التأخير اللي في BootIntro
+    
+    return () => clearTimeout(timer);
+  }, [close, durationMs]);
 
   // Cleanup عند unmount
   useEffect(() => {

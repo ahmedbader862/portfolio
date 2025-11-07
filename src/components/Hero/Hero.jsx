@@ -1,129 +1,68 @@
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './Hero.css';
 import ScrollButton from '../tools/ScrollButton/ScrollButton';
 import Social from '../Social/Social';
-import { motion as Motion } from "framer-motion";
-import { usePointer } from '../../hooks/usePointer';
+import { ScrollContext } from '../../context/ScrollContext';
 
+function Hero({
+  backgroundImage = '/src/assets/Images/my-photo.jpg',
+  normalTitle = 'MORE THAN\nJUST A CODE',
+  normalSubtitle = "There's a story behind every interaction. Find it."
+}) {
 
+  // Get scroll context for background scaling only
+  const { scrollYProgress } = useContext(ScrollContext);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
-function Hero( ) {
-
-
-  const [_mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const maskRef = useRef(null);
-  const [maskPos, setMaskPos] = useState({ x: 0, y: 0 });
-
-  const [isHovered, setIsHovered] = useState(false);
-
-
-
-  const size = isHovered ? 300 : 20;
-
-
+  // Update scroll progress
   useEffect(() => {
-  const mask = document.querySelector('.mask');
-    if (!isHovered){
-
-     mask.style.display='none'
-    }else{
-
-      mask.style.display='flex'
-
+    if (scrollYProgress) {
+      const unsubscribe = scrollYProgress.on('change', (value) => {
+        setScrollProgress(value);
+      });
+      return unsubscribe;
     }
+  }, [scrollYProgress]);
 
-    },[isHovered]);
-
-
-  const { x, y } = usePointer();
-
-  // Track mouse position using global pointer
-  useEffect(() => {
-    // absolute mouse for the brown circle
-    setMousePosition({ x, y });
-
-    // element-relative mouse for the mask
-    const el = maskRef.current;
-    if (el) {
-      const rect = el.getBoundingClientRect();
-      setMaskPos({ x: x - rect.left, y: y - rect.top });
-    }
-  }, [x, y]);
-
-
-
- 
-
-    // console.log(isHovered);
+  // Calculate transforms based on scroll progress
+  const backgroundScale = 1 + (scrollProgress * .5); // Scale from 1 to 1.1
+  const textScale = 1 - (scrollProgress * .5); // Scale from 1 to 0.95
 
   return (
-  <>
-
-  {/* <div className='mouse' ref={mouseRef}
-  >
-  </div> */}
-
-  <header className='Hero'
- 
-  >
-
- <div className="hero-content">
-
-<Motion.div
-  className="mask"
-
-   ref={maskRef}
-    animate={{ 
-      WebkitMaskPosition: `${maskPos.x - size / 2}px ${maskPos.y - size / 2}px`,
-      maskPosition: `${maskPos.x - size / 2}px ${maskPos.y - size / 2}px`,
-      WebkitMaskSize: `${size}px`,
-      maskSize: `${size}px`
-    }}
-    transition={{ ease : "easeOut", duration: 0.3 }}
->
-  <h1
-   
-  >
-     CREATIVE
-
-    <br />
-     DEVELOPER
-
-  </h1>
-
-
-  <p>  Blending design and code </p>
-
-</Motion.div>
-
-
-   <div className='normal'
-  onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
-    
-   >
-    <h1
-    >
-    MORE THAN
-   <br />
-    JUST A CODE
-   </h1>
-
-<p>
-    There’s a story behind every interaction. Find it.
-  </p>
-   </div>
-   <div className="Social-Hero">
-   <Social/>
-
-   </div>
- 
-
-   </div>
-   <ScrollButton/>
-
-  </header>
-  </>
+    <>
+      <header 
+        className='Hero' 
+        style={{ 
+          '--background-scale': backgroundScale,
+          '--background-image': `url(${backgroundImage})`
+        }}
+      >
+        <div 
+          className="hero-content"
+          style={{
+            transform: `scale(${textScale})`
+          }}
+        >
+          <div className='normal'>
+          <h1>
+              {normalTitle.split('\n').map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  {index < normalTitle.split('\n').length - 1 && <br />}
+                </React.Fragment>
+              ))}
+            </h1>
+            <p>{normalSubtitle}</p>
+          </div>
+          
+        </div>
+        <div className="Social-Hero">
+            <Social/>
+          </div>
+        <ScrollButton/>
+      </header>
+    </>
   );
 }
-export default Hero;
 
+export default Hero;

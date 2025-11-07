@@ -1,5 +1,5 @@
 import { motion as Motion, useMotionValue, useSpring } from "framer-motion";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTransitionOverlay } from '../../hooks/useTransition';
 import { useRef, useEffect } from 'react';
 import "./Navbar.css";
@@ -8,6 +8,7 @@ const links = [
   { label: "HOME", href: "/", title: 'Home', isRoute: true },
   { label: "WORKS", href: "/work", title: 'Work', isRoute: true },
   { label: "ABOUT", href: "/about", title: 'About', isRoute: true },
+  { label: "CONTACT", href: "/contact", title: 'Contact', isRoute: true }
 ];
 
 export default function Navbar() {
@@ -23,6 +24,16 @@ export default function Navbar() {
       }
     };
   }, []);
+
+  // Function to download CV
+  const downloadCV = () => {
+    const link = document.createElement('a');
+    link.href = '/CV/Ahmed Mohamed Badr (2).pdf'; // Path relative to public folder
+    link.download = 'Ahmed_Mohamed_Badr_CV.pdf'; // Custom filename for download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const onClick = (e, href, title, isRoute) => {
     if (!isRoute) return; // السماح للـhash الافتراضي
@@ -67,9 +78,12 @@ export default function Navbar() {
         </nav>
 
         <div className="nav-right">
-          <a className="btn-pill" href="#contact">
-            CONTACT
-          </a>
+          <button
+            className="btn-pill"
+            onClick={downloadCV}
+          >
+            Download CV
+          </button>
         </div>
       </div>
     </header>

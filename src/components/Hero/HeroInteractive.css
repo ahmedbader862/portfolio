@@ -1,0 +1,42 @@
+/* Import base Hero styles */
+@import './Hero.css';
+
+/* Mask specific styles */
+.mask {
+  position: absolute;
+  inset: 0; /* cover the hero area */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  color: var(--clr-text-black);
+  z-index: var(--z-mask);
+  pointer-events: none; /* let hover on normal h1 work uninterrupted */
+
+  -webkit-mask-image: url(/src/assets/Images/mask.svg);
+  -webkit-mask-repeat: no-repeat;
+  /* provide non-auto initial values to avoid warnings when animating */
+  -webkit-mask-size: 20px;
+  -webkit-mask-position: 0px 0px;
+
+  mask-image: url(/src/assets/Images/mask.svg);
+  mask-repeat: no-repeat;
+  mask-size: 20px;
+  mask-position: 0px 0px;
+
+  background-color: var(--clr-accent-red);
+}
+
+.mask p {
+  font-size: var(--font-size-2xl);
+  margin-top: var(--spacing-xl);
+  color: var(--clr-text-black);
+  z-index: var(--z-base);
+}
+
+.mask h1 {
+  color: var(--clr-text-black);
+  z-index: var(--z-base);
+}

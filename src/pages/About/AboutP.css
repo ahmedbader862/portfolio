@@ -1,0 +1,117 @@
+/* About Section Styles */
+.about-section {
+  padding: var(--section-padding-y) var(--section-padding-x);
+  border-bottom: 1px solid var(--clr-border-light);
+}
+
+.about-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x-mobile);
+  display: flex;
+  flex-direction: column-reverse;
+  gap: max(4vw, 4vh);
+}
+
+@media (min-width: 768px) {
+  .about-container {
+    padding: 0 var(--section-padding-x);
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: max(4vw, 4vh);
+  }
+}
+
+/* Content Styles */
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.9rem;
+  text-align: justify;
+}
+
+.about-title {
+  font-size: var(--font-size-about-h2);
+  font-family: var(--font-bebas);
+  font-weight: normal;
+  line-height: var(--line-height-tight);
+  text-transform: uppercase;
+  color: var(--clr-text-primary);
+  margin: 0;
+}
+
+.about-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.9rem;
+}
+
+.about-paragraph {
+  font-size: clamp(16px, 1.5vw, 24px);
+  line-height: var(--line-height-relaxed);
+  color: var(--clr-text-primary);
+  margin: 0;
+}
+
+/* Button Container */
+.about-button {
+  opacity: 1;
+  transform: none;
+  width: fit-content;
+  transform: rotate(-20deg);
+  transition: transform 0.3s ease;
+}
+
+.about-button:hover,
+.about-button:focus-within {
+  transform: rotate(0deg);
+}
+
+/* Image Styles */
+.about-image {
+  position: relative;
+  overflow: hidden;
+  min-height: 60svh;
+  border-radius: var(--radius-lg);
+}
+
+.about-image picture,
+.about-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (min-width: 1024px) {
+  .about-image img {
+    object-position: 40% center;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .about-section {
+    padding: var(--section-padding-y-mobile) var(--section-padding-x-mobile);
+  }
+  
+  .about-container {
+    gap: 1.9rem;
+  }
+  
+  .about-content {
+    gap: 1.9rem;
+  }
+  
+  .about-text {
+    gap: 1.9rem;
+  }
+}

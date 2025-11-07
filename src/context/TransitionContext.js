@@ -3,7 +3,7 @@ import { createContext } from 'react';
 export const TransitionContext = createContext({
   isOpen: false,
   title: '',
-  durationMs: 4700,
+  durationMs: 1700,
   open: () => {},
   close: () => {},
   setFooterSlice: () => {},

@@ -30,7 +30,12 @@ export default function Footer() {
         </div>
 
         <div className="footer-main-right">
-          <CircleButton one="GET IN" two="TOUCH" />
+        <CircleButton 
+          one="GET" 
+          two="IN TOUCH" 
+          page="/contact" 
+          title="CONTACT"
+        />
         </div>
 
 
@@ -48,7 +53,6 @@ export default function Footer() {
           <h3 className="footer-link-heading">Follow me</h3>
           <a href="#" className="footer-link footer-social-links">.github </a>
           <a href="#" className="footer-link footer-social-links">.linkedin </a>
-          <a href="#" className="footer-link footer-social-links">.twitter </a>
         </div>
         <div className="footer-link-group">
           <h3 className="footer-link-heading">Say hello</h3>

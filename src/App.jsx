@@ -1,17 +1,20 @@
 // import { useEffect, useState } from 'react';
 import './App.css'
-import Home from './pages/Home'
+import Home from './pages/Home/Home'
 import Cursor from './components/Cursor/Cursor'
 import Navbar from './components/Navbar/Navbar'
 import { PointerProvider } from './context/PointerProvider'
 import { ScrollProvider } from './context/ScrollProvider'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import About from './pages/About'
-import Work from './pages/Work'
 import { TransitionProvider } from './context/TransitionProvider'
 import TransitionCircle from './components/TransitionCircle/TransitionCircle'
 import { useEffect, useRef } from 'react'
 import { useTransitionOverlay } from './hooks/useTransition'
+import AboutP from './pages/About/AboutP'
+import WorkP from './pages/Work/WorkP'
+import ContactP from './pages/Contact/ContactP'
+import NavButton from './components/NavButton/NavButton'
+import Footer from './components/Footer/Footer'
 // import { motion } from "framer-motion";
 
 
@@ -19,12 +22,10 @@ function BootIntro() {
   const { close, durationMs } = useTransitionOverlay();
   const hasInitialized = useRef(false);
 
-  // عند أول mount: ننتظر حتى تكتمل الحركة الأولية (من تحت للنص) ثم نغلقها
   useEffect(() => {
     if (!hasInitialized.current) {
-      // الحركة الأولية تستغرق durationMs + delay صغير (50ms)
-      // ننتظر حتى تكتمل الحركة الأولية ثم نغلقها
-      const initDelay = 50; // delay الحركة الأولية
+      // زيادة التأخير لضمان ظهور الحركة بوضوح
+      const initDelay = 300; // زيادة من 50 إلى 300
       const id = setTimeout(() => {
         close();
       }, durationMs + initDelay);
@@ -52,12 +53,16 @@ function App() {
          <TransitionCircle/>
          <BootIntro/>
          <Navbar/>
+       <NavButton/>
          <Cursor />
          <Routes>
            <Route path="/" element={<Home/>} />
-           <Route path="/about" element={<About/>} />
-           <Route path="/work" element={<Work/>} />
+           <Route path="/about" element={<AboutP/>} />
+           <Route path="/work" element={<WorkP/>} />
+           <Route path="/contact" element={<ContactP/>} />
          </Routes>
+     <Footer/>
+
         </TransitionProvider>
        </PointerProvider>
       </ScrollProvider>
