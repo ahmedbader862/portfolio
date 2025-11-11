@@ -4,8 +4,7 @@
   z-index: 999;
   display: grid;
   place-items: center;
-  background:  #0a15b3;
-  color:  #2415a8;
+  color:  #13cc7f;
   /* easing بطيء في النص: ease-in-out أو cubic-bezier مخصص */
   transform: translateY(var(--tc-ty, 0px));
   transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -19,7 +18,7 @@
   left: 50%;
   width: 220vw;
   height: 150vw;
-  background: #380303;
+  background: var(--clr-bg-secondary);
   border-radius: 100%;
   transform-origin: 50% 50%;
   transform: translateX(-50%) scaleY(var(--tc-scale, 1));
@@ -43,7 +42,7 @@
   text-transform: uppercase;
   font-family: var(--font-big-shoulders, sans-serif);
   letter-spacing: 0.08em;
-  font-size: 300px;
+  font-size: 18rem;
   display: flex;
   gap: 0.125em;
   justify-content: center;

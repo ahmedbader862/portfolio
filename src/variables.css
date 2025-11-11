@@ -25,7 +25,7 @@
   --font-size-9xl: 6rem;        /* 96px */
 
   /* Responsive font sizes (clamp) */
-  --font-size-hero-h1: clamp(64px, 8vw, 100px);
+  --font-size-hero-h1: clamp(48px, 10vw, 230px);
   --font-size-about-h2: clamp(52px, 5vw, 82px);
   --font-size-projects-title: clamp(64px, 10vw, 187px);
   --font-size-services-head: clamp(52px, 5vw, 82px);
@@ -58,13 +58,8 @@
   --clr-text-black: #000000;
 
   /* ===== Colors - Accent ===== */
-  --clr-accent-primary: #ff6b35;
-  --clr-accent-secondary: #ff4d4d;
-  --clr-accent-tertiary: #d96318;
-  --clr-accent-red: red;
-  --clr-accent-red-dark: #f50505;
-  --clr-accent-orange: rgba(251, 146, 60, 1);
-
+  --color-red: oklch(63.7% .237 25.331);
+  --clr-primary: #007bff;
   /* ===== Colors - Status ===== */
   --clr-success: #8ee88e;
   --clr-error: #ff9b9b;
@@ -180,5 +175,11 @@
   --menu-toggle-size-mobile: 52px;
   --hamburger-line-width: 28px;
   --hamburger-line-height: 2px;
+
+  /* إضافة متغيرات جديدة للـ mobile الصغير */
+  --section-padding-x-mini: 16px;
+  --section-padding-y-mini: 32px;
+  --font-size-mobile-sm: 0.875rem;
+  --font-size-mobile-base: 1rem;
 }
 

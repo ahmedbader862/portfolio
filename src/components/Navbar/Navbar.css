@@ -4,8 +4,6 @@
   position: absolute;
   top: 0;
   left: 0;
-  /* background: rgba(0, 0, 0, 0.6); */
-  backdrop-filter: blur(10px);
   color: var(--clr-text-primary);
   z-index: var(--z-navbar);
 }
@@ -56,6 +54,10 @@
   background: var(--clr-text-primary);
   margin-top: var(--spacing-xs);
 }
+.nav-right button {
+  background-color: #efedea;
+  color: #000;
+}
 
 .btn-pill {
   background: var(--clr-text-primary);
@@ -74,11 +76,29 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .nav-center {
-    display: none;
+@media (max-width: 900px) {
+  /* Tablet: navbar بحجم أصغر */
+  .navbar {
+    padding: var(--spacing-lg) 30px;
   }
+  
+  .nav-list {
+    gap: 20px;
+  }
+  
+  .nav-left {
+    font-size: 12px;
+  }
+  
   .btn-pill {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Mobile: navbar يختفي تماماً */
+  .navbar {
     display: none;
   }
 }

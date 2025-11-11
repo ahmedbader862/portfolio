@@ -7,9 +7,10 @@ function ContactP() {
   return (
     <>
      <Hero 
-      backgroundImage="/src/assets/Images/mask.svg"
+      backgroundImage="/src/assets/Images/"
+      Title="Let's work together"
       normalTitle="CONTACT ME"
-      normalSubtitle="Ready to start your next project?"
+      normalSubtitle="Let’s connect:I’d love to hear about your project and how we can work together."
     />
 
      <Contact/>

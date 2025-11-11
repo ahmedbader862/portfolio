@@ -25,18 +25,17 @@
   mask-repeat: no-repeat;
   mask-size: 20px;
   mask-position: 0px 0px;
-
-  background-color: var(--clr-accent-red);
+  background-color: var(--color-red);
 }
 
 .mask p {
   font-size: var(--font-size-2xl);
-  margin-top: var(--spacing-xl);
   color: var(--clr-text-black);
   z-index: var(--z-base);
 }
 
 .mask h1 {
+  font-size: clamp(48px, 10vw, 230px); 
   color: var(--clr-text-black);
   z-index: var(--z-base);
 }

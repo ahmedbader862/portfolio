@@ -3,6 +3,7 @@ import './CircleButton.css'
 import { useRef, useEffect } from 'react';
 import { motion , useMotionValue, useSpring } from "framer-motion";
 import { useTransitionOverlay } from '../../../hooks/useTransition';
+import useMotionHover from '../../../hooks/useMotionHover'; // أضف ده
 
 function CircleButton({one , two , page , title}) {
     const x = useMotionValue(0);
@@ -13,6 +14,20 @@ function CircleButton({one , two , page , title}) {
 
     const springX = useSpring(x, { stiffness: 150, damping: 12 });
     const springY = useSpring(y, { stiffness: 150, damping: 12 });
+
+     
+     const handleMouseEnter = () => {
+
+         window.dispatchEvent(new CustomEvent('cursor-hover-circle'));
+     };
+     
+     const handleMouseLeave = () => {
+
+         window.dispatchEvent(new CustomEvent('cursor-leave-circle'));
+         x.set(0);
+         y.set(0);
+
+     };
 
     const handleMouseMove = (e) => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -60,22 +75,21 @@ function CircleButton({one , two , page , title}) {
         }, durationMs);
     };
 
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
-
+    const { handleMouseMove: hoverMove, handleMouseLeave: hoverLeave, style } = useMotionHover(150, 12, 0.1); // factor مختلف
+   
     return (
         <motion.div 
             className="circle-container"
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{ x: springX, y: springY }}
+            onMouseMove={hoverMove}
+            onMouseLeave={hoverLeave}
+            style={style} // بدلاً من style={{ x: springX, y: springY }}
         >
-         <button 
+        <button 
             className="circle"
             onClick={handleClick}
-          >
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+        >
             <span>{one}</span>
             <span>{two}</span>
           </button>

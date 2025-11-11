@@ -1,0 +1,141 @@
+
+.project-card-wrapper {
+  opacity: 1;
+  transform: none;
+  width: 100%;
+}
+
+.project-card {
+  position: relative;
+  padding-block: var(--spacing-lg);
+  background: var(--clr-bg-card);
+  border-radius: var(--radius-lg);
+  text-align: left;
+  font-size: var(--font-size-base);
+  transition: opacity var(--transition-normal), transform var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.project-content {
+  padding-inline: var(--spacing-md);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.img-wrap {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.project-card:hover .project-img {
+  transform: scale(1.05);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.project-title {
+  font-family: var(--font-bebas);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-medium);
+  color: var(--clr-text-primary);
+  font-size: var(--font-size-2xl);
+  transition: color var(--transition-normal);
+}
+
+.project-number {
+  opacity: 0.3;
+  font-size: var(--font-size-xl);
+  transition: opacity var(--transition-normal), color var(--transition-normal);
+}
+
+.project-description {
+  font-family: var(--font-poppins);
+  font-size: var(--font-size-sm);
+  color: var(--clr-text-muted);
+  opacity: 0.8;
+  transition: opacity var(--transition-normal), color var(--transition-normal);
+}
+
+.project-card:hover .project-number,
+.project-card:hover .project-description,
+.project-card:hover .project-title {
+  opacity: 1;
+  color: var(--clr-text-secondary);
+}
+
+.absolute-link {
+  position: absolute;
+  inset: 0;
+}
+
+/* ==== Responsive Layout ==== */
+
+/* الشاشات الكبيرة - كاردين جنب بعض */
+.projects-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-2xl);
+  width: min(var(--container-max-width), 90%);
+  margin-inline: auto;
+}
+
+.project-card-wrapper {
+  flex: 1 1 calc(50% - var(--spacing-2xl));
+  max-width: calc(50% - var(--spacing-2xl));
+}
+
+/* التابلت */
+@media (max-width: 992px) {
+  .project-card-wrapper {
+    flex: 1 1 calc(50% - var(--spacing-lg));
+    max-width: calc(50% - var(--spacing-lg));
+  }
+}
+
+/* الموبايل */
+@media (max-width: 600px) {
+  .projects-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .project-card-wrapper {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .project-card {
+    padding-block: var(--spacing-md);
+  }
+
+  .project-title {
+    font-size: var(--font-size-xl);
+  }
+
+  .project-description {
+    font-size: var(--font-size-base);
+  }
+}

@@ -13,6 +13,24 @@ export default function Cursor() {
   const springX = useSpring(x, { stiffness: 200, damping: 25 });
   const springY = useSpring(y, { stiffness: 200, damping: 25 });
 
+  // أضف state جديد لتتبع لون المؤشر
+const [isHoveringCircle, setIsHoveringCircle] = useState(false);
+
+// أضف useEffect للاستماع للـ events
+useEffect(() => {
+    const onHoverCircle = () => setIsHoveringCircle(true);
+    const onLeaveCircle = () => setIsHoveringCircle(false);
+
+    window.addEventListener('cursor-hover-circle', onHoverCircle);
+    window.addEventListener('cursor-leave-circle', onLeaveCircle);
+    
+    return () => {
+        window.removeEventListener('cursor-hover-circle', onHoverCircle);
+        window.removeEventListener('cursor-leave-circle', onLeaveCircle);
+    };
+}, []);
+  
+
   useEffect(() => {
     x.set(cx);
     y.set(cy);
@@ -59,7 +77,7 @@ export default function Cursor() {
         // size and appearance change when in ring mode
         width: ringMode ? ringSize : 20,
         height: ringMode ? ringSize : 20,
-        background: ringMode ? 'transparent' : 'red',
+        background: ringMode ? 'transparent' : (isHoveringCircle ? '#000000' : 'red'),
         border: ringMode ? '2px solid red' : 'none',
         boxSizing: 'border-box',
         color: ringMode ? 'red' : 'inherit',

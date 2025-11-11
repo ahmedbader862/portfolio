@@ -1,6 +1,3 @@
-
-
-
 .Hero{
     position: relative;
     width: 100%;   
@@ -28,6 +25,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
     height: 100%;
     color: var(--clr-text-black);
     text-align: center;
@@ -37,14 +35,13 @@
   position: relative; /* ✅ عشان الـ absolute div يتموضع بالنسبة ليه */
   display: grid;
   place-items: center;
-   font-family: var(--font-bebas);
-  font-size: var(--font-size-hero-h1); /* أكبر شويه زي الموقع */
-  letter-spacing: var(--letter-spacing-widest); /* المسافة بين الحروف */
-  color: var(--clr-text-secondary); /* أبيض ناعم مش أبيض صريح */
-  line-height: var(--line-height-normal); /* لتقليل المسافة الرأسية */
+  font-family: var(--font-big-shoulders);
+  font-size: clamp(48px, 10vw, 230px); 
+  font-weight: 700;
+  letter-spacing: 0; 
+  color: var(--clr-text-secondary); 
+  line-height: var(--line-height-normal);
   text-transform: uppercase;
-  margin-bottom: var(--spacing-md);
-  margin-bottom: var(--spacing-xl);
   text-align: center;
 }
 .normal{
@@ -54,7 +51,6 @@
 }
 .normal p {
   font-size: var(--font-size-2xl);
-  margin-top: var(--spacing-xl);
   color: var(--clr-text-secondary);
   z-index: var(--z-base);
 }
@@ -84,26 +80,37 @@
   mask-size: 20px;
   mask-position: 0px 0px;
 
-  background-color: var(--clr-accent-red);
+  background-color: var(--color-red);
 }
 
 .mask p {
   font-size: var(--font-size-2xl);
-  margin-top: var(--spacing-xl);
   color: var(--clr-text-black);
   z-index: var(--z-base);
 }
 
 .mask h1 {
+  
   color: var(--clr-text-black);
   z-index: var(--z-base);
 }
 
+/* إضافة responsive للـ Social icons */
 .Social-Hero {
   position: absolute;
   display: flex;
-  left: 50px;
-  bottom: 30px;
-  width: 50px;
-   z-index: var(--z-cursor);
+  left: clamp(15px, 4vw, 50px);
+  bottom: clamp(10px, 2vh, 30px);
+  width: clamp(35px, 8vw, 50px);
+  z-index: var(--z-cursor);
+}
+
+/* تحسين Social icons على الشاشات الصغيرة */
+@media (max-width: 480px) {
+  .Social-Hero {
+    display: flex; /* إظهار بدلاً من إخفاء */
+    left: 15px;
+    bottom: 15px;
+    width: 35px; /* حجم أصغر */
+  }
 }

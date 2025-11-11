@@ -1,6 +1,9 @@
 // CardNav.jsx
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
+import { motion } from 'framer-motion';
+import useMotionHover from "../../../hooks/useMotionHover";
+import { useScrollState } from '../../../hooks/useScrollState';
 import './CardNav.css';
 
 const CardNav = ({
@@ -11,17 +14,32 @@ const CardNav = ({
   onItemClick = null,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const navRef = useRef(null);
   const overlayRef = useRef(null);
   const itemRefs = useRef([]);
   const tlRef = useRef(null);
 
-
+  const { handleMouseMove, handleMouseLeave, style } = useMotionHover(150, 12, 0.3);
   
+  // استخدام useScrollState بدلاً من window scroll listener
+  const { scrollY } = useScrollState();
 
   const setItemRef = i => el => {
     if (el) itemRefs.current[i] = el;
   };
+
+  // تتبع الscroll باستخدام scrollY من context
+  useEffect(() => {
+    if (scrollY) {
+      const unsubscribe = scrollY.on('change', (value) => {
+        const shouldShow = value > 100; // يظهر بعد 100px scroll
+        setIsVisible(shouldShow);
+      });
+      
+      return unsubscribe;
+    }
+  }, [scrollY]);
 
   const createTimeline = () => {
     const navEl = navRef.current;
@@ -61,21 +79,32 @@ const CardNav = ({
     }
   };
 
-  // Force close menu immediately (for navigation)
- 
 
   return (
     <>
       {/* single toggle button — fixed top-right */}
-      <button
-        className={`menu-toggle ${isExpanded ? 'open' : ''}`}
+      <motion.button
+        className={`menu-toggle ${isExpanded ? 'open' : ''} ${isVisible ? 'visible' : 'hidden'}`}
         onClick={toggleMenu}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={style}
         aria-label={isExpanded ? 'Close menu' : 'Open menu'}
       >
-        <div className="hamburger-line" />
-        <div className="hamburger-line" />
+          <motion.div
+            className=''
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={style}
+          >
+            <div className="hamburger-line"/>
+            <div className="hamburger-line"/>
+
+          </motion.div>
+
+
         {/* <span className="close-x" aria-hidden="true">✕</span> */}
-      </button>
+      </motion.button>
 
       {/* overlay */}
       <div ref={overlayRef} className="card-nav-overlay" onClick={toggleMenu} aria-hidden={!isExpanded} />

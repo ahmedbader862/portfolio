@@ -49,7 +49,7 @@ body,
 
 }
 ::selection {
-  background-color: var(--clr-accent-red);
+  background-color: var(--color-red);
   color: var(--clr-text-dark);
 }
 

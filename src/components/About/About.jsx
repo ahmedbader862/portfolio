@@ -2,6 +2,7 @@ import React from "react";
 import "./About.css";
 import SplitText from "../tools/TextEffect/TextEffect";
 import TextOpacity from "../tools/TextOpacity/TextOpacity";
+import AnimatedButton from '../tools/AnimatedButton/AnimatedButton';
 
 export default function About() {
   const text = `Passionate about creating seamless, visually engaging web experiences. I design with purpose, building websites that are both beautiful and intuitive.`;
@@ -57,7 +58,14 @@ export default function About() {
           className="animated-line"
         />
 
-        <button className="read-more">READ MORE</button>
+          <AnimatedButton 
+          text="READ MORE" 
+          onClick={() => {/* Add your read more functionality */}}
+          ariaLabel="Read more about me"
+          initialOpacity={15}
+          type="button"
+          className="read-more"
+        />
       </div>
     </section>
   );

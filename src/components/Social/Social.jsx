@@ -1,32 +1,12 @@
 
 import './Social.css'
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import useMotionHover from '../../hooks/useMotionHover';
 
 function Social (){
 
     function SocialIcon({ href, children }) {
-      const x = useMotionValue(0);
-      const y = useMotionValue(0);
-    
-      const springX = useSpring(x, { stiffness: 150, damping: 12 });
-      const springY = useSpring(y, { stiffness: 150, damping: 12 });
-    
-      const handleMouseMove = (e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const offsetX = e.clientX - (rect.left + rect.width / 2);
-        const offsetY = e.clientY - (rect.top + rect.height / 2);
-    
-        x.set(offsetX * 0.5);
-        y.set(offsetY * 0.5);
-        console.log('icon move', offsetX, offsetY);
-      };   
-    
-      const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-        // inform cursor to leave ring mode if it was enabled
-        window.dispatchEvent(new CustomEvent('cursor-ring-off'));
-      };
+      const { handleMouseMove, handleMouseLeave, style } = useMotionHover(150, 12, 0.5);
     
       const handleMouseEnter = (e) => {
         // compute center of the icon in viewport coordinates
@@ -43,7 +23,7 @@ function Social (){
           onMouseMove={handleMouseMove}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          style={{ x: springX, y: springY }}
+          style={style}
         >
           <motion.a 
             href={href}

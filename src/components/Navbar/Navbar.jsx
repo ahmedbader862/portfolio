@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTransitionOverlay } from '../../hooks/useTransition';
 import { useRef, useEffect } from 'react';
 import "./Navbar.css";
+import useMotionHover from '../../hooks/useMotionHover'; // أضف ده
+import AnimatedButton from '../tools/AnimatedButton/AnimatedButton';
 
 const links = [
   { label: "HOME", href: "/", title: 'Home', isRoute: true },
@@ -78,12 +80,11 @@ export default function Navbar() {
         </nav>
 
         <div className="nav-right">
-          <button
-            className="btn-pill"
+          <AnimatedButton
+            text="Download CV"
             onClick={downloadCV}
-          >
-            Download CV
-          </button>
+            ariaLabel="Download CV file"
+          />
         </div>
       </div>
     </header>
@@ -91,34 +92,14 @@ export default function Navbar() {
 }
 
 function NavLink({ label, href, title, isRoute, onClick }) {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  // smooth الحركة
-  const springX = useSpring(x, { stiffness: 150, damping: 12 });
-  const springY = useSpring(y, { stiffness: 150, damping: 12 });
-
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const offsetX = e.clientX - (rect.left + rect.width / 2);
-    const offsetY = e.clientY - (rect.top + rect.height / 2);
-
-    // نخليها تتحرك بنسبة بسيطة من المسافة
-    x.set(offsetX * 0.5);
-    y.set(offsetY * 0.5);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
+  const { handleMouseMove, handleMouseLeave, style } = useMotionHover(150, 12, 0.5);
 
   return (
     <Motion.li
       className="nav-item"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ x: springX, y: springY }}
+      style={style} // بدلاً من style={{ x: springX, y: springY }}
     >
       <a href={href} className="nav-link" onClick={(e) => onClick(e, href, title, isRoute)}>
         {label}

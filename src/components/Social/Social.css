@@ -8,4 +8,18 @@
   color: #e6d0d0;
   cursor: pointer;
   transition: color var(--transition-normal);
+  width: clamp(30px, 4vw, 40px);
+  height: clamp(30px, 4vw, 40px);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .social-icons li {
+    margin-bottom: 8px;
+  }
+  
+  .social-icons svg {
+    width: 32px;
+    height: 32px;
+  }
 }

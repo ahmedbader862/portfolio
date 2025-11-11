@@ -12,26 +12,26 @@
   font-weight: 500;
   font-family: var(--font-big-shoulders);
   text-transform: uppercase;
-  width: var(--circle-button-size);
-  height: var(--circle-button-size);
+  width: clamp(120px, 15vw, var(--circle-button-size)); /* استخدام clamp */
+  height: clamp(120px, 15vw, var(--circle-button-size));
   letter-spacing: var(--letter-spacing-medium);
   border-radius: var(--radius-circle);
   background-color: var(--clr-bg-card);
   color: var(--clr-text-primary);
-  font-size: var(--font-size-circle-button);
+  font-size: clamp(0.75rem, 2vw, var(--font-size-circle-button));
   position: relative;
   transition: background-color var(--transition-normal);
-  transform:  rotate(-18deg);
+  transform: rotate(-18deg);
 }
 
 .circle:hover {
-  background-color: var(--clr-accent-primary);
+  background-color: var(--color-red);
   transform:  rotate(0deg);
 }
 
 .circle:active,
 .circle:focus-visible {
-  background-color: var(--clr-accent-primary);
+  background-color: var(--color-red);
 }
 
 .circle::before {
@@ -41,7 +41,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  border: 2px solid var(--clr-accent-primary);
+  border: 2px solid var(--color-red);
   transform: translate(-2px, -4px); /* Matches -translate-x-0.5 (-0.125rem ≈ -2px) and -translate-y-1 (-0.25rem ≈ -4px) */
   border-radius: var(--radius-circle);
   transition: transform var(--transition-normal);
@@ -60,7 +60,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  border: 2px solid var(--clr-accent-primary);
+  border: 2px solid var(--color-red);
   transform: translate(2px, 4px); /* Matches translate-x-0.5 (2px) and translate-y-1 (4px) */
   border-radius: var(--radius-circle);
   transition: transform var(--transition-normal);

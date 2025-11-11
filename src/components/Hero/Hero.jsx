@@ -6,7 +6,8 @@ import { ScrollContext } from '../../context/ScrollContext';
 
 function Hero({
   backgroundImage = '/src/assets/Images/my-photo.jpg',
-  normalTitle = 'MORE THAN\nJUST A CODE',
+  Title = "",
+  normalTitle = 'MORE THAN\nJUST CODE',
   normalSubtitle = "There's a story behind every interaction. Find it."
 }) {
 
@@ -44,7 +45,10 @@ function Hero({
           }}
         >
           <div className='normal'>
+          <p>{Title}</p>
+
           <h1>
+            
               {normalTitle.split('\n').map((line, index) => (
                 <React.Fragment key={index}>
                   {line}

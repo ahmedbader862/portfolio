@@ -1,3 +1,4 @@
+
 .projects-section {
   color: var(--clr-text-primary);
   position: relative;
@@ -8,125 +9,168 @@
 }
 
 /* header */
-.header-row {
-  display: flex;
-  flex-direction: row;
-  height: auto;
-  margin-bottom: 40px;;
-  
+.header-row { 
+  display: flex; 
+  gap: 12px; 
+  align-items: flex-start; 
+  margin-bottom: 40px; 
 }
 
-.left-column {
-  flex: 1;
-  max-width: 60%;
-  margin: 0 7lvw ;
+.left-column { 
+  flex: 1; 
+  max-width: 60%; 
+  margin: 0 7lvw; 
 }
 
- 
-
-.right-column{
-  display: flex;
-  flex: 1;
-  max-width: 60%;
-  align-items: center;
-  justify-content: center;
+.right-column { 
+  display: flex; 
+  flex: 1; 
+  max-width: 60%; 
+  align-items: center; 
+  justify-content: center; 
 }
 
-.section-title {
-  font-family: var(--font-big-shoulders);
-  font-size: var(--font-size-projects-title); /* أكبر شويه زي الموقع */
-  font-weight:400;
-  letter-spacing: var(--letter-spacing-extra-wide); /* المسافة بين الحروف */
-  color: var(--clr-text-secondary); /* أبيض ناعم مش أبيض صريح */
-  letter-spacing: var(--letter-spacing-normal);
+.section-title { 
+  font-family: var(--font-big-shoulders); 
+  font-size: var(--font-size-projects-title); 
+  font-weight: 400; 
+  color: var(--clr-text-secondary); 
+  letter-spacing: var(--letter-spacing-small); 
 }
 
-.description {
-  font-size: var(--font-size-xl);
-  margin-left: 70px;
-  text-align: left;
-  color: var(--clr-text-primary);
-  line-height: var(--line-height-loose);
-  max-width: 600px;
+.description { 
+  font-size: var(--font-size-xl); 
+  margin-left: 70px; 
+  text-align: left; 
+  color: var(--clr-text-primary); 
+  line-height: var(--line-height-loose); 
+  max-width: 600px; 
 }
 
 /* projects list */
-.projects-list {
-  display: flex;
-  flex-direction: column;
+.projects-list { 
+  display: flex; 
+  flex-direction: column; 
 }
 
 .project-item {
-  cursor: pointer;
-  display: flex;
+  cursor: pointer; 
+  display: flex; 
   flex-direction: column;
-  border-bottom: 1px solid var(--clr-border-secondary);
+  border-bottom: 1px solid var(--clr-border-light);
   padding: 30px 30px var(--spacing-xl) 30px;
   transition: background-color var(--transition-normal);
-  position: relative;
-  z-index: var(--z-base); /* فوق الخلفية */
+  position: relative; 
+  z-index: var(--z-base);
 }
 
-.project-item:hover {
-  background-color: var(--clr-bg-black);
+.project-item:hover { 
+  background-color: rgba(0, 0, 0, 0.06); 
 }
 
-.project-header {
-  display: flex;
-  align-items: baseline;
+.project-header { 
+  display: flex; 
+  align-items: baseline; 
 }
 
-.project-number {
-  font-size: var(--font-size-2xl);
-  color: var(--clr-text-gray);
-  font-weight: bold;
-  margin-right: var(--spacing-xl);
+.project-number { 
+  font-size: var(--font-size-2xl); 
+  color: var(--clr-text-gray); 
+  font-weight: bold; 
+  margin-right: var(--spacing-xl); 
 }
 
-.project-title {
-  font-size: var(--font-size-5xl);
-  
-  font-weight: bold;
-  color: var(--clr-text-primary);
-  margin: 0 0 10px 0;
-  line-height: var(--line-height-snug);
+.project-title { 
+  font-size: var(--font-size-5xl); 
+  font-weight: bold; 
+  color: var(--clr-text-primary); 
+  margin: 0 0 10px 0; 
+  line-height: var(--line-height-snug); 
 }
 
-.project-subtitle {
-  font-size: var(--font-size-base);
-  color: var(--clr-text-gray);
-  margin: 0 0 var(--spacing-xl) 0;
-  text-align: left;
+.project-subtitle { 
+  font-size: var(--font-size-5xl); 
+  color: var(--clr-text-gray); 
+  margin: 0 0 var(--spacing-xl) 0; 
+  text-align: left; 
 }
 
-/* preview box (الصورة اللي بترجع) */
+/* chars effect */
+.char { 
+  display: inline-block; 
+  will-change: transform, opacity; 
+}
+
+/* preview box */
 .project-preview {
   position: absolute;
-  width: 360px;    /* اضبط الحجم هنا لو عايز أصغر/أكبر */
+  width: 360px;
   height: 240px;
-  pointer-events: none; /* عشان الماوس ما يتقطعش */
+  pointer-events: none;
   background-size: cover;
   background-position: center;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
-  transform: translateY(-50%); /* نثبت المركز عموديًا */
-  transition: opacity 220ms ease, transform 220ms ease, left 120ms ease, top 120ms ease;
-  opacity: 0; /* مخفي افتراضياً */
-  z-index: 999;
+  transform: translate3d(0, -50%, 0);
+  transition: opacity 180ms linear, transform 180ms linear;
+  opacity: 0;
+  z-index: var(--z-overlay);
   border: 3px solid var(--clr-border-medium);
+  will-change: transform, opacity, left, top;
+  backface-visibility: hidden;
 }
 
-/* لما تظهر نديها opacity 1 (بتكون مُتحكم فيها من الـ inline style) */
+/* view project anchor */
+.view-project-btn {
+  pointer-events: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-decoration: none;
+  color: white;
+  background: #007bff;
+  border: none;
+  border-radius: 50px;
+  padding: 12px;
+  font-size: 10px;
+  font-weight: 800;
+  font-family: var(--font-sans);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  height: 80px;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  z-index: 200;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.18);
+}
+
+.view-project-btn .view-text, 
+.view-project-btn .project-text { 
+  display: block; 
+  line-height: 1; 
+  font-size: 10px; 
+  font-weight: 800; 
+  color: white; 
+}
+
+.view-project-btn:hover { 
+  transform: translate(-50%, -50%) scale(1.06); 
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28); 
+}
 
 /* responsive */
 @media (max-width: 900px) {
-  .project-preview {
-    display: none; /* نخبّي preview على الشاشات الصغيرة عشان usability */
+  .project-preview { 
+    display: none; 
   }
-
-  .left-column {
-    max-width: 100%;
+  .left-column { 
+    max-width: 100%; 
   }
-
-  .project-title { font-size: var(--font-size-3xl); }
+  .project-title { 
+    font-size: var(--font-size-3xl); 
+  }
 }

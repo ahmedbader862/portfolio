@@ -1,13 +1,33 @@
 /* CardNav.css */
 
+/* إضافة تأثيرات الإظهار/الإخفاء */
+.menu-toggle {
+  display: none; /* إخفاءه افتراضيًا */
+  opacity: 0;
+  transform: translateY(-20px) scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* عندما يكون مرئي */
+.menu-toggle.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* عندما يكون مخفي */
+.menu-toggle.hidden {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.8);
+  pointer-events: none; /* منع التفاعل عند الإخفاء */
+}
+
 /* single button on top-right that morphs between hamburger and round close */
 .menu-toggle {
-      display: flex;
   flex-direction: column;
   position: fixed;
   top: 18px;
   right: 18px;
-  z-index: var(--z-menu-toggle);
+  z-index: 600;
   width: var(--menu-toggle-size);
   height: var(--menu-toggle-size);
   border-radius: 50%;
@@ -18,10 +38,11 @@
   cursor: pointer;
   color: var(--clr-text-primary);
   background-color: var(--clr-bg-secondary);
-  transition: width var(--transition-fast), height var(--transition-fast), background var(--transition-fast), border-radius var(--transition-fast);
+  transition: width var(--transition-fast), height var(--transition-fast), background var(--transition-fast), border-radius var(--transition-fast), opacity 0.3s ease, transform 0.3s ease;
 }
+
 .menu-toggle .hamburger-line {
-    display: block;
+  display: block;
   width: var(--hamburger-line-width);
   height: var(--hamburger-line-height);
   background: currentColor;
@@ -51,7 +72,7 @@
   width: var(--menu-toggle-size);
   height: var(--menu-toggle-size);
   border-radius: var(--radius-full);
-  background: var(--clr-accent-tertiary);
+  background: var(--color-red);
   box-shadow: var(--shadow-sm);
   color: var(--clr-text-primary);
 }
@@ -172,7 +193,12 @@
 
 
 /* responsive */
+/* Tablet: إظهار الزر على التابلت أيضاً */
 @media (max-width: 900px) {
+  .menu-toggle {
+    display: flex;
+  }
+  
   .card-nav-side {
     width: 100%;
     padding: var(--spacing-xl);
@@ -182,4 +208,11 @@
   .big-nav-item .bullet { font-size: 28px; transform: translateY(-3px); }
   .menu-toggle { top: 12px; right: 12px; }
   .menu-toggle.open { top: 12px; right: 12px; width: var(--menu-toggle-size-mobile); height: var(--menu-toggle-size-mobile); }
+}
+
+/* Mobile: تأكيد إظهار الزر */
+@media (max-width: 600px) {
+  .menu-toggle {
+    display: flex;
+  }
 }

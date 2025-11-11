@@ -1,0 +1,89 @@
+.animated-btn {
+  display: inline-flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, var(--btn-initial-opacity, 1));
+  font-weight: 500;
+  opacity: 1;
+  outline: none;
+  border-color: rgba(255, 255, 255, var(--btn-initial-opacity, 1));
+  color: rgba(255, 255, 255, var(--btn-initial-opacity, 1));
+  padding: 0.75rem 1.75rem;
+  font-size: 1rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.animated-btn:focus-visible {
+  outline: 2px solid var(--clr-accent);
+  outline-offset: 2px;
+}
+
+.animated-btn:hover {
+  border-color: rgba(255, 255, 255, var(--btn-hover-opacity, 0.7));
+  color: rgba(255, 255, 255, var(--btn-hover-opacity, 0.7));
+}
+
+.animated-btn:disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.animated-btn-content {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.animated-btn-content::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  align-items: center;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  color: var(--clr-text-dark);
+}
+
+.animated-btn:hover .animated-btn-content::before,
+.animated-btn:focus-visible .animated-btn-content::before,
+.animated-btn:active .animated-btn-content::before {
+  transform: translateY(0);
+}
+
+.animated-btn-text {
+  display: inline-block;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+/* أضفنا أيضاً انتقال للنص في ::before */
+.animated-btn-text,
+.animated-btn-content::before {
+  transition: transform 0.3s ease;
+}
+
+.animated-btn:hover .animated-btn-text,
+.animated-btn:focus-visible .animated-btn-text,
+.animated-btn:active .animated-btn-text {
+  transform: translateY(-100%);
+}
+
+/* Responsive adjustments */
+@media (min-width: 1536px) {
+  .animated-btn {
+    font-size: 1.125rem;
+    padding: 0.875rem 2rem;
+  }
+}

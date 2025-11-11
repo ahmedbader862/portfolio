@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import './Contact.css';
 import emailjs from '@emailjs/browser';
 import Social from '../Social/Social';
-import Input from '../Input/Input';
+import Input from '../tools/Input/Input';
 
 export default function Contact() {
   const formRef = useRef(null);

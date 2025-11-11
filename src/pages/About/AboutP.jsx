@@ -5,12 +5,21 @@ import TextOpacity from "../../components/tools/TextOpacity/TextOpacity";
 import CircleButton from "../../components/tools/CircleButton/CircleButton";
 import LetIsWork from '../../components/LetIsWork/LetIsWork';
 import Footer from '../../components/Footer/Footer';
+import CircularGallery from '../../components/tools/CircularGallery/CircularGallery'
 
 export default function AboutP() {
+
+  const myImages = [
+    { image: "/src/assets/Images/chefs-2.jpg", text: "مشروعي الأول" },
+    { image: "/src/assets/Images/my-photo.jpg", text: "Frontend" },
+    { image: "/src/assets/Images/chefs-2.jpg", text: "Frontend" },
+  ];
+
   return (
     <div className="About-page">
       <Hero
         backgroundImage="/src/assets/Images/"
+        Title = "AHMED BADR"
         normalTitle="About ME"
         normalSubtitle="Get to know me:My journey,approach,and passion for creating impactful web experiences"
       />
@@ -63,6 +72,19 @@ export default function AboutP() {
           </div>
         </div>
       </section>
+
+
+      <div style={{ height: '600px', position: 'relative' }}>
+      <CircularGallery
+        items={myImages}
+        bend={3}
+        textColor="#ffffff"
+        borderRadius={0.05}
+        font="bold 28px Bebas Neue"
+      />
+     </div>
+
+
 
     <LetIsWork/>
     

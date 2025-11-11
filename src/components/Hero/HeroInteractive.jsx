@@ -10,7 +10,7 @@ function HeroInteractive({
   backgroundImage = '/src/assets/Images/my-photo.jpg',
   maskedTitle = 'CREATIVE\nDEVELOPER',
   maskedSubtitle = 'Blending design and code',
-  normalTitle = 'MORE THAN\nJUST A CODE',
+  normalTitle = 'MORE THAN\nJUST CODE',
   normalSubtitle = "There's a story behind every interaction. Find it."
 }) {
 
@@ -26,11 +26,14 @@ function HeroInteractive({
   const { scrollYProgress } = useContext(ScrollContext);
   const [scrollProgress, setScrollProgress] = useState(0);
 
+  
+
   useEffect(() => {
     const mask = document.querySelector('.mask');
     const cursor = document.querySelector('.global-cursor');
     if (!isHovered){
       mask.style.display='none'
+      cursor.style.display='block'
     }else{
       mask.style.display='flex'
       cursor.style.display='none'
