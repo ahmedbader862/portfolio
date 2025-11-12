@@ -62,6 +62,7 @@ const Projects = () => {
   // State
   const [previewHovered, setPreviewHovered] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Memoized projects data
   const projects = useMemo(() => PROJECTS_DATA, []);
@@ -133,13 +134,28 @@ const Projects = () => {
     }
   }, [hovered, visible, projects]);
 
-  // Global cursor behavior
+  // Check if mobile/tablet on mount and resize
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 900);
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
+
+  // Global cursor behavior - فقط في desktop
   useEffect(() => {
     const cursor = document.querySelector('.global-cursor');
-    if (cursor) {
+    if (cursor && !isMobile) {
       cursor.style.display = visible ? 'none' : 'block';
+    } else if (cursor && isMobile) {
+      // في mobile دائماً نظهر الـ cursor
+      cursor.style.display = 'block';
     }
-  }, [visible]);
+  }, [visible, isMobile]);
 
   // Event handlers
   const handleMouseEnter = useCallback((index) => (e) => {
@@ -247,8 +263,32 @@ const Projects = () => {
                 onMouseMove={handleMouseMove(index)}
                 onMouseLeave={handleMouseLeave}
               >
-                <div className="project-header">
+                {/* Desktop Layout: رقم + subtitle + title على نفس الصف */}
+                <div className="project-content">
                   <span className="project-number">{project.number}</span>
+                  <p className="project-subtitle">
+                    {subtitleLetters.map((letter, letterIndex) => {
+                      const len = subtitleLetters.length;
+                      const opacity = getLetterOpacity(index, letterIndex, len);
+                      const delay = hovered === index
+                        ? letterIndex * 28
+                        : (hovered === null ? letterIndex * 8 : letterIndex * 10);
+
+                      return (
+                        <span
+                          key={letterIndex}
+                          className="char"
+                          style={{
+                            opacity,
+                            transitionDelay: `${delay}ms`,
+                            transform: "translateY(0)",
+                          }}
+                        >
+                          {letter}
+                        </span>
+                      );
+                    })}
+                  </p>
                   <h2 className="project-title">
                     {titleLetters.map((letter, letterIndex) => {
                       const len = titleLetters.length;
@@ -274,29 +314,84 @@ const Projects = () => {
                   </h2>
                 </div>
 
-                <p className="project-subtitle">
-                  {subtitleLetters.map((letter, letterIndex) => {
-                    const len = subtitleLetters.length;
-                    const opacity = getLetterOpacity(index, letterIndex, len);
-                    const delay = hovered === index
-                      ? letterIndex * 28
-                      : (hovered === null ? letterIndex * 8 : letterIndex * 10);
-
-                    return (
-                      <span
-                        key={letterIndex}
-                        className="char"
-                        style={{
-                          opacity,
-                          transitionDelay: `${delay}ms`,
-                          transform: "translateY(0)",
+                {/* Mobile Layout: صورة + معلومات (بدون تكرار) */}
+                <div className="project-mobile-content">
+                  <div className="project-mobile-image">
+                    <img 
+                      src={projects[index]?.image} 
+                      alt={project.title}
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                      }}
+                    />
+                    {/* زر View Project على الصورة في mobile */}
+                    {projects[index]?.projectLink && (
+                      <a
+                        href={projects[index].projectLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-mobile-view-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
                         }}
                       >
-                        {letter}
-                      </span>
-                    );
-                  })}
-                </p>
+                        <span className="view-text">VIEW</span>
+                        <span className="project-text">PROJECT</span>
+                      </a>
+                    )}
+                  </div>
+                  <div className="project-mobile-info">
+                    <div className="project-mobile-header">
+                      <span className="project-mobile-number">{project.number}</span>
+                      <h2 className="project-mobile-title">
+                        {titleLetters.map((letter, letterIndex) => {
+                          const len = titleLetters.length;
+                          const opacity = getLetterOpacity(index, letterIndex, len);
+                          const delay = hovered === index
+                            ? letterIndex * 28
+                            : (hovered === null ? letterIndex * 8 : letterIndex * 10);
+
+                          return (
+                            <span
+                              key={letterIndex}
+                              className="char"
+                              style={{
+                                opacity,
+                                transitionDelay: `${delay}ms`,
+                                transform: "translateY(0)",
+                              }}
+                            >
+                              {letter}
+                            </span>
+                          );
+                        })}
+                      </h2>
+                    </div>
+                    <p className="project-mobile-subtitle">
+                      {subtitleLetters.map((letter, letterIndex) => {
+                        const len = subtitleLetters.length;
+                        const opacity = getLetterOpacity(index, letterIndex, len);
+                        const delay = hovered === index
+                          ? letterIndex * 28
+                          : (hovered === null ? letterIndex * 8 : letterIndex * 10);
+
+                        return (
+                          <span
+                            key={letterIndex}
+                            className="char"
+                            style={{
+                              opacity,
+                              transitionDelay: `${delay}ms`,
+                              transform: "translateY(0)",
+                            }}
+                          >
+                            {letter}
+                          </span>
+                        );
+                      })}
+                    </p>
+                  </div>
+                </div>
               </div>
             );
           })}

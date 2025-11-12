@@ -37,7 +37,7 @@
   place-items: center;
   font-family: var(--font-big-shoulders);
   font-size: clamp(48px, 10vw, 230px); 
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0; 
   color: var(--clr-text-secondary); 
   line-height: var(--line-height-normal);

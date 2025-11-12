@@ -15,6 +15,7 @@ import WorkP from './pages/Work/WorkP'
 import ContactP from './pages/Contact/ContactP'
 import NavButton from './components/NavButton/NavButton'
 import Footer from './components/Footer/Footer'
+import Noise from './components/tools/Noise/Noise' // أضف ده
 // import { motion } from "framer-motion";
 
 
@@ -67,6 +68,11 @@ function App() {
        </PointerProvider>
       </ScrollProvider>
      </BrowserRouter>
+     {/* ضيف الـ Noise هنا عشان يبقى فوق كل حاجة */}
+     <Noise 
+       patternAlpha={8} // قيمة شفافية أقل عشان متكونش قوية جداً
+       patternRefreshInterval={4} // تحديث أبطأ شوية
+     />
     </div>
   )
 }

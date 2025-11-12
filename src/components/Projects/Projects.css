@@ -19,7 +19,7 @@
 .left-column { 
   flex: 1; 
   max-width: 60%; 
-  margin: 0 7lvw; 
+  margin: 0 7vw; 
 }
 
 .right-column { 
@@ -39,7 +39,8 @@
 }
 
 .description { 
-  font-size: var(--font-size-xl); 
+  display: none;
+  font-size: --font-size-xl; 
   margin-left: 70px; 
   text-align: left; 
   color: var(--clr-text-primary); 
@@ -55,10 +56,7 @@
 
 .project-item {
   cursor: pointer; 
-  display: flex; 
-  flex-direction: column;
   border-bottom: 1px solid var(--clr-border-light);
-  padding: 30px 30px var(--spacing-xl) 30px;
   transition: background-color var(--transition-normal);
   position: relative; 
   z-index: var(--z-base);
@@ -68,31 +66,119 @@
   background-color: rgba(0, 0, 0, 0.06); 
 }
 
-.project-header { 
-  display: flex; 
-  align-items: baseline; 
+/* Desktop Layout */
+.project-content {
+  display: flex;
+  align-items: center; /* إضافة هذا - لمحاذاة جميع العناصر في الوسط */
+  justify-content: flex-start; /* التأكد من عدم الانتشار */
+  gap: 20px;
+  padding: 30px 30px var(--spacing-xl) 30px;
 }
 
-.project-number { 
-  font-size: var(--font-size-2xl); 
-  color: var(--clr-text-gray); 
-  font-weight: bold; 
-  margin-right: var(--spacing-xl); 
+.project-number {
+  display: block;
+  font-size: 74px;
+  color: var(--clr-text-gray);
+  font-weight: bold;
+  min-width: 100px;
+  text-align: center;
+  transition: color var(--transition-fast);
+  flex-shrink: 0;
+  margin-right: 15px;
+  line-height: 1; /* إضافة هذا - لتجنب المسافات الإضافية */
 }
 
-.project-title { 
-  font-size: var(--font-size-5xl); 
-  font-weight: bold; 
-  color: var(--clr-text-primary); 
-  margin: 0 0 10px 0; 
-  line-height: var(--line-height-snug); 
+.project-subtitle {
+  font-family: var(--font-big-shoulders);
+  font-size: var(--font-size-4xl);
+  color: var(--clr-text-gray);
+  margin: 0;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: 20px;
+  align-self: center; /* إضافة هذا - لمحاذاة النص في الوسط */
 }
 
-.project-subtitle { 
-  font-size: var(--font-size-5xl); 
-  color: var(--clr-text-gray); 
-  margin: 0 0 var(--spacing-xl) 0; 
-  text-align: left; 
+.project-title {
+  font-size: var(--font-size-4xl);
+  font-weight: bold;
+  color: var(--clr-text-primary);
+  margin: 0;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+  align-self: center; /* إضافة هذا - لمحاذاة النص في الوسط */
+}
+
+/* hover state - لون أحمر أكثر وضوحاً */
+.project-item:hover .project-number {
+  color: #ff0000; /* لون أحمر خالص بدون شفافية */
+}
+
+/* Mobile Layout - مخفي في desktop */
+.project-mobile-content {
+  display: none;
+  flex-direction: column;
+  gap: 20px; /* تقليل المسافة */
+  padding: 25px 20px var(--spacing-lg) 20px;
+}
+
+.project-mobile-image {
+  width: 100%;
+  height: 350px; /* تكبير الصورة */
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  position: relative;
+}
+
+.project-mobile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.project-mobile-image:hover img {
+  transform: scale(1.05);
+}
+
+.project-mobile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* تقليل المسافة */
+}
+
+.project-mobile-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  flex-direction: column; /* في mobile تكون عمودية */
+}
+
+.project-mobile-number {
+  font-size: clamp(36px, 8vw, 72px); /* تكبير الرقم في mobile */
+  color: var(--clr-text-gray);
+  font-weight: bold;
+  min-width: 80px;
+  text-align: center;
+  align-self: flex-start;
+}
+
+.project-mobile-title {
+  font-size: var(--font-size-2xl);
+  font-weight: bold;
+  color: var(--clr-text-primary);
+  margin: 0;
+  flex: 1;
+  align-self: flex-start;
+}
+
+.project-mobile-subtitle {
+  font-family: var(--font-big-shoulders);
+  font-size: var(--font-size-xl);
+  color: var(--clr-text-gray);
+  margin: 0;
+  align-self: flex-start;
 }
 
 /* chars effect */
@@ -162,15 +248,89 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28); 
 }
 
+/* Mobile View Project Button - على الصورة مباشرة */
+.project-mobile-view-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-decoration: none;
+  color: white;
+  background: rgba(0, 123, 255, 0.9); /* لون أزرق مع شفافية */
+  backdrop-filter: blur(10px); /* تأثير blur للخلفية */
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  padding: 15px 25px;
+  font-size: 14px;
+  font-weight: 800;
+  font-family: var(--font-sans);
+  transition: all var(--transition-fast);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  opacity: 0; /* مخفي افتراضياً */
+  pointer-events: auto;
+}
+
+.project-mobile-view-btn:hover {
+  background: rgba(0, 123, 255, 1); /* إزالة الشفافية عند الـ hover */
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+}
+
+/* إظهار الزر عند hover على الصورة */
+.project-mobile-image:hover .project-mobile-view-btn {
+  opacity: 1;
+}
+
+/* نص الزر */
+.project-mobile-view-btn .view-text,
+.project-mobile-view-btn .project-text {
+  display: block;
+  line-height: 1;
+  font-size: 14px;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
 /* responsive */
 @media (max-width: 900px) {
-  .project-preview { 
-    display: none; 
+  /* إخفاء project-preview في mobile/tablet */
+  .project-preview {
+    display: none !important;
   }
+  
+  /* إخفاء زر view project القديم في mobile/tablet */
+  .view-project-btn {
+    display: none !important;
+  }
+  
   .left-column { 
     max-width: 100%; 
   }
-  .project-title { 
-    font-size: var(--font-size-3xl); 
+  
+  .project-content {
+    display: none !important; /* التأكد من إخفاء desktop layout */
+  }
+  
+  .project-mobile-content {
+    display: flex !important; /* التأكد من إظهار mobile layout */
+  }
+}
+
+@media (max-width: 600px) {
+  .project-mobile-image {
+    height: 220px;
+  }
+
+  .project-mobile-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
 }

@@ -9,7 +9,7 @@ import { useState } from 'react';
  * @param {number} minDim - أدنى وضوح للأحرف غير المُهوّرة (افتراضي: 0.08)
  * @returns {Object} - { hovered, getOpacity, getLetterOpacity, handleMouseEnter, handleMouseLeave }
  */
-const useHoverFade = (items, baseOpacity = 0.9, maxDim = 0.36, minDim = 0.08) => {
+const useHoverFade = (items, baseOpacity = 1, maxDim = 0.36, minDim = 0.08) => {
   const [hovered, setHovered] = useState(null);
 
   // حساب الشفافية للعنصر ككل (مفيد للعناصر البسيطة)
