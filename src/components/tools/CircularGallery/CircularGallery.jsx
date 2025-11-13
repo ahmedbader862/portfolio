@@ -24,28 +24,70 @@ function autoBind(instance) {
   });
 }
 
-function createTextTexture(gl, text, font = 'bold 30px monospace', color = 'black') {
+/**
+ * createTextTexture
+ * - يرسم نص مع stroke وخلفية نصف شفافة rounded rect ليكون النص مقروءًا فوق أي صورة
+ * - يعيد Texture + width + height
+ */
+function createTextTexture(gl, text, font = 'bold 30px monospace', color = '#ffffff') {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
+
+  // إعدادات الخط
   context.font = font;
   const metrics = context.measureText(text);
   const textWidth = Math.ceil(metrics.width);
-  const textHeight = Math.ceil(parseInt(font, 10) * 1.2);
-  canvas.width = textWidth + 20;
-  canvas.height = textHeight + 20;
+  const fontSize = Math.ceil(parseInt(font, 10) || 30);
+  const textHeight = Math.ceil(fontSize * 1.2);
+
+  // padding و حساب الحجم
+  const paddingX = Math.ceil(fontSize * 0.9);
+  const paddingY = Math.ceil(fontSize * 0.8);
+  canvas.width = textWidth + paddingX * 2;
+  canvas.height = textHeight + paddingY * 2;
+
+  // إعادة تعيين الخط بعد تغيير المقاسات
   context.font = font;
-  context.fillStyle = color;
   context.textBaseline = 'middle';
   context.textAlign = 'center';
+
+  // مسح الكانفس
   context.clearRect(0, 0, canvas.width, canvas.height);
+
+  // draw rounded rect backdrop (semi-transparent) for readability
+  const rectX = 0 + 4;
+  const rectY = 0 + 4;
+  const rectW = canvas.width - 8;
+  const rectH = canvas.height - 8;
+  const radius = Math.min(12, Math.floor(fontSize * 0.5));
+
+  context.fillStyle = 'rgba(0,0,0,0.45)';
+  context.beginPath();
+  context.moveTo(rectX + radius, rectY);
+  context.arcTo(rectX + rectW, rectY, rectX + rectW, rectY + rectH, radius);
+  context.arcTo(rectX + rectW, rectY + rectH, rectX, rectY + rectH, radius);
+  context.arcTo(rectX, rectY + rectH, rectX, rectY, radius);
+  context.arcTo(rectX, rectY, rectX + rectW, rectY, radius);
+  context.closePath();
+  context.fill();
+
+  // stroke text for extra contrast
+  context.lineWidth = Math.max(2, Math.floor(fontSize * 0.12));
+  context.strokeStyle = 'rgba(0,0,0,0.8)';
+  context.strokeText(text, canvas.width / 2, canvas.height / 2);
+
+  // fill text
+  context.fillStyle = color || '#ffffff';
   context.fillText(text, canvas.width / 2, canvas.height / 2);
+
   const texture = new Texture(gl, { generateMipmaps: false });
   texture.image = canvas;
+
   return { texture, width: canvas.width, height: canvas.height };
 }
 
 class Title {
-  constructor({ gl, plane, renderer, text, textColor = '#545050', font = '30px sans-serif' }) {
+  constructor({ gl, plane, renderer, text, textColor = '#ffffff', font = 'bold 30px sans-serif', href }) {
     autoBind(this);
     this.gl = gl;
     this.plane = plane;
@@ -53,10 +95,13 @@ class Title {
     this.text = text;
     this.textColor = textColor;
     this.font = font;
+    this.href = href;
     this.createMesh();
   }
   createMesh() {
+    // نستخدم نفس الفونت اللي المستخدم اختاره (جاي من props)
     const { texture, width, height } = createTextTexture(this.gl, this.text, this.font, this.textColor);
+
     const geometry = new Plane(this.gl);
     const program = new Program(this.gl, {
       vertex: `
@@ -76,20 +121,32 @@ class Title {
         varying vec2 vUv;
         void main() {
           vec4 color = texture2D(tMap, vUv);
-          if (color.a < 0.1) discard;
           gl_FragColor = color;
         }
       `,
       uniforms: { tMap: { value: texture } },
       transparent: true
     });
+
     this.mesh = new Mesh(this.gl, { geometry, program });
+
+    // نحسب الابعاد بالنسبة لمقاييس الطيارة
     const aspect = width / height;
     const textHeight = this.plane.scale.y * 0.15;
     const textWidth = textHeight * aspect;
-    this.mesh.scale.set(textWidth, textHeight, 1);
-    this.mesh.position.y = -this.plane.scale.y * 0.5 - textHeight * 0.5 - 0.05;
+
+    // في حالات الشاشة الصغيرة textHeight ممكن يكون صغير جدا، نخلي حد أدنى
+    const minTextHeight = this.plane.scale.y * 0.08;
+    const finalTextHeight = Math.max(textHeight, minTextHeight);
+
+    this.mesh.scale.set(textWidth, finalTextHeight, 1);
+
+    // نحط العنوان تحت الصورة شوية
+    this.mesh.position.y = -this.plane.scale.y * 0.5 - finalTextHeight * 0.5 - 0.05;
     this.mesh.setParent(this.plane);
+
+    // userData عشان نقدر نكتشف hover / click
+    this.mesh.userData = { href: this.href || null, isClickable: !!this.href };
   }
 }
 
@@ -108,7 +165,8 @@ class Media {
     bend,
     textColor,
     borderRadius = 0,
-    font
+    font,
+    href
   }) {
     this.extra = 0;
     this.geometry = geometry;
@@ -125,6 +183,7 @@ class Media {
     this.textColor = textColor;
     this.borderRadius = borderRadius;
     this.font = font;
+    this.href = href;
     this.createShader();
     this.createMesh();
     this.createTitle();
@@ -218,9 +277,11 @@ class Media {
       renderer: this.renderer,
       text: this.text,
       textColor: this.textColor,
-      fontFamily: this.font
+      font: this.font,
+      href: this.href
     });
   }
+  
   update(scroll, direction) {
     this.plane.position.x = this.x - scroll.current - this.extra;
 
@@ -317,6 +378,11 @@ class App {
     this.gl = this.renderer.gl;
     this.gl.clearColor(0, 0, 0, 0);
     this.container.appendChild(this.gl.canvas);
+
+    // default cursor and touch-action
+    this.gl.canvas.style.cursor = 'grab';
+    this.gl.canvas.style.display = 'block';
+    this.gl.canvas.style.touchAction = 'none';
   }
   createCamera() {
     this.camera = new Camera(this.gl);
@@ -364,7 +430,8 @@ class App {
         bend,
         textColor,
         borderRadius,
-        font
+        font,
+        href: data.href
       });
     });
   }
@@ -372,6 +439,7 @@ class App {
     this.isDown = true;
     this.scroll.position = this.scroll.current;
     this.start = e.touches ? e.touches[0].clientX : e.clientX;
+    this.gl.canvas.style.cursor = 'grabbing';
   }
   onTouchMove(e) {
     if (!this.isDown) return;
@@ -382,12 +450,58 @@ class App {
   onTouchUp() {
     this.isDown = false;
     this.onCheck();
+    this.gl.canvas.style.cursor = 'grab';
   }
   onWheel(e) {
     const delta = e.deltaY || e.wheelDelta || e.detail;
     this.scroll.target += (delta > 0 ? this.scrollSpeed : -this.scrollSpeed) * 0.2;
     this.onCheckDebounce();
   }
+  onClick(e) {
+    if (!this.medias) return;
+    
+    // Simple raycasting - check if click is near the center of any media
+    const rect = this.gl.canvas.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    // y not used for simple distance check here
+    
+    this.medias.forEach(media => {
+      if (media.title && media.title.href) {
+        const planeX = media.plane.position.x;
+        const distance = Math.abs(planeX - x);
+        if (distance < 0.3) { // Adjust threshold as needed
+          window.open(media.title.href, '_blank');
+        }
+      }
+    });
+  }
+
+  // pointer move used for hover cursor over clickable items
+  onPointerMove(e) {
+    if (!this.medias) return;
+    const rect = this.gl.canvas.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+
+    let hovering = false;
+    for (let i = 0; i < this.medias.length; i++) {
+      const media = this.medias[i];
+      if (media.title && media.title.href) {
+        const planeX = media.plane.position.x;
+        const distance = Math.abs(planeX - x);
+        if (distance < 0.3) {
+          hovering = true;
+          break;
+        }
+      }
+    }
+
+    if (hovering) {
+      this.gl.canvas.style.cursor = 'pointer';
+    } else {
+      this.gl.canvas.style.cursor = this.isDown ? 'grabbing' : 'grab';
+    }
+  }
+
   onCheck() {
     if (!this.medias || !this.medias[0]) return;
     const width = this.medias[0].width;
@@ -428,6 +542,9 @@ class App {
     this.boundOnTouchDown = this.onTouchDown.bind(this);
     this.boundOnTouchMove = this.onTouchMove.bind(this);
     this.boundOnTouchUp = this.onTouchUp.bind(this);
+    this.boundOnClick = this.onClick.bind(this);
+    this.boundOnPointerMove = this.onPointerMove.bind(this);
+
     window.addEventListener('resize', this.boundOnResize);
     window.addEventListener('mousewheel', this.boundOnWheel);
     window.addEventListener('wheel', this.boundOnWheel);
@@ -437,6 +554,10 @@ class App {
     window.addEventListener('touchstart', this.boundOnTouchDown);
     window.addEventListener('touchmove', this.boundOnTouchMove);
     window.addEventListener('touchend', this.boundOnTouchUp);
+    this.gl.canvas.addEventListener('click', this.boundOnClick);
+
+    // canvas-specific pointer move to detect hover over titles
+    this.gl.canvas.addEventListener('mousemove', this.boundOnPointerMove);
   }
   destroy() {
     window.cancelAnimationFrame(this.raf);
@@ -449,6 +570,9 @@ class App {
     window.removeEventListener('touchstart', this.boundOnTouchDown);
     window.removeEventListener('touchmove', this.boundOnTouchMove);
     window.removeEventListener('touchend', this.boundOnTouchUp);
+    window.removeEventListener('click', this.boundOnClick);
+    this.gl.canvas.removeEventListener('click', this.boundOnClick);
+    this.gl.canvas.removeEventListener('mousemove', this.boundOnPointerMove);
     if (this.renderer && this.renderer.gl && this.renderer.gl.canvas.parentNode) {
       this.renderer.gl.canvas.parentNode.removeChild(this.renderer.gl.canvas);
     }
@@ -460,7 +584,7 @@ export default function CircularGallery({
   bend = 3,
   textColor = '#ffffff',
   borderRadius = 0.05,
-  font = 'bold 30px Figtree',
+  font = ' 30px Figtree',
   scrollSpeed = 2,
   scrollEase = 0.05
 }) {

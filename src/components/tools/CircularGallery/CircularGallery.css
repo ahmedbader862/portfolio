@@ -1,11 +1,36 @@
 .circular-gallery {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    cursor: grab;
-  }
-  
-  .circular-gallery:active {
-    cursor: grabbing;
-  }
-  
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: grab;
+  position: relative;
+}
+
+/* أثناء السحب */
+.circular-gallery:active {
+  cursor: grabbing;
+}
+
+/* لو عايز تتحكم بالـ clickable state من CSS */
+.circular-gallery.clickable-text {
+  cursor: pointer;
+}
+
+/* نضمن إن الكانفس يملى الحاوية ويمنع السلوكيات الافتراضية للمس */
+.circular-gallery canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* (اختياري) لو حبيت تبرُز النص كطبقة على الصور */
+.circular-gallery .text-overlay {
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  width: 100%;
+  pointer-events: none;
+}

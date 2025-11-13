@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { usePointer } from '../../hooks/usePointer';
+import { usePointer } from '../../../hooks/usePointer';
 import './Cursor.css';
 
 export default function Cursor() {

@@ -1,13 +1,13 @@
 // import { useEffect, useState } from 'react';
 import './App.css'
 import Home from './pages/Home/Home'
-import Cursor from './components/Cursor/Cursor'
+import Cursor from './components/tools/Cursor/Cursor'
 import Navbar from './components/Navbar/Navbar'
 import { PointerProvider } from './context/PointerProvider'
 import { ScrollProvider } from './context/ScrollProvider'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { TransitionProvider } from './context/TransitionProvider'
-import TransitionCircle from './components/TransitionCircle/TransitionCircle'
+import TransitionCircle from './components/tools/TransitionCircle/TransitionCircle'
 import { useEffect, useRef } from 'react'
 import { useTransitionOverlay } from './hooks/useTransition'
 import AboutP from './pages/About/AboutP'
@@ -16,7 +16,6 @@ import ContactP from './pages/Contact/ContactP'
 import NavButton from './components/NavButton/NavButton'
 import Footer from './components/Footer/Footer'
 import Noise from './components/tools/Noise/Noise' // أضف ده
-// import { motion } from "framer-motion";
 
 
 function BootIntro() {
@@ -55,7 +54,7 @@ function App() {
          <BootIntro/>
          <Navbar/>
        <NavButton/>
-         <Cursor />
+         <Cursor/>
          <Routes>
            <Route path="/" element={<Home/>} />
            <Route path="/about" element={<AboutP/>} />

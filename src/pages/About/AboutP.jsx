@@ -6,13 +6,39 @@ import CircleButton from "../../components/tools/CircleButton/CircleButton";
 import LetIsWork from '../../components/LetIsWork/LetIsWork';
 import Footer from '../../components/Footer/Footer';
 import CircularGallery from '../../components/tools/CircularGallery/CircularGallery'
+import LogoLoop from './../../components/LogoLoop/LogoLoop';
+import { SiGithub , SiBootstrap , SiMui , SiDocker , SiSupabase , SiFirebase , SiFlutter , SiCss3 , SiHtml5 , SiJavascript , SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si';
 
 export default function AboutP() {
 
+  const techLogos = [
+    { node: <SiHtml5 />, title: "HTML5", href: "https://developer.mozilla.org/en-US/docs/Web/HTML" },
+    { node: <SiCss3 />, title: "CSS3", href: "https://developer.mozilla.org/en-US/docs/Web/CSS" },
+    { node: <SiBootstrap />, title: "Bootstrap", href: "https://getbootstrap.com/docs/" },
+    { node: <SiTailwindcss />, title: "Tailwind CSS", href: "https://tailwindcss.com/docs" },
+    { node: <SiMui />, title: "Material-UI", href: "https://mui.com/material-ui/getting-started/overview/" },
+    { node: <SiJavascript />, title: "JavaScript", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
+    { node: <SiTypescript />, title: "TypeScript", href: "https://www.typescriptlang.org/docs/" },
+    { node: <SiReact />, title: "React", href: "https://react.dev" },
+    { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org/docs" },
+    { node: <SiFlutter />, title: "Flutter", href: "https://flutter.dev/docs" },
+    { node: <SiFirebase />, title: "Firebase", href: "https://firebase.google.com/docs" },
+    { node: <SiSupabase />, title: "Supabase", href: "https://supabase.com/docs" },
+    { node: <SiDocker />, title: "Docker", href: "https://docs.docker.com" },
+    { node: <SiGithub />, title: "GitHub", href: "https://docs.github.com" },
+    
+  ];
+  
+
   const myImages = [
-    { image: "/src/assets/Images/chefs-2.jpg", text: "مشروعي الأول" },
-    { image: "/src/assets/Images/my-photo.jpg", text: "Frontend" },
-    { image: "/src/assets/Images/chefs-2.jpg", text: "Frontend" },
+    { image: "/src/assets/Images/ai-1.png", text: "AI Agent", href: "https://example.com/ai-agent" },
+    { image: "/src/assets/Images/ai-2.png", text: "Lang Chain LLM", href: "https://example.com/langchain" },
+    { image: "/src/assets/Images/ai-3.png", text: "Hugging Face", href: "https://example.com/huggingface" },
+    { image: "/src/assets/Images/ai-4.png", text: "RAG & CAG", href: "https://example.com/rag-cag" },
+    { image: "/src/assets/Images/freelance.png", text: "freelance", href: "https://example.com/freelance" },
+    { image: "/src/assets/Images/html.png", text: "HTML & CSS", href: "https://example.com/html-css" },
+    { image: "/src/assets/Images/javaScript.png", text: "javaScript", href: "https://example.com/javascript" },
+    { image: "/src/assets/Images/typeScript.png", text: "typeScript", href: "https://example.com/typescript" },
   ];
 
   return (
@@ -74,13 +100,33 @@ export default function AboutP() {
       </section>
 
 
-      <div style={{ height: '600px', position: 'relative' }}>
+      <div style={{ height: '120px', position: 'relative', overflow: 'hidden'}}>
+      {/* Basic horizontal loop */}
+      <LogoLoop
+  logos={techLogos}
+  speed={120}
+  direction="left"
+  logoHeight={48}
+  gap={60}
+  hoverSpeed={0}
+  scaleOnHover
+  fadeOut
+  fadeOutColor="#fffff"
+  ariaLabel="Technology partners"
+  bend={-70}  // <= هنا القوس، جرب 1..6 أو حتى -3 للعكس
+/>
+
+      
+    </div>
+
+
+    <div style={{ height: '500px', position: 'relative' }}>
       <CircularGallery
         items={myImages}
         bend={3}
-        textColor="#ffffff"
+        textColor="#cccccc"
         borderRadius={0.05}
-        font="bold 28px Bebas Neue"
+        font="bold 50px Bebas Neue"
       />
      </div>
 

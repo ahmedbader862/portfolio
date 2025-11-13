@@ -1,6 +1,6 @@
 import React from 'react';
 import './TransitionCircle.css';
-import { useTransitionOverlay } from '../../hooks/useTransition';
+import { useTransitionOverlay } from '../../../hooks/useTransition';
 
 export default function TransitionCircle() {
   const { isOpen, title } = useTransitionOverlay();
