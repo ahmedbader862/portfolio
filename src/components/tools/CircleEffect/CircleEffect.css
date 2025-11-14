@@ -1,48 +1,45 @@
-/* Performance and compositing hints for the animated circle */
-.circle-effect {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  will-change: transform, opacity;
-  pointer-events: none;
-}
-
-/* CircleEffect.css */
+/* container fixed فوق كل حاجة */
 .circle-effect-container {
-  position: relative;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1; /* خلف كل حاجة */
   overflow: visible;
 }
 
+/* الدائرة نفسها */
 .circle-effect {
   position: absolute;
   left: 50%;
-  bottom: -40vw; /* اظهار قوس أوضح فوق الفوتر */
+  bottom: -5vh;
   transform: translateX(-50%);
-  margin: 0 auto; /* توسيط أفقي */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 170vw; /* أكبر ليظهر قوس واسع جداً أسفل الصفحة */
-  height: 170vw;
+  width: 220vw;
+  height: 220vh;
   border-radius: 50%;
-  z-index: 50; /* أقل من المحتوى، أعلى من الفوتر */
+  background-color: var(--clr-bg-secondary);
+  opacity: 0;
+  will-change: transform, opacity;
   pointer-events: none;
-  background-color: #00a035;/* أزرق واضح للتجربة */
-  color: #00a035;
+  z-index: -1; /* نفس المستوى */
 }
 
-/* يمكن تخصيص الألوان من خلال CSS variables */
+/* نسخة اللون الفاتح او الداكن */
 .circle-effect.light {
-  background-color: #00a035;/* أزرق واضح للتجربة */
-  z-index: 1000;
-  color: #00a035;
-
+  width: 220vw;
+  height: 220vh;
+  background-color:#251372;
+  z-index: -1;
+}
+.circle-effect.dark {
+  background-color: var(--clr-bg-primary);
+  z-index: -1;
 }
 
+/* موبايل: خفف الحجم شوية لو حبّيت */
 @media (max-width: 768px) {
   .circle-effect {
-    bottom: -40vw;
     width: 280vw;
-    height: 280vw;
+    height: 280vh;
+    bottom: -50vh;
   }
 }

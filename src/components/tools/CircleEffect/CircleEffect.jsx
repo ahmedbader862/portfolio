@@ -1,56 +1,57 @@
-// CircleEffect.jsx
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './CircleEffect.css';
+import { useTransitionOverlay } from '../../../hooks/useTransition'; // أضف ده
 
-gsap.registerPlugin(ScrollTrigger);
-
-const CircleEffect = ({
-  variant = 'light',
-  triggerElement,
-  className = '',
-}) => {
+const CircleEffect = ({ variant = 'light', className = '' }) => {
   const effectRef = useRef(null);
+  const { isOpen, setFooterSlice } = useTransitionOverlay();
+  const scrollProgress = useRef(0);
 
   useEffect(() => {
-    if (!triggerElement.current) return;
-  
-    const ctx = gsap.context(() => {
-      const triggerEl = triggerElement.current;
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: triggerEl,
-          // ابدأ عندما يدخل Footer viewport
-          start: "top bottom", 
-          // انتهِ عندما يصل Footer لمنتصف viewport
-          end: "bottom center", 
-          scrub: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-  
-      tl.fromTo(
-        effectRef.current,
-        {
-          yPercent: 100, // ابدأ من خارج viewport (أسفل)
-          opacity: 0,
-          scale: 0.8,
-          xPercent: -50,
-        },
-        {
-          yPercent: -50, // تحرك لأعلى
-          opacity: 1,
-          scale: 1,
-          ease: "power2.out",
-          xPercent: -50,
-          force3D: true,
-        }
-      );
+    const el = effectRef.current;
+    if (!el) return;
+
+    // init
+    gsap.set(el, {
+      yPercent: 90,
+      opacity: 0,
+      scale: 0.9,
+      transformOrigin: '50% 50%',
     });
-  
-    return () => ctx.revert();
-  }, [triggerElement]);
+
+    // تحديث الدائرة بناءً على scroll progress
+    const updateCircle = () => {
+      const progress = scrollProgress.current;
+      
+      // استخدم setFooterSlice للتحكم في scale من خلال transition context
+      setFooterSlice?.(progress);
+      
+      // تحريك الدائرة
+      const yPercent = 90 - (progress * 120); // من 90% لـ -30%
+      const opacity = Math.min(progress * 2, 1);
+      const scale = 0.9 + (progress * 0.1);
+
+      gsap.to(el, {
+        yPercent,
+        opacity,
+        scale,
+        duration: 0.35,
+        ease: 'power2.out',
+        force3D: true,
+      });
+    };
+
+    // scroll listener
+    const handleScroll = () => {
+      scrollProgress.current = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      updateCircle();
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [setFooterSlice]);
+
   return (
     <div className={`circle-effect-container ${className}`}>
       <div

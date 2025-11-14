@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CircleButton from "../tools/CircleButton/CircleButton";
 import "./Footer.css";
 import useMotionHover from "../../hooks/useMotionHover";
+// أزل ده: import CircleEffect from "../tools/CircleEffect/CircleEffect";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -55,8 +56,9 @@ export default function Footer() {
 
   return (
     <motion.footer className="footer" ref={footerRef}>
+      {/* كل المحتوى اللي موجود */}
       <div className="footer-main-section">
-      <div className="footer-main-left">
+        <div className="footer-main-left">
           <h2 className="footer-heading">
             <span className="glitch-text">GOT AN INTERESTING PROJECT?</span>
             <span className="glitch-text">I CAN HELP YOU.</span>
@@ -85,7 +87,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* separator line */}
       <div className="footer-separator-line" ref={separatorRef}>
         {/* motion wrapper يتحكم في x (بالـ px) */}
         <motion.div
@@ -125,6 +126,13 @@ export default function Footer() {
           </a>
         </div>
       </div>
+
+      {/* أزل ده كمان: */}
+      {/* <CircleEffect 
+        triggerElement={footerRef}
+        variant="light"
+        className="footer-background-circle"
+      /> */}
     </motion.footer>
   );
 }

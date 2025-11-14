@@ -265,7 +265,7 @@ const Projects = () => {
               >
                 {/* Desktop Layout: رقم + subtitle + title على نفس الصف */}
                 <div className="project-content">
-                  <span className="project-number">{project.number}</span>
+                  <span className="project-number"  >{project.number}</span>
                   <p className="project-subtitle">
                     {subtitleLetters.map((letter, letterIndex) => {
                       const len = subtitleLetters.length;

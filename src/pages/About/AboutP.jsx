@@ -124,9 +124,9 @@ export default function AboutP() {
       <CircularGallery
         items={myImages}
         bend={3}
-        textColor="#cccccc"
+        textColor="red"
         borderRadius={0.05}
-        font="bold 50px Bebas Neue"
+        font="bold 40px Bebas Neue"
       />
      </div>
 

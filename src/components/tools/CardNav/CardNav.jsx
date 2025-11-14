@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import { motion } from 'framer-motion';
 import useMotionHover from "../../../hooks/useMotionHover";
 import { useScrollState } from '../../../hooks/useScrollState';
+import { useLocation } from 'react-router-dom'; // أضف ده
 import './CardNav.css';
 
 const CardNav = ({
@@ -19,6 +20,7 @@ const CardNav = ({
   const overlayRef = useRef(null);
   const itemRefs = useRef([]);
   const tlRef = useRef(null);
+  const location = useLocation(); // أضف ده
 
   const { handleMouseMove, handleMouseLeave, style } = useMotionHover(150, 12, 0.3);
   
@@ -130,26 +132,29 @@ const CardNav = ({
                 { label: 'Works', href: '/work' },
                 { label: 'About', href: '/about' },
                 { label: 'Contact', href: '/contact' }
-              ]).map((it, i) => (
-                <li
-                  key={`${it.label}-${i}`}
-                  ref={setItemRef(i)}
-                  className="big-nav-item"
-                  role="link"
-                  tabIndex={0}
-                  onClick={() => {
-                    setIsExpanded(false);
+              ]).map((it, i) => {
+                const isActive = it.href === location.pathname; // تحديد العنصر الحالي
+                return (
+                  <li
+                    key={`${it.label}-${i}`}
+                    ref={setItemRef(i)}
+                    className={`big-nav-item ${isActive ? 'active' : ''}`} // أضف class active
+                    role="link"
+                    tabIndex={0}
+                    onClick={() => {
+                      setIsExpanded(false);
 
-                    // Handle navigation with transition
-                    if (onItemClick) {
-                      onItemClick(it.href, it.label);
-                    }
-                  }}
-                >
-                  <span className="bullet">•</span>
-                  <span className="big-nav-text">{it.label}</span>
-                </li>
-              ))}
+                      // Handle navigation with transition
+                      if (onItemClick) {
+                        onItemClick(it.href, it.label);
+                      }
+                    }}
+                  >
+                    <span className="bullet">{isActive ? '●' : '•'}</span> {/* نقطة بيضاء للصفحة الحالية */}
+                    <span className="big-nav-text">{it.label}</span>
+                  </li>
+                );
+              })}
             </ul>
 
            

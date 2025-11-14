@@ -32,7 +32,7 @@ function ProjectCard({ project, index }) {
   return (
     <div className="project-card-wrapper" ref={cardRef}>
       <div className="project-card" role="button" aria-label={`View details of ${project.title}`}>
-        <div className="project-content">
+        <div className="">
           <div className="img-wrap">
             <img
               className="project-img"

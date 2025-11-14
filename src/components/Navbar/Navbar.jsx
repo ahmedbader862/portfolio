@@ -1,5 +1,5 @@
 import { motion as Motion, useMotionValue, useSpring } from "framer-motion";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom'; // احتفظ بـ useLocation هنا للـ Navbar إذا لزم الأمر
 import { useTransitionOverlay } from '../../hooks/useTransition';
 import { useRef, useEffect } from 'react';
 import "./Navbar.css";
@@ -15,6 +15,7 @@ const links = [
 
 export default function Navbar() {
   const navigate = useNavigate();
+  // أزل const location = useLocation(); من هنا إذا لم يكن مطلوبًا في Navbar نفسه
   const { open, close, durationMs } = useTransitionOverlay();
   const navigateTimeoutRef = useRef(null);
 
@@ -74,7 +75,7 @@ export default function Navbar() {
         <nav className="nav-center">
           <ul className="nav-list">
             {links.map((link) => (
-              <NavLink key={link.href} {...link} onClick={onClick} />
+              <NavLink key={link.href} {...link} onClick={onClick} /> // أزل location من هنا
             ))}
           </ul>
         </nav>
@@ -92,6 +93,8 @@ export default function Navbar() {
 }
 
 function NavLink({ label, href, title, isRoute, onClick }) {
+  const location = useLocation(); // انقل useLocation هنا داخل NavLink
+  const isActive = location.pathname === href; // تحديد الرابط الحالي
   const { handleMouseMove, handleMouseLeave, style } = useMotionHover(150, 12, 0.5);
 
   return (
@@ -105,9 +108,9 @@ function NavLink({ label, href, title, isRoute, onClick }) {
         {label}
         <Motion.span
           className="nav-dot"
-          layoutId="nav-dot"
-          whileHover={{ scale: 1 }}
-          initial={{ scale: 0 }}
+          animate={{ scale: isActive ? 1 : 0 }} // غير initial إلى animate للتحديث التلقائي
+          transition={{ duration: 0.3 }} // أضف انتقال سلس
+          // أزل whileHover و layoutId عشان النقطة تبقى ثابتة
         />
       </a>
     </Motion.li>

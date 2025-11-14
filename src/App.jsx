@@ -15,8 +15,8 @@ import WorkP from './pages/Work/WorkP'
 import ContactP from './pages/Contact/ContactP'
 import NavButton from './components/NavButton/NavButton'
 import Footer from './components/Footer/Footer'
-import Noise from './components/tools/Noise/Noise' // أضف ده
-
+import Noise from './components/tools/Noise/Noise'
+import CircleEffect from './components/tools/CircleEffect/CircleEffect'; // أضف ده تاني
 
 function BootIntro() {
   const { close, durationMs } = useTransitionOverlay();
@@ -24,8 +24,7 @@ function BootIntro() {
 
   useEffect(() => {
     if (!hasInitialized.current) {
-      // زيادة التأخير لضمان ظهور الحركة بوضوح
-      const initDelay = 300; // زيادة من 50 إلى 300
+      const initDelay = 300;
       const id = setTimeout(() => {
         close();
       }, durationMs + initDelay);
@@ -38,13 +37,11 @@ function BootIntro() {
 }
 
 function App() {
-
-  
+  const dummyRef = useRef(null); // ref dummy مش مهم
 
   return (
     <div
-    className='App'
-   
+      className='App'
     >
      <BrowserRouter>
       <ScrollProvider>
@@ -67,10 +64,17 @@ function App() {
        </PointerProvider>
       </ScrollProvider>
      </BrowserRouter>
-     {/* ضيف الـ Noise هنا عشان يبقى فوق كل حاجة */}
+     
+     {/* أضف CircleEffect تاني */}
+     <CircleEffect 
+       triggerElement={dummyRef}
+       variant="light"
+       className="global-background-effect"
+     />
+     
      <Noise 
-       patternAlpha={8} // قيمة شفافية أقل عشان متكونش قوية جداً
-       patternRefreshInterval={4} // تحديث أبطأ شوية
+       patternAlpha={8}
+       patternRefreshInterval={4}
      />
     </div>
   )

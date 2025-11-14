@@ -15,7 +15,7 @@
   padding: 6rem var(--spacing-xl) var(--spacing-3xl);
   box-sizing: border-box;
   font-family: "Big Shoulders", sans-serif;
-  z-index: var(--z-base);
+  z-index: -3; /* أعلى من الدائرة (2) بس أقل من الnavbar وغيرها */
 }
 
 /* Main contact section */

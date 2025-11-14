@@ -190,6 +190,12 @@
   letter-spacing: var(--letter-spacing-tight);
 }
 
+/* أسلوب للعنصر النشط */
+.big-nav-item.active .bullet {
+  color: white; /* أو أي لون بيضاء تريده */
+  font-size: 50px; /* اجعلها أكبر قليلاً للتمييز */
+  transform: translateY(-7px); /* تعديل الموضع إذا لزم الأمر */
+}
 
 
 /* responsive */
