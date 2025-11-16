@@ -22,3 +22,12 @@
 .text-opacity.inline {
 	display: inline;
 }
+.word {
+    display: inline;
+    white-space: nowrap; /* عشان الكلمات متتقسمش */
+}
+
+.char {
+    display: inline-block;
+    /* باقي الـ styles زي ما هي */
+}

@@ -1,19 +1,6 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import "./TextOpacity.css";
 
-/**
- * TextOpacity
- * Props:
- *  - text: string
- *  - minOpacity: number (0..1) default 0.3
- *  - maxOpacity: number (0..1) default 1
- *  - delayPerChar: number seconds between each char's reveal start (default 0.0048)
- *  - revealDuration: number seconds duration of each char's reveal (default 0.0555)
- *
- * This component mirrors the scroll-driven per-character reveal logic used in About.jsx
- * but exposes the min/max opacity values so you can control the transparency range.
- */
 export default function TextOpacity({
 	text = "",
 	minOpacity = 0.3,
@@ -58,28 +45,41 @@ export default function TextOpacity({
 			if (rafId) cancelAnimationFrame(rafId);
 		};
 	}, []);
+	const words = String(text).split(/(\s+)/).filter(word => word.length > 0);
 
 	return (
 		<p className={`text-opacity ${className}`} ref={containerRef} aria-hidden>
-			{letters.map((char, i) => {
-				const revealStart = i * delayPerChar;
-				const revealEnd = revealStart + revealDuration;
-
-				const t = (progress - revealStart) / (revealEnd - revealStart);
-				const norm = Math.min(1, Math.max(0, t));
-				const opacity = Math.min(maxOpacity, Math.max(minOpacity, minOpacity + (maxOpacity - minOpacity) * norm));
-				const translateY = (1 - ( (opacity - minOpacity) / Math.max(1e-6, (maxOpacity - minOpacity)) )) * 5;
-
+			{words.map((word, wordIndex) => {
+				// حساب الـ index العام للكلمة دي
+				const wordStartIndex = words.slice(0, wordIndex).join('').length;
+				
 				return (
-					<span
-						key={i}
-						className="char"
-						style={{
-							opacity,
-							transform: `translateY(${translateY}px)`,
-						}}
-					>
-						{char}
+					<span key={wordIndex} className="word">
+						{word.split('').map((char, charIndex) => {
+							// الـ index العام للحرف ده
+							const globalIndex = wordStartIndex + charIndex;
+							
+							const revealStart = globalIndex * delayPerChar;
+							const revealEnd = revealStart + revealDuration;
+
+							const t = (progress - revealStart) / (revealEnd - revealStart);
+							const norm = Math.min(1, Math.max(0, t));
+							const opacity = Math.min(maxOpacity, Math.max(minOpacity, minOpacity + (maxOpacity - minOpacity) * norm));
+							const translateY = (1 - ( (opacity - minOpacity) / Math.max(1e-6, (maxOpacity - minOpacity)) )) * 5;
+
+							return (
+								<span
+									key={charIndex}
+									className="char"
+									style={{
+										opacity,
+										transform: `translateY(${translateY}px)`,
+									}}
+								>
+									{char === ' ' ? '\u00A0' : char}
+								</span>
+							);
+						})}
 					</span>
 				);
 			})}

@@ -5,26 +5,31 @@ import useMotionHover from '../../hooks/useMotionHover';
 
 function Social (){
 
-    function SocialIcon({ href, children }) {
-      const { handleMouseMove, handleMouseLeave, style } = useMotionHover(150, 12, 0.5);
-    
-      const handleMouseEnter = (e) => {
-        // compute center of the icon in viewport coordinates
-        const rect = e.currentTarget.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        // choose a ring size slightly larger than the icon
-        const size = Math.max(rect.width, rect.height) + 16;
-        window.dispatchEvent(new CustomEvent('cursor-ring-on', { detail: { x: centerX, y: centerY, size } }));
-      };
-    
-      return (
-        <motion.li
-          onMouseMove={handleMouseMove}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          style={style}
-        >
+  function SocialIcon({ href, children }) {
+    const { handleMouseMove, handleMouseLeave, style } = useMotionHover(150, 12, 0.5);
+  
+    const handleMouseEnter = (e) => {
+      // compute center of the icon in viewport coordinates
+      const rect = e.currentTarget.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      // choose a ring size slightly larger than the icon
+      const size = Math.max(rect.width, rect.height) + 16;
+      window.dispatchEvent(new CustomEvent('cursor-ring-on', { detail: { x: centerX, y: centerY, size } }));
+    };
+  
+    const handleMouseLeaveCombined = () => {
+      handleMouseLeave(); // Reset hover animation
+      window.dispatchEvent(new CustomEvent('cursor-ring-off')); // Reset cursor to normal circle
+    };
+  
+    return (
+      <motion.li
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeaveCombined}
+        style={style}
+      >
           <motion.a 
             href={href}
             target="_blank" 

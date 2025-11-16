@@ -101,7 +101,7 @@ const SplitText = ({
       textAlign,
       overflow: "hidden",
       display: "inline-block",
-      whiteSpace: "normal",
+      whiteSpace: "nowrap",
       willChange: "transform, opacity",
     };
     const classes = `split-parent ${className}`;

@@ -136,23 +136,23 @@ const CardNav = ({
                 const isActive = it.href === location.pathname; // تحديد العنصر الحالي
                 return (
                   <li
-                    key={`${it.label}-${i}`}
-                    ref={setItemRef(i)}
-                    className={`big-nav-item ${isActive ? 'active' : ''}`} // أضف class active
-                    role="link"
-                    tabIndex={0}
-                    onClick={() => {
-                      setIsExpanded(false);
+                  key={`${it.label}-${i}`}
+                  ref={setItemRef(i)}
+                  className={`big-nav-item ${isActive ? 'active' : ''}`} // أضف class active
+                  role="link"
+                  tabIndex={isExpanded ? 0 : -1}
+                  onClick={() => {
+                    setIsExpanded(false);
 
-                      // Handle navigation with transition
-                      if (onItemClick) {
-                        onItemClick(it.href, it.label);
-                      }
-                    }}
-                  >
-                    <span className="bullet">{isActive ? '●' : '•'}</span> {/* نقطة بيضاء للصفحة الحالية */}
-                    <span className="big-nav-text">{it.label}</span>
-                  </li>
+                    // Handle navigation with transition
+                    if (onItemClick) {
+                      onItemClick(it.href, it.label);
+                    }
+                  }}
+                >
+                  <span className="bullet">{isActive ? '●' : '•'}</span> {/* نقطة بيضاء للصفحة الحالية */}
+                  <span className="big-nav-text">{it.label}</span>
+                </li>
                 );
               })}
             </ul>

@@ -33,21 +33,29 @@ function createTextTexture(gl, text, font = 'bold 30px monospace', color = '#fff
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
 
+  // إضافة responsive للخط حسب حجم الشاشة
+  const isMobile = window.innerWidth < 768;
+  const mobileFont = font.replace(/(\d+)px/, (match, size) => {
+    const newSize = isMobile ? Math.max(parseInt(size) * 0.7, 16) : size;
+    return newSize + 'px';
+  });
+  const effectiveFont = isMobile ? mobileFont : font;
+
   // إعدادات الخط
-  context.font = font;
+  context.font = effectiveFont;
   const metrics = context.measureText(text);
   const textWidth = Math.ceil(metrics.width);
-  const fontSize = Math.ceil(parseInt(font, 10) || 30);
+  const fontSize = Math.ceil(parseInt(effectiveFont, 10) || 30);
   const textHeight = Math.ceil(fontSize * 1.2);
 
-  // padding و حساب الحجم
-  const paddingX = Math.ceil(fontSize * 0.9);
-  const paddingY = Math.ceil(fontSize * 0.8);
+  // padding أصغر في الموبايل
+  const paddingX = Math.ceil(fontSize * (isMobile ? 0.6 : 0.9));
+  const paddingY = Math.ceil(fontSize * (isMobile ? 0.5 : 0.8));
   canvas.width = textWidth + paddingX * 2;
   canvas.height = textHeight + paddingY * 2;
 
   // إعادة تعيين الخط بعد تغيير المقاسات
-  context.font = font;
+  context.font = effectiveFont;
   context.textBaseline = 'middle';
   context.textAlign = 'center';
 
@@ -331,11 +339,21 @@ class Media {
         this.plane.program.uniforms.uViewportSizes.value = [this.viewport.width, this.viewport.height];
       }
     }
-    this.scale = this.screen.height / 1500;
-    this.plane.scale.y = (this.viewport.height * (1000 * this.scale)) / this.screen.height;
-    this.plane.scale.x = (this.viewport.width * (1200 * this.scale)) / this.screen.width;
-    this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y];
-    this.padding = 2;
+    
+    // تحسين حساب المقاسات للموبايل
+    const isMobile = this.screen.width < 768;
+    const baseScale = isMobile ? this.screen.height / 800 : this.screen.height / 1500; // قيمة أصغر للموبايل
+    this.scale = Math.max(baseScale, 0.3); // حد أدنى للمقاس
+    
+    // مقاسات مختلفة للموبايل
+    const baseHeight = isMobile ? 600 : 1000; // ارتفاع أساسي أصغر للموبايل
+    const baseWidth = isMobile ? 800 : 1200;   // عرض أساسي أصغر للموبايل
+    
+    this.plane.scale.y = (this.viewport.height * (baseHeight * this.scale)) / this.screen.height;
+    this.plane.scale.x = (this.viewport.width * (baseWidth * this.scale)) / this.screen.width;
+    
+    // تقليل المسافات في الموبايل لإظهار صورة واحدة بشكل أفضل
+    this.padding = isMobile ? 1 : 2;
     this.width = this.plane.scale.x + this.padding;
     this.widthTotal = this.width * this.length;
     this.x = this.width * this.index;

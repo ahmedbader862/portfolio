@@ -47,6 +47,7 @@
   font-weight: 700;
   color: var(--clr-text-primary);
   line-height: var(--line-height-relaxed);
+  
 }
 
 .footer-heading .glitch-text {
@@ -59,6 +60,7 @@
   display: flex;
   gap: 1.5rem;
   flex-wrap: wrap;
+  z-index:-50;
 }
 
 .contact-field {
@@ -140,8 +142,11 @@
 
 .footer-link-group {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  flex-direction: row;
+  gap: 1.75rem;
+}
+.footer-link-group a:hover{
+  color: var(--color-red);
 }
 
 .footer-link-heading {
@@ -182,7 +187,7 @@
   }
 
   .footer-links-section {
-    flex-direction: column;
+    flex-direction: row;
     gap: 2.5rem;
   }
 }

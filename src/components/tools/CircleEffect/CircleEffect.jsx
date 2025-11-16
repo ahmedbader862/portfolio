@@ -1,65 +1,84 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './CircleEffect.css';
-import { useTransitionOverlay } from '../../../hooks/useTransition'; // أضف ده
 
-const CircleEffect = ({ variant = 'light', className = '' }) => {
+gsap.registerPlugin(ScrollTrigger);
+
+const CircleEffect = ({ triggerElement, variant = 'light', className = '' }) => {
   const effectRef = useRef(null);
-  const { isOpen, setFooterSlice } = useTransitionOverlay();
-  const scrollProgress = useRef(0);
 
   useEffect(() => {
+    if (!effectRef.current) return;
+
     const el = effectRef.current;
-    if (!el) return;
+    // ابحث عن الفوتر لو مفيش triggerElement
+    const triggerEl = triggerElement?.current || document.querySelector('footer');
+
+    if (!triggerEl) return; // لو مفيش فوتير، خلاص
+
+    // init
+   
+
+   
+    const start = "top bottom";          // يبدأ لما أعلى الفوتر يوصل أسفل الشاشة
+    const end = "bottom top";            // ينتهي لما أسفل الفوتر يوصل أعلى الشاشة
+    
+    // القيم اللي تتحكم في الحركة
+    const yStart = 80;   
+    const yEnd = -20;     
+    const opacityStart = 1;  // ابدأ غير مرئي
+    const opacityEnd = 1;  // يصبح مرئي
+    const scaleStart = 0.8;    
+    const scaleEnd = 1.1;
+    // ===== =====
 
     // init
     gsap.set(el, {
-      yPercent: 90,
-      opacity: 0,
-      scale: 0.9,
-      transformOrigin: '50% 50%',
+      yPercent: yStart,
+      opacity: opacityStart,
+      scale: scaleStart,
+      transformOrigin: '90% 90%',
+      force3D: true,
     });
 
-    // تحديث الدائرة بناءً على scroll progress
-    const updateCircle = () => {
-      const progress = scrollProgress.current;
-      
-      // استخدم setFooterSlice للتحكم في scale من خلال transition context
-      setFooterSlice?.(progress);
-      
-      // تحريك الدائرة
-      const yPercent = 90 - (progress * 120); // من 90% لـ -30%
-      const opacity = Math.min(progress * 2, 1);
-      const scale = 0.9 + (progress * 0.1);
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: triggerEl,
+        start: start,
+        end: end,
+        scrub: 1,
+        invalidateOnRefresh: true,
+      },
+    });
 
-      gsap.to(el, {
-        yPercent,
-        opacity,
-        scale,
-        duration: 0.35,
-        ease: 'power2.out',
+    tl.fromTo(el, 
+      {
+        yPercent: yStart,
+        opacity: opacityStart,
+        scale: scaleStart,
+      },
+      {
+        yPercent: yEnd,
+        opacity: opacityEnd,
+        scale: scaleEnd,
+        ease: "power2.out",
         force3D: true,
-      });
+      }
+    );
+
+    return () => {
+      tl.kill();
     };
-
-    // scroll listener
-    const handleScroll = () => {
-      scrollProgress.current = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-      updateCircle();
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [setFooterSlice]);
-
+  }, [triggerElement]);
   return (
     <div className={`circle-effect-container ${className}`}>
-      <div
-        ref={effectRef}
-        className={`circle-effect ${variant}`}
-        aria-hidden="true"
-      />
-    </div>
+    <div
+      ref={effectRef}
+      className={`circle-effect ${variant}`}
+      aria-hidden="true"
+    />
+  </div>
   );
 };
 

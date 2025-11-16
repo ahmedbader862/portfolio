@@ -34,3 +34,18 @@
   width: 100%;
   pointer-events: none;
 }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .circular-gallery {
+    /* تقليل الارتفاع في التابلت والموبايل */
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .circular-gallery {
+    /* ارتفاع أصغر في الموبايل الصغير */
+    min-height: 200px;
+  }
+}

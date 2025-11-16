@@ -1,0 +1,24 @@
+/* الحل النهائي - استخدام inline فقط مع منع الكسر */
+.split-parent {
+    display: inline;
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow-wrap: normal;
+  }
+  
+  /* استثناء للنصوص اللي تحتاج تتقسم على أسطر */
+  .split-parent.services-desc {
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+  }
+  
+  .split-word {
+    display: inline-block; /* تغيير إلى inline-block لضمان عدم كسر الكلمات */
+    white-space: nowrap;
+    word-break: keep-all;
+  }
+  
+  .split-char {
+    display: inline-block;
+  }

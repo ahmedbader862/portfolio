@@ -35,7 +35,9 @@
   font-size: 1.1875rem;
   text-align: left !important;
   display: block !important;
-
+  white-space: normal !important; /* إجبار النص على التقسيم */
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
 }
 
 /* ====== RIGHT (السطر بتاع الجمل) ====== */
@@ -55,6 +57,8 @@
   position: relative;
   overflow: visible;
   min-height: 70px;
+  cursor: pointer;
+
 }
 
 .service-row.active {
@@ -109,7 +113,8 @@
 
 /* العنوان الكبير (مكون من spans للحروف) */
 .service-title {
-  display: inline-block;
+  display:flex;
+  flex-wrap: wrap;
   font-size: var(--font-size-services-title);
   font-weight: 700;
   margin: 0;
@@ -120,13 +125,13 @@
 }
 
 /* الحروف كـ inline-block علشان نقدر نحط transitionDelay على كل واحد */
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 .char {
   display: inline-block;
-  will-change: opacity, transform;
-  transform: translateY(0); /* اذا حبيت تعمل حركة صعود/هبوط ممكن تعدل هنا */
-  transition: opacity 360ms var(--transition-bounce), transform 360ms var(--transition-bounce);
-  color: var(--clr-text-primary);
-  margin-right: 3px;
 }
 
 /* الخط التحتي بين السطور (خفيف جدا مثل اللي في الصورة) */

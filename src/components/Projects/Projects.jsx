@@ -16,39 +16,24 @@ const MAX_TRANSLATE = 60;
 const PROJECTS_DATA = [
   {
     number: '01',
-    title: "PREM'S PORTFOLIO",
-    subtitle: 'Frontend Design, UI Development',
-    image: '/src/assets/Images/chefs-2.jpg',
-    description: 'Developed a personal portfolio website for Prem showcasing modern web development techniques.',
-    details: 'Technologies used: React, CSS, HTML, JavaScript',
-    projectLink: 'https://www.google.com'
+    title: "E-commerce",
+    subtitle: 'Quick Cart',
+    image: '/src/assets/Images/e-commerce.png',
+    projectLink: 'https://react-project-nine-gules-20.vercel.app/'
   },
   {
     number: '02',
-    title: 'TWO GOOD CO.',
-    subtitle: 'Frontend Design, UI Development',
-    image: '/src/assets/Images/my-photo.jpg',
-    description: 'A recreation of the Two Good Co. e-commerce website with modern design principles.',
-    details: 'Two Good Co. operates on a "buy one, gift one" model supporting charitable causes.',
-    projectLink: 'https://example.com/project2'
+    title: 'Restaurant',
+    subtitle: 'Tasty Bites',
+    image: '/src/assets/Images/restaurant.png',
+    projectLink: 'https://final-project-opal-nine.vercel.app/'
   },
   {
     number: '03',
-    title: "PREM'S PORTFOLIO",
-    subtitle: 'Frontend Design, UI Development',
-    image: '/src/assets/Images/chefs-2.jpg',
-    description: 'Developed a personal portfolio website for Prem showcasing modern web development techniques.',
-    details: 'Technologies used: React, CSS, HTML, JavaScript',
-    projectLink: 'https://example.com/project2'
-  },
-  {
-    number: '04',
-    title: 'TWO GOOD CO.',
-    subtitle: 'Frontend Design, UI Development',
-    image: '/src/assets/Images/my-photo.jpg',
-    description: 'A recreation of the Two Good Co. e-commerce website with modern design principles.',
-    details: 'Two Good Co. operates on a "buy one, gift one" model supporting charitable causes.',
-    projectLink: 'https://example.com/project2'
+    title: 'Let’s Go',
+    subtitle: 'Your Project Will Be here',
+    image: '/src/assets/Images/naruto.jpg',
+    projectLink: ''
   },
 ];
 
@@ -71,10 +56,10 @@ const Projects = () => {
   const { hovered, getLetterOpacity, handleMouseEnter: hoverEnter, handleMouseLeave: hoverLeave } = useHoverFade(projects);
   const { x, y } = usePointer();
 
-  // Utility functions
-  const splitToLetters = useCallback((str) =>
-    str.split("").map((ch) => (ch === " " ? "\u00A0" : ch)), []
-  );
+ // Utility functions
+const splitToWords = useCallback((str) =>
+  str.split(/(\s+)/).filter(word => word.length > 0), []
+);
 
   // DOM update function using RAF for performance
   const scheduleUpdate = useCallback(() => {
@@ -251,150 +236,186 @@ const Projects = () => {
         <hr />
 
         <div className="projects-list">
-          {projects.map((project, index) => {
-            const titleLetters = splitToLetters(project.title);
-            const subtitleLetters = splitToLetters(project.subtitle);
+        {projects.map((project, index) => {
+  const titleWords = splitToWords(project.title);
+  const subtitleWords = splitToWords(project.subtitle);
 
+  return (
+    <div
+      key={index}
+      className="project-item"
+      onMouseEnter={handleMouseEnter(index)}
+      onMouseMove={handleMouseMove(index)}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Desktop Layout: رقم + subtitle + title على نفس الصف */}
+      <div className="project-content">
+        <span className="project-number"  >{project.number}</span>
+        <p className="project-subtitle">
+          {subtitleWords.map((word, wordIndex) => {
+            const wordStartIndex = subtitleWords.slice(0, wordIndex).join('').length;
+            
             return (
-              <div
-                key={index}
-                className="project-item"
-                onMouseEnter={handleMouseEnter(index)}
-                onMouseMove={handleMouseMove(index)}
-                onMouseLeave={handleMouseLeave}
-              >
-                {/* Desktop Layout: رقم + subtitle + title على نفس الصف */}
-                <div className="project-content">
-                  <span className="project-number"  >{project.number}</span>
-                  <p className="project-subtitle">
-                    {subtitleLetters.map((letter, letterIndex) => {
-                      const len = subtitleLetters.length;
-                      const opacity = getLetterOpacity(index, letterIndex, len);
-                      const delay = hovered === index
-                        ? letterIndex * 28
-                        : (hovered === null ? letterIndex * 8 : letterIndex * 10);
+              <span key={wordIndex} className="word">
+                {word.split('').map((ch, charIndex) => {
+                  const globalIndex = wordStartIndex + charIndex;
+                  const len = project.subtitle.replace(/\s+/g, '').length;
+                  const opacity = getLetterOpacity(index, globalIndex, len);
+                  const delay = hovered === index
+                    ? globalIndex * 28
+                    : (hovered === null ? globalIndex * 8 : globalIndex * 10);
 
-                      return (
-                        <span
-                          key={letterIndex}
-                          className="char"
-                          style={{
-                            opacity,
-                            transitionDelay: `${delay}ms`,
-                            transform: "translateY(0)",
-                          }}
-                        >
-                          {letter}
-                        </span>
-                      );
-                    })}
-                  </p>
-                  <h2 className="project-title">
-                    {titleLetters.map((letter, letterIndex) => {
-                      const len = titleLetters.length;
-                      const opacity = getLetterOpacity(index, letterIndex, len);
-                      const delay = hovered === index
-                        ? letterIndex * 28
-                        : (hovered === null ? letterIndex * 8 : letterIndex * 10);
-
-                      return (
-                        <span
-                          key={letterIndex}
-                          className="char"
-                          style={{
-                            opacity,
-                            transitionDelay: `${delay}ms`,
-                            transform: "translateY(0)",
-                          }}
-                        >
-                          {letter}
-                        </span>
-                      );
-                    })}
-                  </h2>
-                </div>
-
-                {/* Mobile Layout: صورة + معلومات (بدون تكرار) */}
-                <div className="project-mobile-content">
-                  <div className="project-mobile-image">
-                    <img 
-                      src={projects[index]?.image} 
-                      alt={project.title}
-                      onError={(e) => {
-                        e.target.style.display = 'none';
+                  return (
+                    <span
+                      key={charIndex}
+                      className="char"
+                      style={{
+                        opacity,
+                        transitionDelay: `${delay}ms`,
+                        transform: "translateY(0)",
                       }}
-                    />
-                    {/* زر View Project على الصورة في mobile */}
-                    {projects[index]?.projectLink && (
-                      <a
-                        href={projects[index].projectLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-mobile-view-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                        }}
-                      >
-                        <span className="view-text">VIEW</span>
-                        <span className="project-text">PROJECT</span>
-                      </a>
-                    )}
-                  </div>
-                  <div className="project-mobile-info">
-                    <div className="project-mobile-header">
-                      <span className="project-mobile-number">{project.number}</span>
-                      <h2 className="project-mobile-title">
-                        {titleLetters.map((letter, letterIndex) => {
-                          const len = titleLetters.length;
-                          const opacity = getLetterOpacity(index, letterIndex, len);
-                          const delay = hovered === index
-                            ? letterIndex * 28
-                            : (hovered === null ? letterIndex * 8 : letterIndex * 10);
-
-                          return (
-                            <span
-                              key={letterIndex}
-                              className="char"
-                              style={{
-                                opacity,
-                                transitionDelay: `${delay}ms`,
-                                transform: "translateY(0)",
-                              }}
-                            >
-                              {letter}
-                            </span>
-                          );
-                        })}
-                      </h2>
-                    </div>
-                    <p className="project-mobile-subtitle">
-                      {subtitleLetters.map((letter, letterIndex) => {
-                        const len = subtitleLetters.length;
-                        const opacity = getLetterOpacity(index, letterIndex, len);
-                        const delay = hovered === index
-                          ? letterIndex * 28
-                          : (hovered === null ? letterIndex * 8 : letterIndex * 10);
-
-                        return (
-                          <span
-                            key={letterIndex}
-                            className="char"
-                            style={{
-                              opacity,
-                              transitionDelay: `${delay}ms`,
-                              transform: "translateY(0)",
-                            }}
-                          >
-                            {letter}
-                          </span>
-                        );
-                      })}
-                    </p>
-                  </div>
-                </div>
-              </div>
+                    >
+                      {ch === ' ' ? '\u00A0' : ch}
+                    </span>
+                  );
+                })}
+              </span>
             );
           })}
+        </p>
+        <h2 className="project-title">
+          {titleWords.map((word, wordIndex) => {
+            const wordStartIndex = titleWords.slice(0, wordIndex).join('').length;
+            
+            return (
+              <span key={wordIndex} className="word">
+                {word.split('').map((ch, charIndex) => {
+                  const globalIndex = wordStartIndex + charIndex;
+                  const len = project.title.replace(/\s+/g, '').length;
+                  const opacity = getLetterOpacity(index, globalIndex, len);
+                  const delay = hovered === index
+                    ? globalIndex * 28
+                    : (hovered === null ? globalIndex * 8 : globalIndex * 10);
+
+                  return (
+                    <span
+                      key={charIndex}
+                      className="char"
+                      style={{
+                        opacity,
+                        transitionDelay: `${delay}ms`,
+                        transform: "translateY(0)",
+                      }}
+                    >
+                      {ch === ' ' ? '\u00A0' : ch}
+                    </span>
+                  );
+                })}
+              </span>
+            );
+          })}
+        </h2>
+      </div>
+
+      {/* Mobile Layout: صورة + معلومات (بدون تكرار) */}
+      <div className="project-mobile-content">
+        <div className="project-mobile-image">
+          <img 
+            src={projects[index]?.image} 
+            alt={project.title}
+            onError={(e) => {
+              e.target.style.display = 'none';
+            }}
+          />
+          {/* زر View Project على الصورة في mobile */}
+          {projects[index]?.projectLink && (
+            <a
+              href={projects[index].projectLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-mobile-view-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              <span className="view-text">VIEW</span>
+              <span className="project-text">PROJECT</span>
+            </a>
+          )}
+        </div>
+        <div className="project-mobile-info">
+          <div className="project-mobile-header">
+            <span className="project-mobile-number">{project.number}</span>
+            <h2 className="project-mobile-title">
+              {titleWords.map((word, wordIndex) => {
+                const wordStartIndex = titleWords.slice(0, wordIndex).join('').length;
+                
+                return (
+                  <span key={wordIndex} className="word">
+                    {word.split('').map((ch, charIndex) => {
+                      const globalIndex = wordStartIndex + charIndex;
+                      const len = project.title.replace(/\s+/g, '').length;
+                      const opacity = getLetterOpacity(index, globalIndex, len);
+                      const delay = hovered === index
+                        ? globalIndex * 28
+                        : (hovered === null ? globalIndex * 8 : globalIndex * 10);
+
+                      return (
+                        <span
+                          key={charIndex}
+                          className="char"
+                          style={{
+                            opacity,
+                            transitionDelay: `${delay}ms`,
+                            transform: "translateY(0)",
+                          }}
+                        >
+                          {ch === ' ' ? '\u00A0' : ch}
+                        </span>
+                      );
+                    })}
+                  </span>
+                );
+              })}
+            </h2>
+          </div>
+          <p className="project-mobile-subtitle">
+            {subtitleWords.map((word, wordIndex) => {
+              const wordStartIndex = subtitleWords.slice(0, wordIndex).join('').length;
+              
+              return (
+                <span key={wordIndex} className="word">
+                  {word.split('').map((ch, charIndex) => {
+                    const globalIndex = wordStartIndex + charIndex;
+                    const len = project.subtitle.replace(/\s+/g, '').length;
+                    const opacity = getLetterOpacity(index, globalIndex, len);
+                    const delay = hovered === index
+                      ? globalIndex * 28
+                      : (hovered === null ? globalIndex * 8 : globalIndex * 10);
+
+                    return (
+                      <span
+                        key={charIndex}
+                        className="char"
+                        style={{
+                          opacity,
+                          transitionDelay: `${delay}ms`,
+                          transform: "translateY(0)",
+                        }}
+                      >
+                        {ch === ' ' ? '\u00A0' : ch}
+                      </span>
+                    );
+                  })}
+                </span>
+              );
+            })}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+})}
         </div>
 
         {/* Project preview with direct DOM manipulation for performance */}

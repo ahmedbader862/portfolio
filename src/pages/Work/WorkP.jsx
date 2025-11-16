@@ -6,40 +6,28 @@ export default function WorkP() {
 
   const projects = [
     {
-      image: '/src/assets/Images/my-photo.jpg',
+      image: '/src/assets/Images/e-commerce.png',
       number: '01',
-      title: "Prem's Portfolio",
-      description: 'Frontend design, UI development',
-      link: 'https://prem-portfolio-teal.vercel.app/',
+      title: "E-commerce",
+      description: 'Quick Cart',
+      link: 'https://react-project-nine-gules-20.vercel.app/',
     },
     {
-      image: '/src/assets/Images/my-photo.jpg',
+      image: '/src/assets/Images/restaurant.png',
       number: '02',
-      title: 'Two Good Co.',
-      description: 'Frontend design, UI development',
-      link: 'https://imkaranks.github.io/two-good-co-clone/',
+      title: 'Tasty Bites',
+      description: 'Restaurant',
+      link: 'https://final-project-opal-nine.vercel.app/',
     },
     {
-      image: '/src/assets/Images/my-photo.jpg',
+      image: '/src/assets/Images/naruto.jpg',
       number: '03',
-      title: 'Quietsphere',
-      description: 'Social media, UI design',
-      link: 'https://quietsphere.onrender.com/',
+      title: 'Your Project Will Be here',
+      description: '',
+      // link: '',
     },
-    {
-      image: '/src/assets/Images/my-photo.jpg',
-      number: '04',
-      title: 'Flappy Versus',
-      description: 'Game design, interactive UI, Multiplayer',
-      link: 'https://github.com/imkaranks/multiplayer-flappy-bird',
-    },
-    {
-      image: '/src/assets/Images/my-photo.jpg',
-      number: '05',
-      title: 'Metaverse 2D',
-      description: 'Virtual UI, interactive design',
-      link: '',
-    },
+   
+ 
   ];
 
 

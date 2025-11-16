@@ -43,9 +43,10 @@ const Services = () => {
   // استخدام الـ Hook
   const { hovered, getLetterOpacity, handleMouseEnter, handleMouseLeave } = useHoverFade(lines);
 
-  // helper: يفصل النص لحروف ويحتفظ بالـspace كـ non-breaking
-  const splitToLetters = (str) =>
-    str.split("").map((ch) => (ch === " " ? "\u00A0" : ch));
+ // helper: يفصل النص لكلمات ومسافات مع الحفاظ على التسلسل
+const splitToWords = (str) => {
+  return str.split(/(\s+)/).filter(word => word.length > 0);
+};
 
   return (
     <section className="services-section">
@@ -85,52 +86,63 @@ const Services = () => {
       </header>
 
       <div className="services-right">
-        {lines.map((line, idx) => {
-          const letters = splitToLetters(line.text);
+      {lines.map((line, idx) => {
+  const words = splitToWords(line.text);
+  return (
+    <div
+      key={idx}
+      className={`service-row ${activeIndex === idx ? 'active' : ''}`}
+      onMouseEnter={handleMouseEnter(idx)}
+      onMouseLeave={handleMouseLeave}
+      onClick={() => setActiveIndex(activeIndex === idx ? null : idx)}
+    >
+      <span className="service-num">{line.num}</span>
+
+      <h2 className="service-title" aria-hidden>
+        {words.map((word, wordIndex) => {
+          // حساب الـ index العام للكلمة دي
+          const wordStartIndex = words.slice(0, wordIndex).join('').length;
+          
           return (
-            <div
-              key={idx}
-              className={`service-row ${activeIndex === idx ? 'active' : ''}`}
-              onMouseEnter={handleMouseEnter(idx)}
-              onMouseLeave={handleMouseLeave}
-              onClick={() => setActiveIndex(activeIndex === idx ? null : idx)}
-            >
-              <span className="service-num">{line.num}</span>
+            <span key={wordIndex} className="word">
+              {word.split('').map((ch, charIndex) => {
+                // الـ index العام للحرف ده
+                const globalIndex = wordStartIndex + charIndex;
+                const len = line.text.replace(/\s+/g, '').length; // طول النص بدون مسافات
+                const opacity = getLetterOpacity(idx, globalIndex, len);
+                const delay = hovered === idx ? globalIndex * 28 : (hovered === null ? globalIndex * 8 : globalIndex * 10);
 
-              <h2 className="service-title" aria-hidden>
-                {letters.map((ch, i) => {
-                  const len = letters.length;
-                  const opacity = getLetterOpacity(idx, i, len); // استخدام الـ Hook
-                  const delay = hovered === idx ? i * 28 : (hovered === null ? i * 8 : i * 10);
-
-                  return (
-                    <span
-                      key={i}
-                      className="char"
-                      style={{
-                        opacity,
-                        transitionDelay: `${delay}ms`,
-                        transform: "translateY(0)",
-                      }}
-                    >
-                      {ch}
-                    </span>
-                  );
-                })}
-              </h2>
-
-              <div className="row-underline" />
-              
-              <svg className="w-[35px] h-[35px] text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.3" d="M12 19V5m0 14-4-4m4 4 4-4"/>
-              </svg>
-
-              <p className="service-description">
-                {line.description}
-              </p>
-            </div>
+                return (
+                  <span
+                    key={charIndex}
+                    className="char"
+                    style={{
+                      opacity,
+                      transitionDelay: `${delay}ms`,
+                      transform: "translateY(0)",
+                    }}
+                  >
+                    {ch === ' ' ? '\u00A0' : ch}
+                  </span>
+                );
+              })}
+            </span>
           );
         })}
+      </h2>
+
+      <div className="row-underline" />
+      
+      <svg className="w-[35px] h-[35px] text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.3" d="M12 19V5m0 14-4-4m4 4 4-4"/>
+      </svg>
+
+      <p className="service-description">
+        {line.description}
+      </p>
+    </div>
+  );
+})}
       </div>
     </section>
   );

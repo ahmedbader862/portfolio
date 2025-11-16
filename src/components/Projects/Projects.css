@@ -183,9 +183,13 @@
 }
 
 /* chars effect */
-.char { 
-  display: inline-block; 
-  will-change: transform, opacity; 
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.char {
+  display: inline-block;
 }
 
 /* preview box */

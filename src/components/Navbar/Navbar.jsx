@@ -70,7 +70,7 @@ export default function Navbar() {
   return (
     <header className="navbar">
       <div className="nav-container">
-        <div className="nav-left">© Code by Karan</div>
+        <div className="nav-left">© Code by Ahmed</div>
 
         <nav className="nav-center">
           <ul className="nav-list">
@@ -87,6 +87,9 @@ export default function Navbar() {
             ariaLabel="Download CV file"
           />
         </div>
+
+{/* <button className="inline-flex cursor-pointer items-center gap-x-2 border border-transparent font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-(--clr-accent) transition-colors text-(--clr-neutral-dark) bg-(--clr-neutral-light) hover:bg-(--clr-neutral-light)/70 px-6 py-2 text-sm relative overflow-hidden group [&amp;&gt;*&gt;*]:transition-transform [&amp;&gt;*&gt;*]:duration-300 [&amp;&gt;*&gt;*]:translate-y-0 hover:[&amp;&gt;*&gt;*]:-translate-y-full focus-visible:[&amp;&gt;*&gt;*]:-translate-y-full active:[&amp;&gt;*&gt;*]:-translate-y-full rounded-full uppercase max-md:hidden" data-text="Contact"><span data-text="Contact" className="relative inline-block overflow-hidden before:content-[attr(data-text)] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:justify-center before:flex-1 before:flex before:items-center before:translate-y-full before:transition-transform before:duration-300 group-hover:before:translate-y-0 group-focus-visible:before:translate-y-0 group-active:before:translate-y-0"><span className="inline-block">Contact</span></span></button> */}
+
       </div>
     </header>
   );

@@ -1,16 +1,17 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, forwardRef } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CircleButton from "../tools/CircleButton/CircleButton";
 import "./Footer.css";
 import useMotionHover from "../../hooks/useMotionHover";
-// أزل ده: import CircleEffect from "../tools/CircleEffect/CircleEffect";
+import CircleEffect from "../tools/CircleEffect/CircleEffect"; // أضف ده تاني
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Footer() {
-  const footerRef = useRef(null);
+const Footer = forwardRef((props, ref) => {
+  const internalRef = useRef(null);
+  const footerRef = ref || internalRef;
   const separatorRef = useRef(null); // السطر اللي عليه الزرار
   const buttonWrapperRef = useRef(null); // العنصر اللي هيتحرك (motion.div) - هنا نحط ref لقياس البوتون
   const [maxX, setMaxX] = useState(0);
@@ -56,6 +57,13 @@ export default function Footer() {
 
   return (
     <motion.footer className="footer" ref={footerRef}>
+      {/* أضف CircleEffect هنا */}
+      {/* <CircleEffect 
+        triggerElement={footerRef}
+        variant="light"
+        className="footer-background-circle"
+      /> */}
+
       {/* كل المحتوى اللي موجود */}
       <div className="footer-main-section">
         <div className="footer-main-left">
@@ -104,35 +112,22 @@ export default function Footer() {
       </div>
 
       <div className="footer-links-section">
-        <div className="footer-link-group">
-          <h3 className="footer-link-heading">Connect with me</h3>
-          <a href="#" className="footer-link">
-            In @imkaran
-          </a>
-        </div>
+        
         <div className="footer-link-group">
           <h3 className="footer-link-heading">Follow me</h3>
-          <a href="#" className="footer-link footer-social-links">
+          <a href="https://github.com/ahmedbader862" target="_blank" className="footer-link footer-social-links">
             .github
           </a>
-          <a href="#" className="footer-link footer-social-links">
+          <a href="https://www.linkedin.com/in/ahmed-bader-713b79308/"  target="_blank" className="footer-link footer-social-links">
             .linkedin
           </a>
         </div>
-        <div className="footer-link-group">
-          <h3 className="footer-link-heading">Say hello</h3>
-          <a href="#" className="footer-link">
-            karan@test.com
-          </a>
-        </div>
+        
       </div>
-
-      {/* أزل ده كمان: */}
-      {/* <CircleEffect 
-        triggerElement={footerRef}
-        variant="light"
-        className="footer-background-circle"
-      /> */}
     </motion.footer>
   );
-}
+});
+
+Footer.displayName = 'Footer';
+
+export default Footer;

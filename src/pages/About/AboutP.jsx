@@ -9,7 +9,24 @@ import CircularGallery from '../../components/tools/CircularGallery/CircularGall
 import LogoLoop from './../../components/LogoLoop/LogoLoop';
 import { SiGithub , SiBootstrap , SiMui , SiDocker , SiSupabase , SiFirebase , SiFlutter , SiCss3 , SiHtml5 , SiJavascript , SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si';
 
+// إضافة hook للتحقق من حجم الشاشة
+import { useState, useEffect } from 'react';
+
 export default function AboutP() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setWindowWidth(width);
+      setIsMobile(width < 768);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const techLogos = [
     { node: <SiHtml5 />, title: "HTML5", href: "https://developer.mozilla.org/en-US/docs/Web/HTML" },
@@ -66,22 +83,25 @@ export default function AboutP() {
             />
             
             <div className="about-text">
-              <TextOpacity
-                text="I'm Karan Sethi, a frontend developer with a passion for creating beautiful, user-friendly web experiences. I believe that great design and seamless functionality go hand-in-hand to tell a compelling story online."
-                className="about-paragraph"
-              />
-              <TextOpacity
-                text="I specialize in building websites that look great, work smoothly, and are easy for users to navigate. My focus is on making sure every interaction feels intuitive and enjoyable, no matter the device or screen size."
-                className="about-paragraph"
-              />
-              <TextOpacity
-                text="If you're looking for a frontend developer who cares about both the details and the bigger picture, I'd love to help bring your next project to life. Let's create something that resonates with your audience!"
-                className="about-paragraph"
-              />
+            <TextOpacity
+           text={`I'm Karan Sethi, a frontend developer with a passion for creating beautiful, user-friendly web experiences. I believe that great design and seamless functionality go hand-in-hand to tell a compelling story online.
+
+           I specialize in building websites that look great, work smoothly, and are easy for users to navigate. My focus is on making sure every interaction feels intuitive and enjoyable, no matter the device or screen size.
+
+           If you're looking for a frontend developer who cares about both the details and the bigger picture, I'd love to help bring your next project to life. Let's create something that resonates with your audience!`}
+          className="about-paragraph"
+          delayPerChar={0.001}   
+          revealDuration={0.05}
+        />
             </div>
             
             <div className="about-button">
-              <CircleButton one="Explore" two="my works" />
+            <CircleButton 
+             one="Explore" 
+             two="my works" 
+             page="/work" 
+             title="Work"
+            />
             </div>
           </div>
           
@@ -100,33 +120,40 @@ export default function AboutP() {
       </section>
 
 
-      <div style={{ height: '120px', position: 'relative', overflow: 'hidden'}}>
+      <div style={{ 
+        height: isMobile ? '80px' : '120px', 
+        position: 'relative', 
+        overflow: 'hidden'
+      }}>
       {/* Basic horizontal loop */}
       <LogoLoop
   logos={techLogos}
-  speed={120}
+  speed={isMobile ? 80 : 120}
   direction="left"
-  logoHeight={48}
-  gap={60}
+  logoHeight={isMobile ? 32 : 48}
+  gap={isMobile ? 40 : 60}
   hoverSpeed={0}
-  scaleOnHover
+  scaleOnHover={!isMobile} // تعطيل scale on hover في الموبايل
   fadeOut
   fadeOutColor="#fffff"
   ariaLabel="Technology partners"
-  bend={-70}  // <= هنا القوس، جرب 1..6 أو حتى -3 للعكس
+  bend={isMobile ? -20 : -70} // bend أقل في الموبايل
 />
 
       
     </div>
 
 
-    <div style={{ height: '500px', position: 'relative' }}>
+    <div style={{ 
+      height: isMobile ? '300px' : '500px', 
+      position: 'relative' 
+    }}>
       <CircularGallery
         items={myImages}
-        bend={3}
+        bend={isMobile ? 1 : 3} // bend أقل في الموبايل لتقليل التقوس
         textColor="red"
         borderRadius={0.05}
-        font="bold 40px Bebas Neue"
+        font={isMobile ? "bold 24px Bebas Neue" : "bold 40px Bebas Neue"}
       />
      </div>
 
