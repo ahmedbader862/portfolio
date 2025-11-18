@@ -1,9 +1,28 @@
 
 
+/* Ensure container can receive pointer events in all contexts */
+.social-icons {
+  pointer-events: auto;
+}
+
+.social-icons ul {
+  padding: 0;
+  margin: 0;
+}
+
 .social-icons li{
   list-style: none;
   margin-bottom:10px;
+  display: inline-flex; /* enable transform offsets from framer-motion to be visible */
+  will-change: transform;
 }
+
+.social-icons a {
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 .social-icons svg{
   color: #e6d0d0;
   cursor: pointer;

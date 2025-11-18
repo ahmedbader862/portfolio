@@ -43,10 +43,11 @@ function ProjectCard({ project, index }) {
           </div>
 
           <div className="project-header">
+            <span className="project-number">{project.number}</span>
+            <span className="project-subtitle">{project.subtitle}</span>
             <h3 className="project-title">
               <span>{project.title}</span>
             </h3>
-            <span className="project-number">{project.number}</span>
           </div>
 
           <p className="project-description">{project.description}</p>

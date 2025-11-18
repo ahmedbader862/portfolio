@@ -8,9 +8,23 @@
   border-radius: 50%;
   pointer-events: none;
   transform: translate(-50%, -50%);
-  z-index: 500; /* below hero mask/text */
+  /* Keep cursor above UI layers (navbar > cursor > overlay) */
+  z-index: var(--z-navbar);
   /* Match Hero mask animation timing/ease for perfect sync */
   transition: left 0ms ease, top 0ms ease, width 0.18s ease, height 0.18s ease, background-color 0.18s ease, opacity 0.18s ease, border 0.18s ease;
 }
 
+/* إخفاء الكرسر تماماً في الموبايل */
+@media (max-width: 400px) {
+  .global-cursor {
+    display: none !important;
+    pointer-events: none !important;
+  }
+}
 
+/* إخفاء أيضاً في الشاشات التي لا تدعم hover */
+@media (hover: none) and (pointer: coarse) {
+  .global-cursor {
+    display: none !important;
+  }
+}

@@ -51,7 +51,9 @@
   width: 50vw;
 }
 .normal p {
-  font-size: var(--font-size-2xl);
+  display: block;
+  font-size:  clamp(10px, 10vw, 20px);
+
   color: var(--clr-text-secondary);
   z-index: var(--z-base);
 }
@@ -82,10 +84,10 @@
   mask-position: 0px 0px;
 
   background-color: var(--color-red);
+
 }
 
 .mask p {
-  font-size: var(--font-size-2xl);
   color: var(--clr-text-black);
   z-index: var(--z-base);
 }
@@ -104,6 +106,7 @@
   bottom: clamp(10px, 2vh, 30px);
   width: clamp(35px, 8vw, 50px);
   z-index: var(--z-cursor);
+  transform: translate3d(0px, 0px, 0px) scale(var(--background-scale));
 }
 
 /* تحسين Social icons على الشاشات الصغيرة */

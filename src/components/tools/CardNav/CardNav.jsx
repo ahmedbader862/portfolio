@@ -23,7 +23,8 @@ const CardNav = ({
   const location = useLocation(); // أضف ده
 
   const { handleMouseMove, handleMouseLeave, style } = useMotionHover(150, 12, 0.3);
-  
+  const [isHovered, setIsHovered] = useState(false);
+
   // استخدام useScrollState بدلاً من window scroll listener
   const { scrollY } = useScrollState();
 
@@ -42,6 +43,16 @@ const CardNav = ({
       return unsubscribe;
     }
   }, [scrollY]);
+
+
+  useEffect(() => {
+    const cursor = document.querySelector('.global-cursor');
+    if (!isHovered){
+      cursor.style.display='block'
+    }else{
+      cursor.style.display='none'
+    }
+  },[isHovered]);
 
   const createTimeline = () => {
     const navEl = navRef.current;
@@ -88,8 +99,15 @@ const CardNav = ({
       <motion.button
         className={`menu-toggle ${isExpanded ? 'open' : ''} ${isVisible ? 'visible' : 'hidden'}`}
         onClick={toggleMenu}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        onMouseMove={(e) => {
+          handleMouseMove(e); 
+          setIsHovered(true);
+        }}
+        onMouseLeave={() => {
+          handleMouseLeave();
+          setIsHovered(false);
+        }}
+      
         style={style}
         aria-label={isExpanded ? 'Close menu' : 'Open menu'}
       >

@@ -19,6 +19,7 @@ function HeroInteractive({
   const [maskPos, setMaskPos] = useState({ x: 0, y: 0 });
 
   const [isHovered, setIsHovered] = useState(false);
+  const [isHovered2, setIsHovered2] = useState(false);
 
   const size = isHovered ? 300 : 20;
 
@@ -39,6 +40,11 @@ function HeroInteractive({
       cursor.style.display='none'
     }
   },[isHovered]);
+
+  
+
+  // Remove the useEffect that controls cursor display
+  // Let the cursor always be visible and let Social component control ring mode
 
   const { x, y } = usePointer();
 
@@ -77,7 +83,8 @@ function HeroInteractive({
           '--background-scale': backgroundScale,
           '--background-image': `url(${backgroundImage})`
         }}
-      >
+        onMouseEnter={() => window.dispatchEvent(new Event('cursor-ring-off'))}
+        onMouseLeave={() => window.dispatchEvent(new Event('cursor-ring-off'))} >
         <div 
           className="hero-content"
           style={{
@@ -108,6 +115,7 @@ function HeroInteractive({
 
           <div className='normal'
             onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
+
           >
               <h1>
               {normalTitle.split('\n').map((line, index) => (
@@ -121,7 +129,11 @@ function HeroInteractive({
           </div>
           
         </div>
-        <div className="Social-Hero">
+        <div className="Social-Hero"
+          // onMouseEnter={() => setIsHovered2(true) } 
+          // onMouseLeave={() => setIsHovered2(false)}
+          onMouseLeave={() =>  window.dispatchEvent(new Event('cursor-ring-off'))} 
+        >
             <Social/>
           </div>
         <ScrollButton/>

@@ -37,7 +37,7 @@ export default function AboutP() {
     { node: <SiJavascript />, title: "JavaScript", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
     { node: <SiTypescript />, title: "TypeScript", href: "https://www.typescriptlang.org/docs/" },
     { node: <SiReact />, title: "React", href: "https://react.dev" },
-    { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org/docs" },
+    { node: <SiNextdotjs />, title: "Next.js", href: "https:/\nextjs.org/docs" },
     { node: <SiFlutter />, title: "Flutter", href: "https://flutter.dev/docs" },
     { node: <SiFirebase />, title: "Firebase", href: "https://firebase.google.com/docs" },
     { node: <SiSupabase />, title: "Supabase", href: "https://supabase.com/docs" },
@@ -84,11 +84,13 @@ export default function AboutP() {
             
             <div className="about-text">
             <TextOpacity
-           text={`I'm Karan Sethi, a frontend developer with a passion for creating beautiful, user-friendly web experiences. I believe that great design and seamless functionality go hand-in-hand to tell a compelling story online.
-
-           I specialize in building websites that look great, work smoothly, and are easy for users to navigate. My focus is on making sure every interaction feels intuitive and enjoyable, no matter the device or screen size.
-
-           If you're looking for a frontend developer who cares about both the details and the bigger picture, I'd love to help bring your next project to life. Let's create something that resonates with your audience!`}
+           text={`
+I'm Ahmed Bader, a frontend developer who loves building fast, clean, and intuitive web experiences.\n
+I focus on creating interfaces that feel smooth, meaningful, and easy to use  without unnecessary complexity.\n
+I work mainly with React, Vite, Redux Toolkit, and Tailwind to build real production-ready applications, from dashboards to e-commerce platforms and AI-driven features.\n
+I'm also deeply interested in AI, LLMs, and the latest frontend/AI integrations — always experimenting, learning, and keeping up with the fast changes in the field.\n\
+I enjoy turning ideas into solid products, whether it’s a simple component or a full platform.\n
+If you're looking for someone who cares about clean structure, performance, and the small details that make an experience feel great — I’m your guy.`}
           className="about-paragraph"
           delayPerChar={0.001}   
           revealDuration={0.05}
@@ -123,22 +125,24 @@ export default function AboutP() {
       <div style={{ 
         height: isMobile ? '80px' : '120px', 
         position: 'relative', 
-        overflow: 'hidden'
+        overflow: 'hidden',
+        marginTop : '40px'
       }}>
+
       {/* Basic horizontal loop */}
       <LogoLoop
-  logos={techLogos}
-  speed={isMobile ? 80 : 120}
-  direction="left"
-  logoHeight={isMobile ? 32 : 48}
-  gap={isMobile ? 40 : 60}
-  hoverSpeed={0}
-  scaleOnHover={!isMobile} // تعطيل scale on hover في الموبايل
-  fadeOut
-  fadeOutColor="#fffff"
-  ariaLabel="Technology partners"
-  bend={isMobile ? -20 : -70} // bend أقل في الموبايل
-/>
+        logos={techLogos}
+        speed={isMobile ? 80 : 120}
+        direction="left"
+        logoHeight={isMobile ? 32 : 48}
+        gap={isMobile ? 40 : 60}
+        hoverSpeed={0}
+        scaleOnHover={!isMobile} // تعطيل scale on hover في الموبايل
+        fadeOut
+        fadeOutColor="#fffff"
+        ariaLabel="Technology partners"
+        bend={isMobile ? -20 : -70} // bend أقل في الموبايل
+      />
 
       
     </div>

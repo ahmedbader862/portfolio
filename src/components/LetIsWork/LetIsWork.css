@@ -1,44 +1,83 @@
 
 .let-is-work{ 
- display: flex;
- flex-direction: row;
- width: 100%;
- height:80vh;
- justify-content: center;
- align-items: center;
- color: var(--clr-text-quaternary);
- margin: 0px var(--section-padding-x);
- padding: 0px var(--spacing-md);
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 80vh;
+  justify-content: center;
+  align-items: center;
+  color: var(--clr-text-quaternary);
+  margin: 0px var(--section-padding-x);
+  padding: 0px var(--spacing-md);
 }
 
 .left-work{
-    display: flex;
-    flex-direction: column;
-    font-family: var(--font-big-shoulders);
-    font-size: var(--font-size-projects-title);
-    text-align: left; 
-    line-height: var(--line-height-normal);
-    align-items: flex-start;
-    line-height: var(--line-height-tight);
-    letter-spacing: var(--letter-spacing-normal);
-    width: 60%;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-big-shoulders);
+  font-size: var(--font-size-projects-title);
+  text-align: left; 
+  line-height: var(--line-height-normal);
+  align-items: flex-start;
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-normal);
+  width: 60%;
+  margin: 0;
+  padding: 0;
 }
 
 .left-work p {
-    font: 1.1875rem var(--font-sans);
-    margin-bottom: 30px;
+  font: 1.1875rem var(--font-sans);
+  margin-bottom: 30px;
 }
 
+/* Responsive Design */
+@media (max-width: 900px) {
+  .let-is-work {
+    flex-direction: column;
+    height: auto;
+    padding: var(--spacing-xl) var(--spacing-md);
+    margin: 0 var(--section-padding-x-mobile);
+  }
 
+  .left-work {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+  }
 
+  .left-work p {
+    font-size: 1rem;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .right-work {
+    display: block;
+    width: 100%;
+  }
+
+  .text-work {
+    margin-top: var(--spacing-lg);
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .let-is-work {
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+
+  .left-work {
+    margin-bottom: var(--spacing-lg);
+  }
+}
 
 .right-work{
-    width: 30%;
+  width: 100%;
 }
 
 .text-work{
-    font-size: 1.1875rem;
-    margin-top: 9%;
+  font-size: 1.1875rem;
+  margin-top: 9%;
 }

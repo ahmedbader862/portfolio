@@ -73,7 +73,7 @@ export default function About() {
           />
           <br />
           <SplitText
-            text="BASED IN INDIA"
+            text="BASED IN EGYPT"
             tag="p"
             className="about-line"
             delay={28}
@@ -89,13 +89,13 @@ export default function About() {
         <p className="about-text" aria-hidden>
           {text}
         </p>
-
+{/* 
         <TextOpacity
           text={text}
           minOpacity={0.3}
           maxOpacity={1}
           className="animated-line"
-        />
+        /> */}
 
           <AnimatedButton 
           text="READ MORE" 

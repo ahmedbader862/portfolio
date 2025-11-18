@@ -62,22 +62,6 @@
   color: #000;
 }
 
-.btn-pill {
-  background: var(--clr-text-primary);
-  color: var(--clr-text-black);
-  padding: var(--btn-padding-y) var(--btn-padding-x);
-  border-radius: var(--radius-full);
-  font-weight: 500;
-  text-decoration: none;
-  transition: all var(--transition-normal);
-}
-
-.btn-pill:hover {
-  background: transparent;
-  color: var(--clr-text-primary);
-  border: 1px solid var(--clr-text-primary);
-}
-
 /* Responsive */
 @media (max-width: 900px) {
   /* Tablet: navbar بحجم أصغر */
@@ -92,10 +76,12 @@
   .nav-left {
     font-size: 12px;
   }
-  
-  .btn-pill {
-    padding: 6px 12px;
-    font-size: 14px;
+  .nav-right button {
+    width: 90%;
+    height:35px;
+    font-size:clamp(9px, 0,7vw, 14px);
+    background-color: #efedea;
+    color: #000;
   }
 }
 

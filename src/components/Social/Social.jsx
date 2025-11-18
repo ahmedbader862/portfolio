@@ -34,6 +34,14 @@ function Social (){
             href={href}
             target="_blank" 
             rel="noopener noreferrer"
+            aria-label="social-link"
+            onClick={(e) => {
+              console.log('Social icon clicked:', href);
+            }}
+            onPointerDown={(e) => {
+              // Log for touch and pen devices as well
+              console.log('Social icon pointer down:', href);
+            }}
           >
             {children}
           </motion.a>

@@ -12,8 +12,8 @@
   font-weight: 500;
   font-family: var(--font-big-shoulders);
   text-transform: uppercase;
-  width: clamp(120px, 15vw, var(--circle-button-size)); /* استخدام clamp */
-  height: clamp(120px, 15vw, var(--circle-button-size));
+  width: var(--circle-button-size);
+  height: var(--circle-button-size);
   letter-spacing: var(--letter-spacing-medium);
   border-radius: var(--radius-circle);
   background-color: var(--clr-bg-card);
@@ -70,5 +70,22 @@
 .circle:active::after,
 .circle:focus-visible::after {
   transform: translate(0, 0);
+}
+
+/* Responsive Design - فقط لتقليل الحجم في الموبايل */
+@media (max-width: 768px) {
+  .circle {
+    width: var(--circle-button-size-mobile);
+    height: var(--circle-button-size-mobile);
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .circle {
+    width: 80px; /* أصغر في الشاشات الصغيرة جداً */
+    height: 80px;
+    font-size: 0.75rem;
+  }
 }
 
