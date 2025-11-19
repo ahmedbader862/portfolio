@@ -51,14 +51,16 @@
 
 .project-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: var(--spacing-sm);
   flex-wrap: wrap;
 }
 
-.project-subtitle {
+.project-card-subtitle {
+  display: block;
   font-family: var(--font-poppins);
-  font-size: var(--font-size-base);
+  font-size:clamp(18px, 2vw, 15px);
   color: var(--clr-text-muted);
   opacity: 0.8;
   transition: opacity var(--transition-normal), color var(--transition-normal);
@@ -74,7 +76,7 @@
   transition: color var(--transition-normal);
 }
 
-.project-number {
+.project-card-number {
   opacity: 0.3;
   font-size: var(--font-size-xl);
   transition: opacity var(--transition-normal), color var(--transition-normal);
@@ -95,10 +97,10 @@
 
 }
 
-.project-card:hover .project-number,
+.project-card:hover .project-card-number,
 .project-card:hover .project-description,
 .project-card:hover .project-title,
-.project-card:hover .project-subtitle {
+.project-card:hover .project-card-subtitle {
   opacity: 1;
   color: var(--clr-text-secondary);
 }
@@ -153,7 +155,7 @@
     font-size: var(--font-size-xl);
   }
 
-  .project-subtitle {
+  .project-card-subtitle {
     font-size: var(--font-size-sm);
   }
 

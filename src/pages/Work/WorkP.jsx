@@ -6,7 +6,7 @@ export default function WorkP() {
 
   const projects = [
     {
-      image: '/src/assets/Images/e-commerce.png',
+      image: '/Images/e-commerce.png',
       number: '01',
       title: "QuickCart",
       subtitle: 'E-commerce Platform',
@@ -14,7 +14,7 @@ export default function WorkP() {
       link: 'https://react-project-nine-gules-20.vercel.app/',
     },
     {
-      image: '/src/assets/Images/restaurant.png',
+      image: '/Images/restaurant.png',
       number: '02',
       title: 'Tasty Bites',
       subtitle: 'Restaurant Management',
@@ -22,7 +22,7 @@ export default function WorkP() {
       link: 'https://final-project-opal-nine.vercel.app/',
     },
     {
-      image: '/src/assets/Images/naruto.jpg',
+      image: '/Images/naruto.jpg',
       number: '03',
       title: 'Your Project Will Be here',
       subtitle: '',
@@ -37,7 +37,7 @@ export default function WorkP() {
    <div className="page">
      
      <Hero 
-       backgroundImage="/src/assets/Images/"
+       backgroundImage="/Images/"
        Title="My works"
        normalTitle="PROJECTS"
        normalSubtitle="Showcasing my work: a collection of projects that blend creativity, functionality, and user-centered design."

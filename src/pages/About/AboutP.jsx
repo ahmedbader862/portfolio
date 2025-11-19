@@ -48,20 +48,20 @@ export default function AboutP() {
   
 
   const myImages = [
-    { image: "/src/assets/Images/ai-1.png", text: "AI Agent", href: "https://example.com/ai-agent" },
-    { image: "/src/assets/Images/ai-2.png", text: "Lang Chain LLM", href: "https://example.com/langchain" },
-    { image: "/src/assets/Images/ai-3.png", text: "Hugging Face", href: "https://example.com/huggingface" },
-    { image: "/src/assets/Images/ai-4.png", text: "RAG & CAG", href: "https://example.com/rag-cag" },
-    { image: "/src/assets/Images/freelance.png", text: "freelance", href: "https://example.com/freelance" },
-    { image: "/src/assets/Images/html.png", text: "HTML & CSS", href: "https://example.com/html-css" },
-    { image: "/src/assets/Images/javaScript.png", text: "javaScript", href: "https://example.com/javascript" },
-    { image: "/src/assets/Images/typeScript.png", text: "typeScript", href: "https://example.com/typescript" },
+    { image: "/Images/ai-1.png", text: "AI Agent", href: "https://example.com/ai-agent" },
+    { image: "/Images/ai-2.png", text: "Lang Chain LLM", href: "https://example.com/langchain" },
+    { image: "/Images/ai-3.png", text: "Hugging Face", href: "https://example.com/huggingface" },
+    { image: "/Images/ai-4.png", text: "RAG & CAG", href: "https://example.com/rag-cag" },
+    { image: "/Images/freelance.png", text: "freelance", href: "https://example.com/freelance" },
+    { image: "/Images/html.png", text: "HTML & CSS", href: "https://example.com/html-css" },
+    { image: "/Images/javaScript.png", text: "javaScript", href: "https://example.com/javascript" },
+    { image: "/Images/typeScript.png", text: "typeScript", href: "https://example.com/typescript" },
   ];
 
   return (
     <div className="About-page">
       <Hero
-        backgroundImage="/src/assets/Images/"
+        backgroundImage="/Images/"
         Title = "AHMED BADR"
         normalTitle="About ME"
         normalSubtitle="Get to know me:My journey,approach,and passion for creating impactful web experiences"
@@ -109,10 +109,10 @@ If you're looking for someone who cares about clean structure, performance, and 
           
           <div className="about-image">
             <picture>
-              <source media="(orientation: landscape)" srcSet="/src/assets/Images/my-photo.jpg" />
-              <source media="(orientation: portrait)" srcSet="/src/assets/Images/my-photo.jpg" />
+              <source media="(orientation: landscape)" srcSet="/Images/my-photo.jpg" />
+              <source media="(orientation: portrait)" srcSet="/Images/my-photo.jpg" />
               <img 
-                src="/src/assets/Images/my-photo.jpg" 
+                src="/Images/my-photo.jpg" 
                 alt="Karan Sethi - Frontend Developer" 
                 loading="lazy"
               />

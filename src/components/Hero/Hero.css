@@ -14,7 +14,7 @@
     height: 100%;
     background-size: cover;  
     background-position: center;
-    background-image: var(--background-image, url('/src/assets/Images/my-photo.jpg'));
+    background-image: var(--background-image, url('/Images/my-photo.jpg'));
     transform: translate3d(0px, 0px, 0px) scale(var(--background-scale));
     z-index: -1;
 }
@@ -72,13 +72,13 @@
   z-index: var(--z-mask);
   pointer-events: none; /* let hover on normal h1 work uninterrupted */
 
-   -webkit-mask-image: url(/src/assets/Images/mask.svg);
+   -webkit-mask-image: url(/Images/mask.svg);
   -webkit-mask-repeat: no-repeat;
   /* provide non-auto initial values to avoid warnings when animating */
   -webkit-mask-size: 20px;
   -webkit-mask-position: 0px 0px;
 
-  mask-image: url(/src/assets/Images/mask.svg);
+  mask-image: url(/Images/mask.svg);
   mask-repeat: no-repeat;
   mask-size: 20px;
   mask-position: 0px 0px;

@@ -5,7 +5,7 @@ import Social from '../Social/Social';
 import { ScrollContext } from '../../context/ScrollContext';
 
 function Hero({
-  backgroundImage = '/src/assets/Images/my-photo.jpg',
+  backgroundImage = '/Images/my-photo.jpg',
   Title = "",
   normalTitle = 'MORE THAN\nJUST CODE',
   normalSubtitle = "There's a story behind every interaction. Find it."

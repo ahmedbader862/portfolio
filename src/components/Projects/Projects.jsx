@@ -18,21 +18,21 @@ const PROJECTS_DATA = [
     number: '01',
     title: "E-commerce",
     subtitle: 'Quick Cart',
-    image: '/src/assets/Images/e-commerce.png',
+    image: '/Images/e-commerce.png',
     projectLink: 'https://react-project-nine-gules-20.vercel.app/'
   },
   {
     number: '02',
     title: 'Restaurant',
     subtitle: 'Tasty Bites',
-    image: '/src/assets/Images/restaurant.png',
+    image: '/Images/restaurant.png',
     projectLink: 'https://final-project-opal-nine.vercel.app/'
   },
   {
     number: '03',
     title: 'Let’s Go',
     subtitle: 'Your Project Will Be here',
-    image: '/src/assets/Images/naruto.jpg',
+    image: '/Images/naruto.jpg',
     projectLink: ''
   },
 ];

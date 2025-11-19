@@ -43,9 +43,9 @@ function ProjectCard({ project, index }) {
           </div>
 
           <div className="project-header">
-            <span className="project-number">{project.number}</span>
-            <span className="project-subtitle">{project.subtitle}</span>
-            <h3 className="project-title">
+            <span className="project-card-number">{project.number}</span>
+            <span className="project-card-subtitle">{project.subtitle}</span>
+            <h3 className="project-card-title">
               <span>{project.title}</span>
             </h3>
           </div>

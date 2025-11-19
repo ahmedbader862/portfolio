@@ -7,7 +7,7 @@ import { usePointer } from '../../hooks/usePointer';
 import { ScrollContext } from '../../context/ScrollContext';
 
 function HeroInteractive({
-  backgroundImage = '/src/assets/Images/my-photo.jpg',
+  backgroundImage = '/Images/my-photo.jpg',
   maskedTitle = 'CREATIVE\nDEVELOPER',
   maskedSubtitle = 'Blending design and code',
   normalTitle = 'MORE THAN\nJUST CODE',
