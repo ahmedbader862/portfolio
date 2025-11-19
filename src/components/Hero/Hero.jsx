@@ -26,8 +26,8 @@ function Hero({
   }, [scrollYProgress]);
 
   // Calculate transforms based on scroll progress
-  const backgroundScale = 1 + (scrollProgress * .5); // Scale from 1 to 1.1
-  const textScale = 1 - (scrollProgress * .5); // Scale from 1 to 0.95
+  const backgroundScale = 1 + (scrollProgress * 1.7); // Scale from 1 to 1.1
+  const textScale = 1 - (scrollProgress * 1.7); // Scale from 1 to 0.95
 
   return (
     <>
