@@ -48,14 +48,15 @@
   display: flex;
   flex-direction: column;
   z-index: var(--z-base);
-  width: 50vw;
+  width: 50%;
+  text-wrap: nowrap;
 }
 .normal p {
   display: block;
   font-size:  clamp(10px, 10vw, 20px);
-
   color: var(--clr-text-secondary);
   z-index: var(--z-base);
+  text-wrap: wrap;
 }
 
 
@@ -116,5 +117,9 @@
     left: 15px;
     bottom: 15px;
     width: 35px; /* حجم أصغر */
+  }
+
+  .normal p{
+    font-size: small;
   }
 }

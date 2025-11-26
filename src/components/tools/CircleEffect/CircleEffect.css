@@ -79,12 +79,13 @@
     position: absolute;
     bottom: 520px;
     transform: translateX(-50%);
-    width: 250vw;
-    height: 250vh;
-    justify-content: center;
-    align-items: center;
+    width: 250vw !important;
+    height: 200vh !important;
+    justify-content: center !important;
+    align-items: center !important;
+    
     border-radius: 50%;
-    background-color: var(--clr-bg-secondary);
+    /* background-color: blue !important; */
     opacity: 0;
     will-change: transform, opacity;
     pointer-events: none;
