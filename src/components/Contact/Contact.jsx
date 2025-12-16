@@ -66,7 +66,7 @@ export default function Contact() {
             fieldNum={1}
             title="What's your name? *"
             name="name"
-            placeholder="John Doe"
+            placeholder="ahmed mohamad"
             type={'text'}
           />
 
@@ -74,7 +74,7 @@ export default function Contact() {
             fieldNum={2}
             title="What's your email? *"
             name="email"
-            placeholder="johndoe@example.com"
+            placeholder="ahmed@example.com"
             type={'email'}
           />
 
