@@ -15,7 +15,7 @@ const MAX_TRANSLATE = 60;
 // Static project data
 const PROJECTS_DATA = [
   {
-    number: '01',
+    number: '1',
     title: "E-commerce",
     subtitle: 'Quick Cart',
     image: '/Images/e-commerce.png',
