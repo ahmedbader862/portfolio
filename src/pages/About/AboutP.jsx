@@ -56,6 +56,7 @@ export default function AboutP() {
     { image: "/Images/html.png", text: "HTML & CSS", href: "https://example.com/html-css" },
     { image: "/Images/javaScript.png", text: "javaScript", href: "https://example.com/javascript" },
     { image: "/Images/typeScript.png", text: "typeScript", href: "https://example.com/typescript" },
+    { image: "/Images/itidaGIGS.jpg", text: "itida GIGS", href: "https://example.com/typescript" },
   ];
 
   return (
